@@ -13,7 +13,11 @@ import numpy as np
 
 from IPython.display import clear_output
 
-census, census_with_dummies = get_census_data('input_data/adult.data', 'input_data/adult.test')
+
+adult_data_url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
+adult_test_url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test'
+
+census, census_with_dummies = get_census_data(adult_data_url, adult_test_url)
 
 experiments = []
 results = pd.DataFrame(columns=['initial_accuracy', 'final_accuracy'])
