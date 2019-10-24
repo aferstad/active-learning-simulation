@@ -6,6 +6,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.cross_validation import cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
 
+from IPython.display import clear_output
+
 class Experiment():
     # CLASS DEFAULTS
     FRACTIONS = {
