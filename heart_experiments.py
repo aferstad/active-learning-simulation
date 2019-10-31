@@ -18,9 +18,9 @@ experiments = []
 accuracies = pd.DataFrame()
 best_ks = pd.DataFrame()
 
-for i in range(5):
+for i in range(10):
     print(i)
-    experiments.append(Experiment(heart_with_dummies, seed=i, n_points_to_add_at_a_time = 1))
+    experiments.append(Experiment(heart_with_dummies, seed=i))
     experiments[i].run_experiment(method='random')
 
 

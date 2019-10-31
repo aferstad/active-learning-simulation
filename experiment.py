@@ -8,21 +8,22 @@ from sklearn.neighbors import KNeighborsClassifier
 
 class Experiment():
     # TODO: measure and plot the accuracy and LOSS at each new point, comparing random and other methods
-    Experiment.seed = 1
-    Experiment.pct_unlabeled_to_label = 1
-    Experiment.n_points_to_add_at_a_time = 1
-    Experiment.n_initial_points_labeled = 50
+    seed = 1
+    pct_unlabeled_to_label = 1
+    n_points_to_add_at_a_time = 1
+    n_initial_points_labeled = 50
 
-    def __init__(self, unsplit_data, seed = Experiment.seed, pct_unlabeled_to_label = Experiment.pct_unlabeled_to_label, n_points_to_add_at_a_time = Experiment.n_points_to_add_at_a_time):
+    def __init__(self, unsplit_data, seed):
         '''
         input: unsplit prepared data and possibility to change defaults
         desc: sets partitions
         '''
         # sets to default if nothing else given:
-        self.seed = seed
-        self.pct_unlabeled_to_label = pct_unlabeled_to_label
-        self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
+        # self.seed = seed
+        # self.pct_unlabeled_to_label = pct_unlabeled_to_label
+        # self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
 
+        self.seed = seed
         self.unsplit_data = unsplit_data
 
         self.set_partition_sizes()
