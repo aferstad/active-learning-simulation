@@ -29,7 +29,6 @@ class Experiment():
         self.set_partition_sizes()
         self.set_partitions()
 
-
     def set_partition_sizes(self, n_points_labeled_keep = 50, n_points_labeled_delete = 0, pct_points_test = 0.25):
         n_points_test = int(self.unsplit_data.shape[0] * pct_points_test) # int floors numbers
         n_points_unlabeled = self.unsplit_data.shape[0] - n_points_labeled_keep - n_points_labeled_delete - n_points_test
@@ -68,7 +67,6 @@ class Experiment():
         k_ceiling = min(100, k_ceiling) # TODO: find out best way to maximize K
         k_range = range(3, k_ceiling)
 
-
         # use iteration to caclulator different k in models, then return the average accuracy based on the cross validation
         for k in k_range:
             if print_results:
@@ -84,8 +82,6 @@ class Experiment():
             plt.xlabel('Value of K for KNN')
             plt.ylabel('Cross-Validated Accuracy')
             plt.show()
-
-
 
         #best_k = k_scores.index((max(k_scores))) + 1
         best_k = max(np.array(k_range)[max(k_scores) <= k_scores + np.std(k_scores)])
@@ -113,81 +109,19 @@ class Experiment():
 
         return X, y
 
-    def random_active_learning(data, pct_unlabeled_to_label, seed):
-        '''
-        Input: split data
-        Output: labeled + newly_labeled chosen randomly
-        '''
-        n_points_to_add = int(data['unlabeled'].shape[0] * pct_unlabeled_to_label)
-
-        unlabeled = data['unlabeled'].copy()
-        labeled = pd.concat([data['labeled_keep'], data['labeled_delete']], axis=0)
-
-        for i in range(n_points_to_add):
-            new_point
-
-        newly_labeled = unlabeled.sample(n=n_points_to_add, random_state = seed)
-        remaining_unlabeled = unlabeled.drop(newly_labeled.index)
-        labeled = labeled.append(newly_labeled)
-
-        return labeled
-
-
-
-    def uncertainty_active_learning(self):
-        '''
-        Ouputs labeled + newly_labeled chosen by uncertainty
-        '''
-        labeled_current = self.labeled_initial.copy()
-        unlabeled = self.data['unlabeled'].copy()
-
-        model_current = KNeighborsClassifier(n_neighbors=self.best_k_initial)
-        model_current.fit(self.X_initial, self.y_initial)
-
-        n_points_to_add = int(np.floor(unlabeled.shape[0] * self.pct_to_label))
-        n_points_added = 0
-
-        while n_points_added < n_points_to_add:
-            print('Percentage points added: ' + str(round(100.0 * n_points_added / n_points_to_add)))
-
-            n_points_added += self.n_points_to_add_at_a_time
-
-            X_unlabled, y_unlabeled = Experiment.get_X_y(unlabeled)
-
-            indexes_to_add = self.get_indexes_to_add(self.n_points_to_add_at_a_time, method = 'random')
-
-            proba_class_1 = model_current.predict_proba(X_unlabled)[:,1]
-
-            #gives the length from probability 0.5, more length means more certainty
-            X_unlabled['class_certainty'] = np.abs(proba_class_1 - 0.5)
-
-            most_uncertain_rows_indexes = X_unlabled.class_certainty.sort_values().index[:self.n_points_to_add_at_a_time]
-
-            #most_uncertain_row_index = X_unlabled.class_certainty.idxmin()
-
-            rows_to_add = unlabeled.loc[most_uncertain_rows_indexes,:]
-
-
-            #newly_labeled = newly_labeled.append(rows_to_add)
-            unlabeled = unlabeled.drop(most_uncertain_rows_indexes)
-            labeled_current = labeled_current.append(rows_to_add)
-
-            X_current, y_current = Experiment.get_X_y(labeled_current)
-
-            model_current.fit(X_current, y_current)
-
-        return labeled_current
-
     def get_rows_to_add(self, method):
         if method == 'random':
             random_rows = self.data['unlabeled'].sample(n=self.n_points_to_add_at_a_time, random_state = self.seed)
             return random_rows
 
         elif method == 'uncertainty':
-            proba_class_1 = self.model_current.predict_proba(self.X_unlabled)[:,1]
+            X_unlabled, y_unlabeled = Experiment.get_X_y(self.data['unlabeled'])
+
+            proba_class_1 = self.model_current.predict_proba(X_unlabled)[:,1]
             #gives the length from probability 0.5, more length means more certainty
-            self.X_unlabled['class_certainty'] = np.abs(proba_class_1 - 0.5)
-            most_uncertain_rows_indexes = self.X_unlabled.class_certainty.sort_values().index[:self.n_points_to_add_at_a_time]
+            X_unlabled['class_certainty'] = np.abs(proba_class_1 - 0.5)
+            #print(X_unlabled.class_certainty.sort_values().index[:1])
+            most_uncertain_rows_indexes = X_unlabled.class_certainty.sort_values().index[:self.n_points_to_add_at_a_time]
 
             most_uncertain_rows = self.data['unlabeled'].loc[most_uncertain_rows_indexes,:]
 
@@ -203,7 +137,7 @@ class Experiment():
         n_points_added = 0
 
         while n_points_added < n_points_to_add:
-            print('Percentage points added: ' + str(round(100.0 * n_points_added / n_points_to_add)))
+            #print('Percentage points added: ' + str(round(100.0 * n_points_added / n_points_to_add)))
 
             n_points_added += self.n_points_to_add_at_a_time
 
@@ -216,7 +150,6 @@ class Experiment():
             self.model_current.n_neighbors
             self.accuracies.append(Experiment.get_model_accuracy(self.model_current, self.data['unknown']))
             self.best_ks.append(self.model_current.n_neighbors)
-
 
     def fit_model(data):
         labeled = pd.concat(
@@ -250,32 +183,3 @@ class Experiment():
             self.model_initial, self.model_final, self.data['unknown'])
 
         return self.model_initial_accuracy, self.model_final_accuracy
-
-
-# OLD SCRAPS
-'''
-    FRACTIONS = {
-    'labeled_keep': 0.005, #data to keep
-    'labeled_delete': 0.00, #data to delete
-    'unlabeled': 0.695, #data to get labeled points from
-    'unknown': 0.3 #used to test initial and final model differences
-    }
-
-
-def divide_data(unsplit_data, by_fractions = False, fractions = FRACTIONS, seed = SEED):
-'''
-    #divides data into labeled_keep, labeled_delete, unlabeled and unknown
-'''
-    data = {}
-    n_rows = unsplit_data.shape[0]
-    remaining = unsplit_data.copy()
-
-    if by_fractions:
-        for key in fractions:
-            n_rows_key = int(np.floor(fractions[key] * n_rows))
-            data[key] = remaining.sample(n=n_rows_key, random_state = seed)
-
-            remaining = remaining.drop(data[key].index)
-    else:
-        print('none')
-'''
