@@ -1,3 +1,6 @@
+import matplotlib
+matplotlib.use('Agg')
+
 import experiment
 import census_import
 import heart_import
@@ -106,7 +109,7 @@ heart, heart_with_dummies = get_heart_data('input_data/heart.csv')
 
 keeps = range(10, 60, 10)
 deletes = range(0, 60, 10)
-reps = 50
+reps = 100
 save_path_name = 'keep_delete_50_rep_grid.png'
 
 results = run_experiments(keeps, deletes, reps)
