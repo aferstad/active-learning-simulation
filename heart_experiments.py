@@ -17,16 +17,18 @@ heart, heart_with_dummies = get_heart_data('input_data/heart.csv')
 experiments = []
 accuracies = pd.DataFrame()
 best_ks = pd.DataFrame()
+consistencies = pd.DataFrame()
 
 for i in range(10):
     print(i)
     experiments.append(Experiment(heart_with_dummies, seed=i))
     experiments[i].run_experiment(method='random')
 
-
     accuracies.insert(0, 'experiment' + str(i), experiments[i].accuracies)
+    consistencies.insert(0, 'experiment' + str(i), experiments[i].consistencies)
     best_ks.insert(0, 'experiment' + str(i), experiments[i].best_ks)
 
     #results.loc[i] = [experiments[i].model_initial_accuracy, experiments[i].model_final_accuracy]
     accuracies.to_csv('accuracies.csv')
+    consistencies.to_csv('consistencies.csv')
     best_ks.to_csv('best_ks')

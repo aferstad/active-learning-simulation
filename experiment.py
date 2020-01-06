@@ -14,6 +14,7 @@ class Experiment():
     n_points_to_add_at_a_time = 1
     pct_points_test = 0.25
     accuracies = []
+    consistencies = []
 
     def __init__(self, unsplit_data, seed, model_type, n_points_labeled_keep, n_points_labeled_delete):
         '''
@@ -107,7 +108,22 @@ class Experiment():
         X, y = Experiment.get_X_y(data)
         y_pred = m.predict(X)
 
+        print('ACCURACY')
+        print(sum(y_pred == y) / len(y))
         return sum(y_pred == y) / len(y)
+
+    def get_model_consistency(self, m):
+        '''
+        compares model m with initial model
+        '''
+
+        X, y = Experiment.get_X_y(self.data['unknown'])
+        y_pred_initial = self.model_initial.predict(X)
+        y_pred_current = m.predict(X)
+
+        print('CONSITENCY')
+        print(sum(y_pred_initial == y_pred_current) / len(y_pred_initial))
+        return sum(y_pred_initial == y_pred_current) / len(y_pred_initial)
 
     def get_X_y(df):
         '''
@@ -157,6 +173,7 @@ class Experiment():
 
             self.model_current = self.fit_model()
             self.accuracies.append(Experiment.get_model_accuracy(self.model_current, self.data['unknown']))
+            self.consistencies.append(self.get_model_consistency(self.model_current))
 
             if self.model_type == 'KNN':
                 self.model_parameters.append(self.model_current.n_neighbors)
@@ -170,7 +187,7 @@ class Experiment():
             model = KNeighborsClassifier(n_neighbors=best_k)
             model.fit(X, y)
         elif self.model_type == 'lr':
-            model = LogisticRegression() # can add random state here?
+            model = LogisticRegression(solver='liblinear', max_iter=1000) # can add random state here, can also change parameters
             model.fit(X, y)
 
         return model
@@ -191,6 +208,8 @@ class Experiment():
         self.model_initial = self.fit_model()
 
         self.accuracies = []
+        self.consistencies = []
+
         self.accuracies.append(Experiment.get_model_accuracy(self.model_initial, self.data['unknown']))
 
         self.delete_data()

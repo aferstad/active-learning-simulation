@@ -21,14 +21,23 @@ import matplotlib.pyplot as plt
 
 def run_repetitions(reps, keep, delete, print_progress=True):
     '''
-    run uncertainty and random experiment with reps repitions,
-    all with the same keep and delete parameters
-
-    outputs dataframe with mean accuracy per step for all repetitions
-    one column for random and one for uncertainty method
+    INPUT
+        reps : number of experiments to run and average for current keep-delete pair
+        keep : number of points to keep after training initial model
+        delete : number of points to delete after training initial model
+    OUTPUT
+        accuracy_results : df with mean accuracy per point added, columns are random and uncertainty method
+        consistency_results : df with mean consistency per point added, columns are random and uncertainty method
+    DESCRIPTION
+        run uncertainty and random experiment with reps repitions,
+        all with the same keep and delete parameters
+        outputs dataframe with mean accuracy per step for all repetitions
+        one column for random and one for uncertainty method
     '''
     accuracies = []
+    consistencies = []
     accuracies_uncertainty = []
+    consistencies_uncertainty = []
 
     for i in range(reps):
         if print_progress:
@@ -38,42 +47,52 @@ def run_repetitions(reps, keep, delete, print_progress=True):
         my_experiment.run_experiment(method='random')
 
         accuracies.append(my_experiment.accuracies)
+        consistencies.append(my_experiment.consistencies)
 
         my_experiment = Experiment(heart_with_dummies, i, 'lr', keep, delete)
         my_experiment.run_experiment(method='uncertainty')
 
         accuracies_uncertainty.append(my_experiment.accuracies)
+        consistencies_uncertainty.append(my_experiment.consistencies)
 
     a = pd.DataFrame(accuracies).mean(axis=0)
     au = pd.DataFrame(accuracies_uncertainty).mean(axis=0)
 
-    results = pd.concat([a, au], axis=1)
-    results.columns = ['random', 'uncertainty']
+    c = pd.DataFrame(consistencies).mean(axis=0)
+    cu = pd.DataFrame(consistencies_uncertainty).mean(axis=0)
 
-    return results
+    accuracy_results = pd.concat([a, au], axis=1)
+    accuracy_results.columns = ['random', 'uncertainty']
+
+    consistency_results = pd.concat([c, cu], axis=1)
+    consistency_results.columns = ['random', 'uncertainty']
+
+    return accuracy_results, consistency_results
 
 def run_experiments(keeps, deletes, reps):
     '''
-    runs experiment for each combination of keep and delete number
+    runs experiments for all combinations of keep and delete parameters
     '''
-    results = {}
-    n_grid_items_compelete = 0
+    accuracy_results = {}
+    consistency_results = {}
+    n_grid_items_complete = 0
     for keep in keeps:
         #print('keep = ' + str(keep))
-        results[keep] = {}
+        accuracy_results[keep] = {}
+        consistency_results[keep] = {}
         for delete in deletes:
             print('Pct grid items complete: ' + str(
-                round(100.0 * n_grid_items_compelete /
+                round(100.0 * n_grid_items_complete /
                       (len(keeps) * len(deletes)))))
-            results[keep][delete] = run_repetitions(reps,
+            accuracy_results[keep][delete], consistency_results[keep][delete] = run_repetitions(reps,
                                                     keep,
                                                     delete,
                                                     print_progress=False)
-            n_grid_items_compelete += 1
+            n_grid_items_complete += 1
 
-    return results
+    return accuracy_results, consistency_results
 
-def plot_results(results, keeps, deletes, save_path_name):
+def plot_results(results, keeps, deletes, save_path_name, ylabel):
     '''
     plots results in grid, and saves to png
     '''
@@ -86,6 +105,8 @@ def plot_results(results, keeps, deletes, save_path_name):
 
             axs[i, j].plot(df.random, color = 'dodgerblue')
             axs[i, j].plot(df.uncertainty, color = 'orange')
+            axs[i, j].axhline(y = df.random[0], color = 'maroon', alpha = 0.5)
+            axs[i, j].axvline(x = deletes[j], color = 'maroon', alpha = 0.5)
 
             title = 'n_keep:' + str(keeps[i]) + ', '
             title += 'n_delete: ' + str(deletes[j])
@@ -94,12 +115,11 @@ def plot_results(results, keeps, deletes, save_path_name):
 
     # iterates over all subplots:
     for ax in axs.flat:
-        ax.set(xlabel='n points added', ylabel='accuracy')
+        ax.set(xlabel='n points added', ylabel=ylabel)
         ax.grid()
         #ax.legend()
 
-        ax.label_outer(
-        )  #hides x labels and tick labels for top plots and y ticks for right plots.
+        #ax.label_outer()  #hides x labels and tick labels for top plots and y ticks for right plots.
 
     #fig.legend()
     fig.savefig(save_path_name, dpi=200)
@@ -107,10 +127,12 @@ def plot_results(results, keeps, deletes, save_path_name):
 
 heart, heart_with_dummies = get_heart_data('input_data/heart.csv')
 
-keeps = range(10, 60, 10)
-deletes = range(0, 60, 10)
-reps = 100
-save_path_name = 'keep_delete_50_rep_grid.png'
+keeps = [10, 20] #range(10, 60, 10)
+deletes = [0, 10] #range(0, 60, 10)
+reps = 1 #100
+save_path_accuracy = 'keep_delete_accuracy_50_rep_grid.png'
+save_path_consistency = 'keep_delete_consistency_50_rep_grid.png'
 
-results = run_experiments(keeps, deletes, reps)
-plot_results(results, keeps, deletes, save_path_name)
+accuracy_results, consistency_results = run_experiments(keeps, deletes, reps)
+plot_results(accuracy_results, keeps, deletes, save_path_accuracy, ylabel = 'accuracy')
+plot_results(consistency_results, keeps, deletes, save_path_consistency, ylabel = 'consistency')
