@@ -103,15 +103,17 @@ def plot_results(results, keeps, deletes, save_path_name, ylabel):
         for j in range(len(deletes)):
             df = results[keeps[i]][deletes[j]]
 
-            axs[i, j].plot(df.random, color = 'dodgerblue')
-            axs[i, j].plot(df.uncertainty, color = 'orange')
-            axs[i, j].axhline(y = df.random[0], color = 'maroon', alpha = 0.5)
-            axs[i, j].axvline(x = deletes[j], color = 'maroon', alpha = 0.5)
+            axs[i, j].plot(df.random, color = 'dodgerblue', label = 'random method')
+            axs[i, j].plot(df.uncertainty, color = 'orange', label = 'uncertainty method')
+            axs[i, j].axhline(y = df.random[0], color = 'green', alpha = 0.5, label = 'intitial accuracy')
+            axs[i, j].axvline(x = deletes[j], color = 'maroon', alpha = 0.5, label = '# points deleted')
 
             title = 'n_keep:' + str(keeps[i]) + ', '
             title += 'n_delete: ' + str(deletes[j])
 
             axs[i, j].set_title(title)
+
+
 
     # iterates over all subplots:
     for ax in axs.flat:
@@ -119,7 +121,10 @@ def plot_results(results, keeps, deletes, save_path_name, ylabel):
         ax.grid()
         #ax.legend()
 
-        #ax.label_outer()  #hides x labels and tick labels for top plots and y ticks for right plots.
+        ax.label_outer()  #hides x labels and tick labels for top plots and y ticks for right plots.
+
+    handles, labels = axs[len(keeps)-1, len(deletes)-1].get_legend_handles_labels()
+    fig.legend(handles, labels, loc='center right')
 
     #fig.legend()
     fig.savefig(save_path_name, dpi=200)
@@ -127,9 +132,9 @@ def plot_results(results, keeps, deletes, save_path_name, ylabel):
 
 heart, heart_with_dummies = get_heart_data('input_data/heart.csv')
 
-keeps = [10, 20] #range(10, 60, 10)
-deletes = [0, 10] #range(0, 60, 10)
-reps = 1 #100
+keeps = range(10, 60, 10)
+deletes = range(0, 60, 10)
+reps = 100
 save_path_accuracy = 'keep_delete_accuracy_50_rep_grid.png'
 save_path_consistency = 'keep_delete_consistency_50_rep_grid.png'
 
