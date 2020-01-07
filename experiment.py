@@ -108,8 +108,8 @@ class Experiment():
         X, y = Experiment.get_X_y(data)
         y_pred = m.predict(X)
 
-        print('ACCURACY')
-        print(sum(y_pred == y) / len(y))
+        #print('ACCURACY')
+        #print(sum(y_pred == y) / len(y))
         return sum(y_pred == y) / len(y)
 
     def get_model_consistency(self, m):
@@ -121,8 +121,8 @@ class Experiment():
         y_pred_initial = self.model_initial.predict(X)
         y_pred_current = m.predict(X)
 
-        print('CONSITENCY')
-        print(sum(y_pred_initial == y_pred_current) / len(y_pred_initial))
+        #print('CONSITENCY')
+        #print(sum(y_pred_initial == y_pred_current) / len(y_pred_initial))
         return sum(y_pred_initial == y_pred_current) / len(y_pred_initial)
 
     def get_X_y(df):
