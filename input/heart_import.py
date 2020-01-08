@@ -13,4 +13,5 @@ def get_heart_data(path):
 
     heart_with_dummies = pd.get_dummies(heart, columns=['cp', 'thal', 'slope'], drop_first=True)
 
+    print('heart data import succesful')
     return heart, heart_with_dummies

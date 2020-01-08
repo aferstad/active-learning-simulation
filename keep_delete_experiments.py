@@ -2,17 +2,17 @@ import matplotlib
 matplotlib.use('Agg')
 
 import experiment
-import census_import
-import heart_import
+import input.census_import
+import input.heart_import
 
 import importlib
 importlib.reload(experiment)
-importlib.reload(census_import)
-importlib.reload(heart_import)
+importlib.reload(input.census_import)
+importlib.reload(input.heart_import)
 
 from experiment import Experiment
-from census_import import get_census_data
-from heart_import import get_heart_data
+from input.census_import import get_census_data
+from input.heart_import import get_heart_data
 
 import pandas as pd
 import numpy as np
@@ -105,7 +105,7 @@ def plot_results(results, keeps, deletes, save_path_name, ylabel):
 
             axs[i, j].plot(df.random, color = 'dodgerblue', label = 'random method')
             axs[i, j].plot(df.uncertainty, color = 'orange', label = 'uncertainty method')
-            axs[i, j].axhline(y = df.random[0], color = 'green', alpha = 0.5, label = 'intitial accuracy')
+            axs[i, j].axhline(y = df.random[0], color = 'green', alpha = 0.5, label = 'intitial ' + str(ylabel))
             axs[i, j].axvline(x = deletes[j], color = 'maroon', alpha = 0.5, label = '# points deleted')
 
             title = 'n_keep:' + str(keeps[i]) + ', '
@@ -130,13 +130,22 @@ def plot_results(results, keeps, deletes, save_path_name, ylabel):
     fig.savefig(save_path_name, dpi=200)
 
 
-heart, heart_with_dummies = get_heart_data('input_data/heart.csv')
+test = True
 
-keeps = range(10, 60, 10)
-deletes = range(0, 60, 10)
-reps = 100
-save_path_accuracy = 'keep_delete_accuracy_50_rep_grid.png'
-save_path_consistency = 'keep_delete_consistency_50_rep_grid.png'
+heart, heart_with_dummies = get_heart_data('input/heart.csv')
+
+if not test:
+    keeps = range(10, 60, 10)
+    deletes = range(0, 60, 10)
+    reps = 100
+    save_path_accuracy = 'keep_delete_accuracy_50_rep_grid.png'
+    save_path_consistency = 'keep_delete_consistency_50_rep_grid.png'
+elif test:
+    keeps = [10, 20]
+    deletes = [0, 10]
+    reps = 1
+    save_path_accuracy = 'test_keep_delete_accuracy_50_rep_grid.png'
+    save_path_consistency = 'test_keep_delete_consistency_50_rep_grid.png'
 
 accuracy_results, consistency_results = run_experiments(keeps, deletes, reps)
 plot_results(accuracy_results, keeps, deletes, save_path_accuracy, ylabel = 'accuracy')
