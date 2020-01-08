@@ -1,25 +1,16 @@
-import matplotlib
-matplotlib.use('Agg')
-
 import experiment
-import input.census_import
-import input.heart_import
-
 import importlib
 importlib.reload(experiment)
-importlib.reload(input.census_import)
-importlib.reload(input.heart_import)
-
 from experiment import Experiment
-from input.census_import import get_census_data
-from input.heart_import import get_heart_data
 
+import matplotlib
+matplotlib.use('Agg')
 import pandas as pd
-import numpy as np
+#import numpy as np
 import matplotlib.pyplot as plt
 
 
-def run_repetitions(reps, keep, delete, print_progress=True):
+def run_repetitions(data, reps, keep, delete, print_progress=True):
     '''
     INPUT
         reps : number of experiments to run and average for current keep-delete pair
@@ -43,13 +34,13 @@ def run_repetitions(reps, keep, delete, print_progress=True):
         if print_progress:
             print(i)
 
-        my_experiment = Experiment(heart_with_dummies, i, 'lr', keep, delete)
+        my_experiment = Experiment(data, i, 'lr', keep, delete)
         my_experiment.run_experiment(method='random')
 
         accuracies.append(my_experiment.accuracies)
         consistencies.append(my_experiment.consistencies)
 
-        my_experiment = Experiment(heart_with_dummies, i, 'lr', keep, delete)
+        my_experiment = Experiment(data, i, 'lr', keep, delete)
         my_experiment.run_experiment(method='uncertainty')
 
         accuracies_uncertainty.append(my_experiment.accuracies)
@@ -69,9 +60,10 @@ def run_repetitions(reps, keep, delete, print_progress=True):
 
     return accuracy_results, consistency_results
 
-def run_experiments(keeps, deletes, reps):
+def run_experiments(data, reps, keeps, deletes):
     '''
     runs experiments for all combinations of keep and delete parameters
+    returns 2 dataframes with accuracy results and consistency results
     '''
     accuracy_results = {}
     consistency_results = {}
@@ -84,7 +76,7 @@ def run_experiments(keeps, deletes, reps):
             print('Pct grid items complete: ' + str(
                 round(100.0 * n_grid_items_complete /
                       (len(keeps) * len(deletes)))))
-            accuracy_results[keep][delete], consistency_results[keep][delete] = run_repetitions(reps,
+            accuracy_results[keep][delete], consistency_results[keep][delete] = run_repetitions(data, reps,
                                                     keep,
                                                     delete,
                                                     print_progress=False)
@@ -121,32 +113,10 @@ def plot_results(results, keeps, deletes, save_path_name, ylabel):
         ax.grid()
         #ax.legend()
 
-        ax.label_outer()  #hides x labels and tick labels for top plots and y ticks for right plots.
+        #ax.label_outer()  #hides x labels and tick labels for top plots and y ticks for right plots.
 
     handles, labels = axs[len(keeps)-1, len(deletes)-1].get_legend_handles_labels()
     fig.legend(handles, labels, loc='center right')
 
     #fig.legend()
     fig.savefig(save_path_name, dpi=200)
-
-
-test = True
-
-heart, heart_with_dummies = get_heart_data('input/heart.csv')
-
-if not test:
-    keeps = range(10, 60, 10)
-    deletes = range(0, 60, 10)
-    reps = 100
-    save_path_accuracy = 'keep_delete_accuracy_50_rep_grid.png'
-    save_path_consistency = 'keep_delete_consistency_50_rep_grid.png'
-elif test:
-    keeps = [10, 20]
-    deletes = [0, 10]
-    reps = 1
-    save_path_accuracy = 'test_keep_delete_accuracy_50_rep_grid.png'
-    save_path_consistency = 'test_keep_delete_consistency_50_rep_grid.png'
-
-accuracy_results, consistency_results = run_experiments(keeps, deletes, reps)
-plot_results(accuracy_results, keeps, deletes, save_path_accuracy, ylabel = 'accuracy')
-plot_results(consistency_results, keeps, deletes, save_path_consistency, ylabel = 'consistency')
