@@ -1,10 +1,11 @@
+import matplotlib 
+matplotlib.use('Agg') # Do not move this behind any other import, otherwise error will be given due to no display available
+
 import experiment
 import importlib
 importlib.reload(experiment)
 from experiment import Experiment
 
-import matplotlib
-matplotlib.use('Agg')
 import pandas as pd
 #import numpy as np
 import matplotlib.pyplot as plt
