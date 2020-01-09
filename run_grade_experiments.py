@@ -26,7 +26,7 @@ import pandas as pd
 #import numpy as np
 #import matplotlib.pyplot as plt
 
-test = False
+test = True
 
 #heart, heart_with_dummies = get_heart_data('input/heart.csv')
 #data = heart_with_dummies
@@ -34,8 +34,8 @@ test = False
 #data = get_admission_data()
 data = get_alcohol_data()
 
-keeps = range(10, 60, 10)
-deletes = range(0, 60, 10)
+keeps = range(10, 70, 10)
+deletes = range(0, 70, 10)
 reps = 100
 save_path_accuracy = 'output/alcohol_keep_delete_accuracy_50_rep_grid.png'
 save_path_consistency = 'output/alcohol_keep_delete_consistency_50_rep_grid.png'
@@ -47,6 +47,9 @@ if test:
     save_path_accuracy = 'output/test_alcohol_keep_delete_accuracy_50_rep_grid.png'
     save_path_consistency = 'output/test_alcohol_keep_delete_consistency_50_rep_grid.png'
 
-accuracy_results, consistency_results = run_experiments(data = data, reps = reps, keeps = keeps, deletes=deletes)
-plot_results(accuracy_results, keeps, deletes, save_path_accuracy, ylabel = 'accuracy')
-plot_results(consistency_results, keeps, deletes, save_path_consistency, ylabel = 'consistency')
+methods = ['random', 'uncertainty', 'similar']
+method_colors = {methods[0] : 'dodgerblue', methods[1] : 'orange', methods[2] : 'brown'}
+
+accuracy_results, consistency_results = run_experiments(data = data, reps = reps, keeps = keeps, deletes=deletes, methods = methods)
+plot_results(accuracy_results, keeps, deletes, save_path_accuracy, methods, method_colors, ylabel = 'accuracy')
+plot_results(consistency_results, keeps, deletes, save_path_consistency, methods, method_colors, ylabel = 'consistency')

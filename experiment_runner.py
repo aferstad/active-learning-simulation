@@ -42,11 +42,15 @@ save_path_consistency = 'keep_delete_consistency_50_rep_grid.png'
 
 if test:
     keeps = [10, 20]
-    deletes = [0, 10]
+    deletes = [10, 20]
     reps = 1
     save_path_accuracy = 'test_keep_delete_accuracy_50_rep_grid.png'
     save_path_consistency = 'test_keep_delete_consistency_50_rep_grid.png'
 
-accuracy_results, consistency_results = run_experiments(data = data, reps = reps, keeps = keeps, deletes=deletes)
-plot_results(accuracy_results, keeps, deletes, save_path_accuracy, ylabel = 'accuracy')
-plot_results(consistency_results, keeps, deletes, save_path_consistency, ylabel = 'consistency')
+methods = ['random', 'uncertainty', 'similar']
+method_colors = {methods[0] : 'dodgerblue', methods[1] : 'orange', methods[2] : 'brown'}
+
+
+accuracy_results, consistency_results = run_experiments(data = data, reps = reps, keeps = keeps, deletes=deletes, methods = methods)
+plot_results(accuracy_results, keeps, deletes, save_path_accuracy, methods, method_colors, ylabel = 'accuracy')
+plot_results(consistency_results, keeps, deletes, save_path_consistency, methods, method_colors, ylabel = 'consistency')
