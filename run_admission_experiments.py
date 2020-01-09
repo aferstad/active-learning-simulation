@@ -26,7 +26,7 @@ import pandas as pd
 #import numpy as np
 #import matplotlib.pyplot as plt
 
-test = True
+test = False
 
 #heart, heart_with_dummies = get_heart_data('input/heart.csv')
 #data = heart_with_dummies
