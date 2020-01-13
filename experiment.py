@@ -187,8 +187,8 @@ class Experiment():
     def initiate_similar_method(self):
         # if there are no more deleted points
         if self.data['deleted'].shape[0] == 0:
-            print('WARNING: Method is set to *similar*, but no data has been deleted')
-            print('--> defaulting back to method *uncertainty*')
+            #print('WARNING: Method is set to *similar*, but no data has been deleted')
+            #print('--> defaulting back to method *uncertainty*')
             return self.get_rows_to_add('uncertainty')
 
 
