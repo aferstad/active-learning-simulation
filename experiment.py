@@ -2,13 +2,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 from sklearn.model_selection import cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 
 from scipy import spatial # for nearest neighbour https://codegolf.stackexchange.com/questions/45611/fastest-array-by-array-nearest-neighbour-search
 
-# TODO: measure and plot the accuracy and LOSS at each new point, comparing random and other methods
 
 class Experiment():
     pct_unlabeled_to_label = 1.00
@@ -18,24 +19,114 @@ class Experiment():
     consistencies = []
     similar_method_initiated = False
     similiar_method_closest_unlabeled_rows = pd.DataFrame()
+    use_pca = False
 
-    def __init__(self, unsplit_data, seed, model_type, n_points_labeled_keep, n_points_labeled_delete):
+    scaler = StandardScaler()
+    pca = PCA()
+
+    def __init__(self, unsplit_data, seed, model_type, n_points_labeled_keep, n_points_labeled_delete, use_pca = False):
         '''
         input: unsplit prepared data and possibility to change defaults
         desc: sets partitions
         '''
+
+        #print('#############################################################################')
+        #print('#############################################################################')
+        #print('#############################################################################')
+
+
         self.accuracies = []
         self.consistencies = []
         self.similar_method_initiated = False
         self.similiar_method_closest_unlabeled_rows = pd.DataFrame()
+        self.use_pca = use_pca
+
+        self.scaler = StandardScaler()
+        self.pca = PCA()
+
+        #print(unsplit_data.head())
 
         self.seed = seed
         self.unsplit_data = unsplit_data
+        self.data = {}
         self.model_type = model_type
         self.n_points_labeled_keep = n_points_labeled_keep
         self.n_points_labeled_delete = n_points_labeled_delete
 
+
+
         self.set_partitions()
+
+        #for key in self.data:
+        #    print(key)
+        #    print(self.data[key].head())
+
+
+
+        self.transform_data(use_pca, scale=True) # TODO: decide whether I always should scale data?
+
+
+    def scale_data(self):
+        for key in self.data:
+            if self.data[key].shape[0] == 0:
+                self.data[key].columns = self.data['unknown'].columns
+                continue
+
+            X, y = Experiment.get_X_y(self.data[key])
+            #print('before scale:')
+            #print(X.columns)
+            X = self.scaler.transform(X)
+            #print('after scale:')
+            #print(X.columns)
+            X = pd.DataFrame(X.copy())
+            label_name = y.name
+            labels = list(y.copy())
+
+            X.insert(0, label_name, labels)
+            self.data[key] = X
+
+    def pca_transform_data(self):
+        for key in self.data:
+            if self.data[key].shape[0] == 0:
+                continue
+            X, y = Experiment.get_X_y(self.data[key])
+            X = self.pca.transform(X)
+            X = pd.DataFrame(X.copy())
+            label_name = y.name
+            labels = list(y.copy())
+
+            X.insert(0, label_name, labels)
+            self.data[key] = pd.DataFrame()
+            self.data[key] = X.copy()
+
+    def transform_data(self, use_pca, scale):
+        if scale:
+            # Fit scaler on known covariates only, not uknown testing data
+            known_X = self.get_all_known_X()
+            #print('known_X.head()')
+            #print(known_X.head())
+            self.scaler.fit(known_X)
+            self.scale_data()
+            #print('NOW SCALED:')
+            #print(known_X.head())
+
+        if use_pca:
+            known_X = self.get_all_known_X()
+            #print('known X is')
+            #print(known_X.head())
+            self.pca.fit(known_X)
+            self.pca_transform_data()
+
+    def get_all_known_X(self):
+        X, y = Experiment.get_X_y(self.get_labeled_data())
+        X_unlabled, y_unlabeled = Experiment.get_X_y(self.data['unlabeled'])
+        all_known_X = pd.concat([X.copy(), X_unlabled.copy()], axis = 0, ignore_index = True)
+        #print(X.shape)
+        #print(X_unlabled.shape)
+        #print('shape all know x: ' + str(all_known_X.shape))
+
+        return all_known_X
+
 
     # DATA METHODS:
     def set_partition_sizes(self):
@@ -70,8 +161,17 @@ class Experiment():
         return self.data.copy()
 
     def get_labeled_data(self):
-        return pd.concat(
-            [self.data['labeled_keep'], self.data['labeled_delete']], axis=0)
+        #print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        #print(self.data['labeled_keep'])
+        #print(self.data['labeled_delete'])
+
+        if self.data['labeled_delete'].shape[0] == 0:
+            return self.data['labeled_keep'].copy()
+        else:
+            labeled_data = pd.concat([self.data['labeled_keep'], self.data['labeled_delete']], axis=0, ignore_index = True, sort = True)
+            #print('LABELED DATA')
+            #print(labeled_data)
+            return labeled_data.copy()
 
     def delete_data(self):
         self.data['deleted'] = self.data['labeled_delete'].copy()
@@ -165,7 +265,6 @@ class Experiment():
             return random_rows
 
         elif method == 'uncertainty':
-
             return self.get_most_uncertain_rows(self.data['unlabeled'])
 
         elif method == 'similar':
@@ -176,13 +275,8 @@ class Experiment():
 
             most_uncertain_similar_rows = self.get_most_uncertain_rows(self.similiar_method_closest_unlabeled_rows)
 
-            #print('Shape')
-            #print(self.similiar_method_closest_unlabeled_rows.shape[0])
-
             self.similiar_method_closest_unlabeled_rows.drop(most_uncertain_similar_rows.index, inplace = True)
-
             return most_uncertain_similar_rows
-
 
     def initiate_similar_method(self):
         # if there are no more deleted points
@@ -190,7 +284,6 @@ class Experiment():
             #print('WARNING: Method is set to *similar*, but no data has been deleted')
             #print('--> defaulting back to method *uncertainty*')
             return self.get_rows_to_add('uncertainty')
-
 
         # For each deleted point, find get the index of the nearest unlabeled neighbour to that deleted point:
         # NOTE: the output indexes are 0,1,2.. not the original indexes of the rows of unlabeled_data
@@ -256,7 +349,8 @@ class Experiment():
         n_points_added = 0
 
         while n_points_added < n_points_to_add:
-            #print('Percentage points added: ' + str(round(100.0 * n_points_added / n_points_to_add)))
+            if round(100.0 * n_points_added / n_points_to_add) % 10 == 0:
+                print('Current method: ' + method + ', percentage points added: ' + str(round(100.0 * n_points_added / n_points_to_add)))
 
             n_points_added += self.n_points_to_add_at_a_time
 
