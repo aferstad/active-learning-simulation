@@ -24,7 +24,7 @@ class Experiment():
     scaler = StandardScaler()
     pca = PCA()
 
-    def __init__(self, unsplit_data, seed, model_type, n_points_labeled_keep, n_points_labeled_delete, use_pca = False):
+    def __init__(self, unsplit_data, seed, model_type, n_points_labeled_keep, n_points_labeled_delete, use_pca = False, scale = False, n_points_to_add_at_a_time = 1):
         '''
         input: unsplit prepared data and possibility to change defaults
         desc: sets partitions
@@ -33,7 +33,6 @@ class Experiment():
         #print('#############################################################################')
         #print('#############################################################################')
         #print('#############################################################################')
-
 
         self.accuracies = []
         self.consistencies = []
@@ -44,6 +43,7 @@ class Experiment():
         self.scaler = StandardScaler()
         self.pca = PCA()
 
+        self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
         #print(unsplit_data.head())
 
         self.seed = seed
@@ -53,17 +53,15 @@ class Experiment():
         self.n_points_labeled_keep = n_points_labeled_keep
         self.n_points_labeled_delete = n_points_labeled_delete
 
-
-
         self.set_partitions()
 
         #for key in self.data:
         #    print(key)
         #    print(self.data[key].head())
 
+        self.transform_data(use_pca, scale) # TODO: decide whether I always should scale data?
 
-
-        self.transform_data(use_pca, scale=True) # TODO: decide whether I always should scale data?
+        #print('n_points_to_add_at_a_time: ' + str(self.n_points_to_add_at_a_time))
 
 
     def scale_data(self):
@@ -347,10 +345,13 @@ class Experiment():
 
         n_points_to_add = int(self.data['unlabeled'].shape[0] * self.pct_unlabeled_to_label)
         n_points_added = 0
+        n_quartile_complete = 0
 
-        while n_points_added < n_points_to_add:
-            if round(100.0 * n_points_added / n_points_to_add) % 10 == 0:
-                print('Current method: ' + method + ', percentage points added: ' + str(round(100.0 * n_points_added / n_points_to_add)))
+        while n_points_added + self.n_points_to_add_at_a_time < n_points_to_add:
+            pct_complete = round(100.0 * n_points_added / n_points_to_add)
+            if pct_complete // 25 >= n_quartile_complete:
+                print('[Current method ' + method + '] [pct complete: ' + str(pct_complete) + '%]')
+                n_quartile_complete += 1
 
             n_points_added += self.n_points_to_add_at_a_time
 

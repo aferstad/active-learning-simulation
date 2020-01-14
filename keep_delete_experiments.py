@@ -11,7 +11,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def run_repetitions(data, reps, keep, delete, methods, print_progress=True, use_pca = False):
+def run_repetitions(data, reps, keep, delete, methods, print_progress=True, use_pca = False, scale = False, n_points_to_add_at_a_time = 1):
     '''
     INPUT
         reps : number of experiments to run and average for current keep-delete pair
@@ -34,10 +34,11 @@ def run_repetitions(data, reps, keep, delete, methods, print_progress=True, use_
         consistencies[method] = []
 
         for i in range(reps):
+            print('Keep: ' + str(keep) + ' | Delete: ' + str(delete) + ' | Repition: ' + str(i))
             if print_progress:
                 print(i)
 
-            my_experiment = Experiment(data, i, 'lr', keep, delete, use_pca = use_pca)
+            my_experiment = Experiment(data, i, 'lr', keep, delete, use_pca = use_pca, scale = scale, n_points_to_add_at_a_time = n_points_to_add_at_a_time)
             my_experiment.run_experiment(method=method)
 
             accuracies[method].append(my_experiment.accuracies)
@@ -54,7 +55,7 @@ def run_repetitions(data, reps, keep, delete, methods, print_progress=True, use_
 
     return accuracy_results, consistency_results
 
-def run_experiments(data, reps, keeps, deletes, methods, use_pca = False):
+def run_experiments(data, reps, keeps, deletes, methods, use_pca = False, scale = False, n_points_to_add_at_a_time = 1):
     '''
     runs experiments for all combinations of keep and delete parameters
     returns 2 dataframes with accuracy results and consistency results
@@ -75,13 +76,15 @@ def run_experiments(data, reps, keeps, deletes, methods, use_pca = False):
                                                     delete,
                                                     methods,
                                                     print_progress=False,
-                                                    use_pca = use_pca)
+                                                    use_pca = use_pca,
+                                                    scale = scale,
+                                                    n_points_to_add_at_a_time = n_points_to_add_at_a_time)
             n_grid_items_complete += 1
 
     return accuracy_results, consistency_results
 
 
-def plot_results(results, reps, keeps, deletes, save_path_name, methods, method_colors, dataset, ylabel, run_time):
+def plot_results(results, reps, keeps, deletes, save_path_name, methods, method_colors, dataset_str, ylabel, run_time):
     '''
     plots results in grid, and saves to png
     '''
@@ -116,7 +119,7 @@ def plot_results(results, reps, keeps, deletes, save_path_name, methods, method_
     handles, labels = axs[len(keeps)-1, len(deletes)-1].get_legend_handles_labels()
     fig.legend(handles, labels, loc='center right')
 
-    title_string = 'Dataset: ' + dataset + ', repetitions per keep-delete pair: ' + str(reps) + ', minutes run time: ' + str(run_time)
+    title_string = 'Dataset: ' + dataset_str + ', repetitions per keep-delete pair: ' + str(reps) + ', minutes run time: ' + str(run_time)
     fig.suptitle(title_string)
 
     #fig.legend()
