@@ -52,7 +52,7 @@ if test:
     n_components = 100
     keeps = [25, 50]
     deletes = [25, 50]
-    reps = 1
+    reps = 3
     save_path_accuracy = 'output/test_' + dataset_str + '_keep_delete_accuracy_50_rep_grid.png'
     save_path_consistency = 'output/test_' + dataset_str + '_keep_delete_consistency_50_rep_grid.png'
     save_path_certainty = 'output/' + dataset_str + '_keep_delete_certainty_50_rep_grid.png'
@@ -99,7 +99,8 @@ accuracy_results, consistency_results, certainty_results = run_experiments(
     methods=methods,
     use_pca=False,
     scale=False,
-    n_points_to_add_at_a_time=n_points_to_add_at_a_time)
+    n_points_to_add_at_a_time=n_points_to_add_at_a_time,
+    certainty_ratio_threshold=1000000)
 
 end_time = time.time()
 run_time = round((end_time - start_time) / 60,
@@ -128,8 +129,8 @@ plot_results(consistency_results,
              run_time=run_time)
 
 '''
-'''
-plot_results({'similar_uncertainty_optimization': consistency_results},
+
+plot_results(certainty_results,
              reps,
              keeps,
              deletes,
@@ -138,8 +139,8 @@ plot_results({'similar_uncertainty_optimization': consistency_results},
              method_colors,
              dataset_str=dataset_str,
              ylabel='certainty',
-             run_time=run_time)
-'''
+             run_time=run_time,
+             plot_certainties=True)
 
 
 for i in range(len(keeps)):

@@ -24,7 +24,8 @@ def run_repetitions(data,
                     print_progress=True,
                     use_pca=False,
                     scale=False,
-                    n_points_to_add_at_a_time=1):
+                    n_points_to_add_at_a_time=1,
+                    certainty_ratio_threshold=2):
     '''
     INPUT
         reps : number of experiments to run and average for current keep-delete pair
@@ -41,7 +42,7 @@ def run_repetitions(data,
     '''
     accuracies = {}
     consistencies = {}
-    certainties = []
+    certainties = pd.DataFrame()
 
     for method in methods:
         accuracies[method] = []
@@ -62,24 +63,25 @@ def run_repetitions(data,
                 use_pca=use_pca,
                 scale=scale,
                 n_points_to_add_at_a_time=n_points_to_add_at_a_time,
-                certainty_ratio_threshold=2)
+                certainty_ratio_threshold=certainty_ratio_threshold)
             my_experiment.run_experiment(method=method)
 
             accuracies[method].append(my_experiment.accuracies)
             consistencies[method].append(my_experiment.consistencies)
             if method == 'similar_uncertainty_optimization':
-                #print(my_experiment.certainties)
-                certainties.append(my_experiment.certainties)
+                certainties = pd.concat([certainties, my_experiment.get_certainties()], axis=1)
 
         accuracies[method] = pd.DataFrame(accuracies[method]).mean(axis=0)
         consistencies[method] = pd.DataFrame(
             consistencies[method]).mean(axis=0)
         if method == 'similar_uncertainty_optimization':
-            print('%%%%%%%%%%')
-            print(certainties)
-            certainties = pd.DataFrame(pd.DataFrame(certainties).transpose()) #.mean(axis=0) # transpoe
-            print('#######################')
-            print(certainties)
+            certainties = certainties.groupby(by=certainties.columns, axis=1).apply(lambda g: g.mean(axis=1))
+            certainties['ratio'] = certainties.min_certainty_of_similar / certainties.min_certainty
+            print(certainties['ratio'])
+            certainties.loc[certainties.ratio > 200, 'ratio'] = 200
+            # certainties becomes df with two columns,
+            # ['min_certainty': mean_min_certainty of all repetitions,
+            # min_certainty_of_similar = mean min certainty of all similar points ]
 
     accuracy_results = pd.concat(accuracies, axis=1)
     accuracy_results.columns = methods
@@ -97,7 +99,8 @@ def run_experiments(data,
                     methods,
                     use_pca=False,
                     scale=False,
-                    n_points_to_add_at_a_time=1):
+                    n_points_to_add_at_a_time=1,
+                    certainty_ratio_threshold=2):
     '''
     runs experiments for all combinations of keep and delete parameters
     returns 2 dataframes with accuracy results and consistency results
@@ -125,14 +128,15 @@ def run_experiments(data,
                     print_progress=False,
                     use_pca=use_pca,
                     scale=scale,
-                    n_points_to_add_at_a_time=n_points_to_add_at_a_time)
+                    n_points_to_add_at_a_time=n_points_to_add_at_a_time,
+                    certainty_ratio_threshold=certainty_ratio_threshold)
             n_grid_items_complete += 1
 
     return accuracy_results, consistency_results, certainty_results
 
 
 def plot_results(results, reps, keeps, deletes, save_path_name, methods,
-                 method_colors, dataset_str, ylabel, run_time):
+                 method_colors, dataset_str, ylabel, run_time, plot_certainties=False):
     '''
     plots results in grid, and saves to png
     '''
@@ -142,16 +146,19 @@ def plot_results(results, reps, keeps, deletes, save_path_name, methods,
     for i in range(len(keeps)):
         for j in range(len(deletes)):
             df = results[keeps[i]][deletes[j]]
+            if plot_certainties:
+                for column in df.columns:
+                    axs[i, j].plot(df[column], label=column)
+            else:
+                for method in methods:
+                    axs[i, j].plot(df[method],
+                                   color=method_colors[method],
+                                   label=method + ' method')
 
-            for method in methods:
-                axs[i, j].plot(df[method],
-                               color=method_colors[method],
-                               label=method + ' method')
-
-            axs[i, j].axhline(y=df.random[0],
-                              color='green',
-                              alpha=0.5,
-                              label='intitial ' + str(ylabel))
+                axs[i, j].axhline(y=df.random[0],
+                                  color='green',
+                                  alpha=0.5,
+                                  label='intitial ' + str(ylabel))
             axs[i, j].axvline(x=deletes[j],
                               color='maroon',
                               alpha=0.5,

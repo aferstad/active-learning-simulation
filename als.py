@@ -16,6 +16,7 @@ from scipy import spatial  # for nearest neighbour
 
 # TODO: CREATE TESTS
 
+
 class ALS():
     # objects:
     scaler = StandardScaler()
@@ -26,6 +27,8 @@ class ALS():
     consistencies = []
     certainties = []
     #pd.DataFrame(columns=['max_uncertainty_of_similar', 'max_uncertainty', 'certainty_ratio'])
+    similiar_uncertainties = []
+    max_uncertainties = []
 
     # similiar method variables:
     similar_method_initiated = False
@@ -37,16 +40,16 @@ class ALS():
 
     def __init__(self,
                  unsplit_data,
-                 seed = 0,
-                 model_type = 'lr',
-                 n_points_labeled_keep = 25,
-                 n_points_labeled_delete = 25,
+                 seed=0,
+                 model_type='lr',
+                 n_points_labeled_keep=25,
+                 n_points_labeled_delete=25,
                  use_pca=False,
                  scale=False,
                  n_points_to_add_at_a_time=1,
                  certainty_ratio_threshold=2,
-                 pct_unlabeled_to_label = 1.00,
-                 pct_points_test = 0.25):
+                 pct_unlabeled_to_label=1.00,
+                 pct_points_test=0.25):
         '''
             input: unsplit prepared data and possibility to change defaults
             desc: sets partitions
@@ -57,17 +60,19 @@ class ALS():
         self.n_points_labeled_keep = n_points_labeled_keep
         self.n_points_labeled_delete = n_points_labeled_delete
 
-        self.use_pca= use_pca
-        self.scale= scale
+        self.use_pca = use_pca
+        self.scale = scale
 
-        self.n_points_to_add_at_a_time= n_points_to_add_at_a_time
-        self.certainty_ratio_threshold= certainty_ratio_threshold
+        self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
+        self.certainty_ratio_threshold = certainty_ratio_threshold
 
         self.pct_unlabeled_to_label = pct_unlabeled_to_label
         self.pct_points_test = pct_points_test
 
         self.accuracies = []
         self.consistencies = []
+        self.similiar_uncertainties = []
+        self.max_uncertainties = []
 
         self.similar_method_initiated = False
         self.similiar_method_closest_unlabeled_rows = pd.DataFrame()
@@ -181,10 +186,15 @@ class ALS():
     def get_point_certainty(self, rows):
         X, y = ALS.get_X_y(rows)
         proba_class_1 = self.model_current.predict_proba(X)[:, 1]
-        class_certainty = np.abs(
-            proba_class_1 -
-            0.5)[0] / 0.5  # NOTE: assumes only one element in rows
+        class_certainty = np.abs(proba_class_1 - 0.5)[0] / 0.5  # NOTE: assumes only one element in rows
         return class_certainty
+
+    def get_certainties(self):
+        df = pd.DataFrame()
+        df.insert(0, 'min_certainty', self.max_uncertainties)
+        df.insert(0, 'min_certainty_of_similar', self.similiar_uncertainties)
+
+        return df
 
     # ACTIVE LEARNING FUNCTIONS
     def run_experiment(self, method='random'):
@@ -297,11 +307,15 @@ class ALS():
 
             max_uncertainty_of_similar = self.get_point_certainty(
                 most_uncertain_similar_rows)
+            self.similiar_uncertainties.append(max_uncertainty_of_similar)
+
             max_uncertainty = self.get_point_certainty(most_uncertain_rows)
+            self.max_uncertainties.append(max_uncertainty)
+
             certainty_ratio = max_uncertainty_of_similar / max_uncertainty
             #print('RATIO: ' + str(certainty_ratio))
-            row = [max_uncertainty_of_similar, max_uncertainty, certainty_ratio]
-            self.certainties.append(row)
+            #row = [max_uncertainty_of_similar, max_uncertainty, certainty_ratio]
+            #self.certainties.append(row)
 
             if certainty_ratio >= self.certainty_ratio_threshold:
                 return most_uncertain_rows
