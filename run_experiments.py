@@ -6,7 +6,7 @@ import time  # to calculate run time
 import sys  # to get arguments from terminal
 
 # CUSTOM METHOD IMPORT:
-from keep_delete_experiments import run_experiments, plot_results
+from als_repeater import run_experiments, run_certainty_experiments, plot_results, plot_certainty_results
 
 # CUSTOM DATA IMPORTS:
 #from input.census_import import get_census_data
@@ -52,10 +52,10 @@ if test:
     n_components = 100
     keeps = [25, 50]
     deletes = [25, 50]
-    reps = 3
+    reps = 1
     save_path_accuracy = 'output/test_' + dataset_str + '_keep_delete_accuracy_50_rep_grid.png'
     save_path_consistency = 'output/test_' + dataset_str + '_keep_delete_consistency_50_rep_grid.png'
-    save_path_certainty = 'output/' + dataset_str + '_keep_delete_certainty_50_rep_grid.png'
+    save_path_certainty = 'output/test_' + dataset_str + '_keep_delete_certainty_50_rep_grid.png'
 
 methods = ['random', 'uncertainty', 'similar', 'similar_uncertainty_optimization']
 method_colors = {
@@ -65,10 +65,16 @@ method_colors = {
     methods[3]: 'purple'
 }
 
-methods = ['similar_uncertainty_optimization']
-method_colors = {
-    methods[0]: 'purple'
-}
+
+KEEP = 25
+DELETE = 25
+certainty_ratio_thresholds = [5, 50, 100, 200]
+
+
+#methods = ['similar_uncertainty_optimization']
+#method_colors = {
+#    methods[0]: 'purple'
+#}
 data = []
 if dataset_str == 'heart':
     data = get_heart_data()
@@ -81,6 +87,12 @@ elif dataset_str == 'cancer':
 elif dataset_str == 'ads':
     if test:
         n_points_to_add_at_a_time = 100
+
+    KEEP = 50
+    DELETE = 300
+    certainty_ratio_thresholds = [5, 50, 100, 500]
+    reps = 10
+
     keeps = [20, 100]
     deletes = [0, 100]
     data = get_ads_data(
@@ -91,6 +103,35 @@ elif dataset_str == 'ads':
 #methods = ['random']
 #method_colors = {methods[0] : 'dodgerblue'}
 
+
+accuracy_results, consistency_results, certainty_results = run_certainty_experiments(
+    data=data,
+    reps=reps,
+    keep=KEEP,
+    delete=DELETE,
+    methods=methods,
+    use_pca=False,
+    scale=False,
+    n_points_to_add_at_a_time=n_points_to_add_at_a_time,
+    certainty_ratio_thresholds=certainty_ratio_thresholds)
+
+# NOTE: pct_unlabeled_to_label = 0.3
+# NOTE: pct_unlabeled_to_label = 0.3
+
+end_time = time.time()
+run_time = round((end_time - start_time) / 60,
+                 2)  # gives number of minutes of run_time
+
+plot_certainty_results(results = certainty_results, reps = reps, keep = KEEP, delete = DELETE, save_path_name = save_path_certainty, methods = methods, dataset_str = dataset_str, ylabel = 'certainty', run_time = run_time, certainty_ratio_thresholds = certainty_ratio_thresholds)
+plot_certainty_results(results = accuracy_results, reps = reps, keep = KEEP, delete = DELETE, save_path_name = save_path_accuracy, methods = methods, dataset_str = dataset_str, ylabel = 'accuracy', run_time = run_time, certainty_ratio_thresholds = certainty_ratio_thresholds)
+plot_certainty_results(results = consistency_results, reps = reps, keep = KEEP, delete = DELETE, save_path_name = save_path_consistency, methods = methods, dataset_str = dataset_str, ylabel = 'consistency', run_time = run_time, certainty_ratio_thresholds = certainty_ratio_thresholds)
+
+
+
+
+
+
+'''
 accuracy_results, consistency_results, certainty_results = run_experiments(
     data=data,
     reps=reps,
@@ -105,6 +146,7 @@ accuracy_results, consistency_results, certainty_results = run_experiments(
 end_time = time.time()
 run_time = round((end_time - start_time) / 60,
                  2)  # gives number of minutes of run_time
+'''
 
 '''
 plot_results(accuracy_results,
@@ -129,7 +171,7 @@ plot_results(consistency_results,
              run_time=run_time)
 
 '''
-
+'''
 plot_results(certainty_results,
              reps,
              keeps,
@@ -141,11 +183,11 @@ plot_results(certainty_results,
              ylabel='certainty',
              run_time=run_time,
              plot_certainties=True)
+'''
 
-
-for i in range(len(keeps)):
-    for j in range(len(deletes)):
-        pd.DataFrame(certainty_results[keeps[i]][deletes[j]]).to_csv('certainty_keep' + str(keeps[i]) + '_delete' + str(deletes[j]) + '.csv')
+#for i in range(len(keeps)):
+#    for j in range(len(deletes)):
+#        pd.DataFrame(certainty_results[keeps[i]][deletes[j]]).to_csv('certainty_keep' + str(keeps[i]) + '_delete' + str(deletes[j]) + '.csv')
 
 
 if test:
