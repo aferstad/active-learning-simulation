@@ -49,7 +49,7 @@ def run_repetitions(data,
         consistencies[method] = []
 
         for i in range(reps):
-            print('Keep: ' + str(keep) + ' | Delete: ' + str(delete) +
+            print('Threshold: ' + str(certainty_ratio_threshold) + '| Keep: ' + str(keep) + ' | Delete: ' + str(delete) +
                   ' | Repetition: ' + str(i))
             if print_progress:
                 print(i)
