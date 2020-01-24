@@ -1,10 +1,12 @@
-'''
-ACTIVE LEARNING SIMULATOR
-author: Andreas Ferstad
-'''
+
+# ACTIVE LEARNING SIMULATOR
+# author: Andreas Ferstad
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
+from bayesianLogisticRegression import BayesianLogisticRegression # my custom model
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -13,35 +15,19 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 
 from scipy import spatial  # for nearest neighbour
+import pymc3 as pm # for bayesian models
+
 
 # TODO: CREATE TESTS
 
 
-class ALS():
-    # objects:
-    scaler = StandardScaler()
-    pca = PCA()
-
-    # intialize output tables:
-    accuracies = []
-    consistencies = []
-    certainties = []
-    #pd.DataFrame(columns=['max_uncertainty_of_similar', 'max_uncertainty', 'certainty_ratio'])
-    similiar_uncertainties = []
-    max_uncertainties = []
-
-    # similiar method variables:
-    similar_method_initiated = False
-    similiar_method_closest_unlabeled_rows = pd.DataFrame()
-    use_pca = False
-
-    # similiar-accuracy optimization method variables:
-    certainty_ratio_threshold = 2
+class ALS:
 
     def __init__(self,
                  unsplit_data,
-                 seed=0,
+                 learning_method,
                  model_type='lr',
+                 seed=0,
                  n_points_labeled_keep=25,
                  n_points_labeled_delete=25,
                  use_pca=False,
@@ -50,52 +36,64 @@ class ALS():
                  certainty_ratio_threshold=2,
                  pct_unlabeled_to_label=1.00,
                  pct_points_test=0.25):
-        '''
-            input: unsplit prepared data and possibility to change defaults
-            desc: sets partitions
-        '''
-        self.seed = seed
+        """
+        input: unsplit prepared data, learning_method, and possibility to change default parameters
+        """
+
+        # Learning Parameters
+        self.learning_method = learning_method
+        if learning_method == 'bayesian_random' and model_type != 'lr':
+            print('bayesian_random code not supported for other models than lr. Setting model as lr...')
+            self.model_type = 'lr'
         self.model_type = model_type
 
+        self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
+        self.certainty_ratio_threshold = certainty_ratio_threshold
+        self.pct_unlabeled_to_label = pct_unlabeled_to_label
+
+        self.similar_learning_method_initiated = False
+        self.similar_learning_method_closest_unlabeled_rows = pd.DataFrame()
+
+        # Data Parameters
+        self.unsplit_data = unsplit_data
+        self.seed = seed
         self.n_points_labeled_keep = n_points_labeled_keep
         self.n_points_labeled_delete = n_points_labeled_delete
-
         self.use_pca = use_pca
         self.scale = scale
+        if learning_method == 'bayesian_random':
+            self.add_intercept_column = True
+        else:
+            self.add_intercept_column = False
 
-        self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
-        self.certainty_ratio_threshold = certainty_ratio_threshold
-
-        self.pct_unlabeled_to_label = pct_unlabeled_to_label
         self.pct_points_test = pct_points_test
 
-        self.accuracies = []
-        self.consistencies = []
-        self.similiar_uncertainties = []
-        self.max_uncertainties = []
-
-        self.similar_method_initiated = False
-        self.similiar_method_closest_unlabeled_rows = pd.DataFrame()
-
-        self.use_pca = use_pca
         self.scaler = StandardScaler()
         self.pca = PCA()
-
-        self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
-
-        self.certainty_ratio_threshold = certainty_ratio_threshold
-        self.certainties = []
-
-        self.seed = seed
-        self.unsplit_data = unsplit_data
         self.data = {}
-        self.model_type = model_type
-        self.n_points_labeled_keep = n_points_labeled_keep
-        self.n_points_labeled_delete = n_points_labeled_delete
 
         self.set_partitions()
-        self.transform_data(
-            use_pca, scale)  # TODO: decide whether I always should scale data?
+        self.transform_data(use_pca, scale, self.add_intercept_column)
+        # TODO: decide whether I always should scale data?
+
+        # Performance Metrics
+        self.accuracies = []
+        self.consistencies = []
+        self.similar_uncertainties = []
+        self.max_uncertainties = []
+        self.certainties = []
+
+        # Model Parameters
+        labeled = self.get_labeled_data()
+
+        if len(labeled.iloc[:, 0].unique()) != 2:
+            print('Error: initial labeled data only contains one class')
+
+        self.bayesian_model_initialized = False
+        self.bayesian_model = pm.Model()
+        self.trace = []
+        self.traces = []
+        self.model_initial = self.fit_model()
 
     # PARTITIONING FUNCTIONS:
     def set_partitions(self):
@@ -150,12 +148,18 @@ class ALS():
 
         return X, y
 
+
     # MODEL FUNCTIONS:
     def fit_model(self):
         labeled = self.get_labeled_data()
         X, y = ALS.get_X_y(labeled)
 
-        if self.model_type == 'KNN':
+        if self.learning_method == 'bayesian_random':
+            model = BayesianLogisticRegression()
+
+            # TODO: CONTINUE WORKING HERE (24/1)
+
+        elif self.model_type == 'KNN':
             best_k = ALS.KNN_cv(X, y)
             model = KNeighborsClassifier(n_neighbors=best_k)
             model.fit(X, y)
@@ -166,6 +170,39 @@ class ALS():
             model.fit(X, y)
 
         return model
+
+    def _fit_bayesian_model(self):
+        labeled = self.get_labeled_data()
+        X, y_obs = ALS.get_X_y(labeled)
+        n_features = X.shape[1]
+
+        with pm.Model() as model:
+            if not self.bayesian_model_initialized:
+                mu = np.zeros(n_features)
+                cov = np.identity(n_features)
+                betas = pm.MvNormal('betas', mu=mu, cov=cov, shape=n_features)
+
+                self.bayesian_model_initialized = True
+            else:
+                # trace is the sample from the latest found posterior
+                # here we find the new prior by estimating the parameters of the latest posterior
+                nu = self.trace['betas'].shape[0] # number of degrees of freedom for MvStudentT is assumed to be number of points in sample
+                mu = self.trace['betas'].mean(0) # mean 0 gives mean of each column, i.e. coefficient beta_i
+                cov = ((1. * nu) / (nu - 2)) * np.cov(self.trace['betas'].T)
+
+                betas = pm.MvStudentT('betas', mu=mu, cov=cov, nu=nu, shape=n_features)
+
+            p = pm.math.invlogit(X @ betas) # give the probability in a logistic regression model
+
+            # Define likelihood
+            y = pm.Bernoulli('y', p, observed=y_obs)
+
+            # Inference:
+            self.trace = pm.sample(2000)
+            self.traces.append(self.trace)
+
+
+
 
     def get_model_accuracy(m, data):
         X, y = ALS.get_X_y(data)
@@ -197,18 +234,11 @@ class ALS():
         return df
 
     # ACTIVE LEARNING FUNCTIONS
-    def run_experiment(self, method='random'):
-        '''
-                input raw data, output initial and final model accuracy
-                '''
+    def run_experiment(self):
+        """
+        Runs experiments with the parameters specified when initializing the object
+        """
 
-        labeled = self.get_labeled_data()
-
-        if len(labeled.iloc[:, 0].unique()) != 2:
-            print('Error: initial labeled data only contains one class')
-            return 0, None
-
-        self.model_initial = self.fit_model()
 
         self.accuracies = []
         self.consistencies = []
@@ -222,16 +252,16 @@ class ALS():
             self.model_parameters.append(self.model_initial.n_neighbors)
 
         # decide all new points to label:
-        self.label_new_points(method)
+        self.label_new_points(learning_method)
 
         self.model_final = self.fit_model()
 
         self.model_initial_accuracy, self.model_final_accuracy = ALS.compare_models(
             self.model_initial, self.model_final, self.data['unknown'])
 
-    def label_new_points(self, method):
+    def label_new_points(self, learning_method):
         '''
-            Ouputs labeled + newly_labeled chosen by method
+            Ouputs labeled + newly_labeled chosen by learning_method
             '''
         self.model_current = self.fit_model()
 
@@ -243,14 +273,14 @@ class ALS():
         while n_points_added + self.n_points_to_add_at_a_time < n_points_to_add:
             pct_complete = round(100.0 * n_points_added / n_points_to_add)
             if pct_complete // 25 >= n_quartile_complete:
-                print('[Current method ' + method + '] [pct complete: ' +
+                print('[Current learning_method ' + learning_method + '] [pct complete: ' +
                       str(pct_complete) + '%]')
                 n_quartile_complete += 1
 
             n_points_added += self.n_points_to_add_at_a_time
 
             rows_to_add = self.get_rows_to_add(
-                method)  # TODO: fix this function
+                learning_method)  # TODO: fix this function
 
             self.data['unlabeled'] = self.data['unlabeled'].drop(
                 rows_to_add.index)
@@ -267,35 +297,35 @@ class ALS():
             if self.model_type == 'KNN':
                 self.model_parameters.append(self.model_current.n_neighbors)
 
-    def get_rows_to_add(self, method):
-        if method == 'random':
+    def get_rows_to_add(self, learning_method):
+        if learning_method == 'random':
             random_rows = self.data['unlabeled'].sample(
                 n=self.n_points_to_add_at_a_time, random_state=self.seed)
             return random_rows
 
-        elif method == 'uncertainty':
+        elif learning_method == 'uncertainty':
             return self.get_most_uncertain_rows(self.data['unlabeled'])
 
-        elif method == 'similar':
-            if not self.similar_method_initiated:
-                self.initiate_similar_method()
-            if self.similiar_method_closest_unlabeled_rows.shape[0] == 0:
+        elif learning_method == 'similar':
+            if not self.similar_learning_method_initiated:
+                self.initiate_similar_learning_method()
+            if self.similiar_learning_method_closest_unlabeled_rows.shape[0] == 0:
                 return self.get_rows_to_add('uncertainty')
 
             most_uncertain_similar_rows = self.get_most_uncertain_rows(
-                self.similiar_method_closest_unlabeled_rows)
+                self.similiar_learning_method_closest_unlabeled_rows)
 
-            self.similiar_method_closest_unlabeled_rows.drop(
+            self.similiar_learning_method_closest_unlabeled_rows.drop(
                 most_uncertain_similar_rows.index, inplace=True)
             return most_uncertain_similar_rows
-        elif method == 'similar_uncertainty_optimization':
-            if not self.similar_method_initiated:
-                self.initiate_similar_method()
-            if self.similiar_method_closest_unlabeled_rows.shape[0] == 0:
+        elif learning_method == 'similar_uncertainty_optimization':
+            if not self.similar_learning_method_initiated:
+                self.initiate_similar_learning_method()
+            if self.similiar_learning_method_closest_unlabeled_rows.shape[0] == 0:
                 return self.get_rows_to_add('uncertainty')
 
             most_uncertain_similar_rows = self.get_most_uncertain_rows(
-                self.similiar_method_closest_unlabeled_rows)
+                self.similiar_learning_method_closest_unlabeled_rows)
             most_uncertain_rows = self.get_most_uncertain_rows(
                 self.data['unlabeled'])
 
@@ -320,18 +350,18 @@ class ALS():
             if certainty_ratio >= self.certainty_ratio_threshold:
                 return most_uncertain_rows
             else:
-                self.similiar_method_closest_unlabeled_rows.drop(
+                self.similiar_learning_method_closest_unlabeled_rows.drop(
                     most_uncertain_similar_rows.index, inplace=True)
                 return most_uncertain_similar_rows
 
-    # METHOD SPECIFIC FUNCTIONS
-    def initiate_similar_method(self):
+    # learning_method SPECIFIC FUNCTIONS
+    def initiate_similar_learning_method(self):
         # NOTE: Comments below is code used for popularity vote, no longer used
 
         # if there are no more deleted points
         if self.data['deleted'].shape[0] == 0:
-            # print('WARNING: Method is set to *similar*, but no data has been deleted')
-            # print('--> defaulting back to method *uncertainty*')
+            # print('WARNING: learning_method is set to *similar*, but no data has been deleted')
+            # print('--> defaulting back to learning_method *uncertainty*')
             return self.get_rows_to_add('uncertainty')
 
         # For each deleted point, find get the index of the nearest unlabeled neighbour to that deleted point:
@@ -363,8 +393,8 @@ class ALS():
 
         closest_rows = pd.DataFrame(closest_rows)
 
-        self.similar_method_initiated = True
-        self.similiar_method_closest_unlabeled_rows = closest_rows
+        self.similar_learning_method_initiated = True
+        self.similiar_learning_method_closest_unlabeled_rows = closest_rows
 
     def get_most_uncertain_rows(self, rows):
         '''
@@ -392,7 +422,7 @@ class ALS():
         return pd.Series(tree.query(points_a)[1])
 
     # ------ UNUSED FUNCTIONS
-    # MODEL METHODS:
+    # MODEL learning_methodS:
     def KNN_cv(X, y, print_results=False):
         '''
       finds best K for KNN
@@ -429,9 +459,9 @@ class ALS():
 
     def compare_models(m1, m2, data):
         m1_accuracy = ALS.get_model_accuracy(m1, data)
-        m2_accuarcy = ALS.get_model_accuracy(m2, data)
+        m2_accuracy = ALS.get_model_accuracy(m2, data)
 
-        return m1_accuracy, m2_accuarcy
+        return m1_accuracy, m2_accuracy
 
     # PARTITION FUNCTIONS
     def get_partitions(self):
@@ -441,7 +471,7 @@ class ALS():
         return self.partitions_sizes.copy()
 
     # DATA TRANSFORMATION FUNCTIONS:
-    def transform_data(self, use_pca, scale):
+    def transform_data(self, use_pca, scale, add_intercept_column):
         '''
         scales data if scale == True
         pca transfroms data if use_pca == True
@@ -454,8 +484,14 @@ class ALS():
 
         if use_pca:
             known_X = self.get_all_known_X()
-            self.pca.fit(known_X)
+            self.pca.fit(known_X) # TODO: add functionality to set n output components of PCA
             self.pca_transform_data()
+
+        if add_intercept_column:
+            for key in self.data:
+                if self.data[key].shape[0] == 0:
+                    continue
+                self.data[key].insert(1, 'intercept', 1)
 
     def get_all_known_X(self):
         X, y = ALS.get_X_y(self.get_labeled_data())
