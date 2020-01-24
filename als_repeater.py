@@ -55,17 +55,18 @@ def run_repetitions(data,
                 print(i)
 
             my_experiment = ALS(
-                data,
-                i,
-                'lr',
-                keep,
-                delete,
+                unsplit_data=data,
+                seed=i,
+                model_type='lr',
+                n_points_labeled_keep=keep,
+                n_points_labeled_delete=delete,
+                learning_method=method,
                 use_pca=use_pca,
                 scale=scale,
                 n_points_to_add_at_a_time=n_points_to_add_at_a_time,
                 certainty_ratio_threshold=certainty_ratio_threshold,
                 pct_unlabeled_to_label=0.25)
-            my_experiment.run_experiment(method=method)
+            my_experiment.run_experiment()
 
             accuracies[method].append(my_experiment.accuracies)
             consistencies[method].append(my_experiment.consistencies)
