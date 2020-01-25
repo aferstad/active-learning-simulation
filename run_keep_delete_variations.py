@@ -53,7 +53,7 @@ if test:
     n_points_to_add_at_a_time = 1
     n_components = 100
     keeps = [10, 20]
-    deletes = [0, 50]
+    deletes = [40, 50]
     reps = 1
     save_path_accuracy = 'output/test_' + dataset_str + '_keep_delete_accuracy_50_rep_grid.png'
     save_path_consistency = 'output/test_' + dataset_str + '_keep_delete_consistency_50_rep_grid.png'

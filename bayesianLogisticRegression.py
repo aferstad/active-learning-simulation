@@ -63,7 +63,7 @@ class BayesianLogisticRegression:
                     y = pm.Bernoulli('y', p, observed=y_obs)
 
                     # Inference:
-                    self.trace = pm.sample(2000) # cores = 1, if runtime error
+                    self.trace = pm.sample(2000, cores = 1) # cores = 1, if runtime error
 
                 self.beta_hat = self.trace['betas'].mean(0)
 
