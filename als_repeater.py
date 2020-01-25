@@ -25,7 +25,8 @@ def run_repetitions(data,
                     use_pca=False,
                     scale=False,
                     n_points_to_add_at_a_time=1,
-                    certainty_ratio_threshold=2):
+                    certainty_ratio_threshold=2,
+                    cores = 4):
     '''
     INPUT
         reps : number of experiments to run and average for current keep-delete pair
@@ -65,7 +66,8 @@ def run_repetitions(data,
                 scale=scale,
                 n_points_to_add_at_a_time=n_points_to_add_at_a_time,
                 certainty_ratio_threshold=certainty_ratio_threshold,
-                pct_unlabeled_to_label=0.25)
+                pct_unlabeled_to_label=0.25,
+                cores = cores)
             my_experiment.run_experiment()
 
             accuracies[method].append(my_experiment.accuracies)
@@ -105,7 +107,8 @@ def run_experiments(data,
                     use_pca=False,
                     scale=False,
                     n_points_to_add_at_a_time=1,
-                    certainty_ratio_threshold=2):
+                    certainty_ratio_threshold=2,
+                    cores=4):
     '''
     runs experiments for all combinations of keep and delete parameters
     returns 2 dataframes with accuracy results and consistency results
@@ -125,16 +128,17 @@ def run_experiments(data,
                       (len(keeps) * len(deletes)))))
             accuracy_results[keep][delete], consistency_results[keep][
                 delete], certainty_results[keep][delete] = run_repetitions(
-                    data,
-                    reps,
-                    keep,
-                    delete,
-                    methods,
+                    data=data,
+                    reps=reps,
+                    keep=keep,
+                    delete=delete,
+                    methods=methods,
                     print_progress=False,
                     use_pca=use_pca,
                     scale=scale,
                     n_points_to_add_at_a_time=n_points_to_add_at_a_time,
-                    certainty_ratio_threshold=certainty_ratio_threshold)
+                    certainty_ratio_threshold=certainty_ratio_threshold,
+                    cores=cores)
             n_grid_items_complete += 1
 
     return accuracy_results, consistency_results, certainty_results

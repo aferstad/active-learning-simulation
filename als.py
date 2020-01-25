@@ -35,7 +35,8 @@ class ALS:
                  n_points_to_add_at_a_time=1,
                  certainty_ratio_threshold=2,
                  pct_unlabeled_to_label=1.00,
-                 pct_points_test=0.25):
+                 pct_points_test=0.25,
+                 cores = 4):
         """
         input: unsplit prepared data, learning_method, and possibility to change default parameters
         """
@@ -50,7 +51,8 @@ class ALS:
         self.model_type = model_type
 
         self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
-        if learning_method == 'bayesian_random':
+        if learning_method == 'bayesian_random' and n_points_to_add_at_a_time < 25:
+            print('setting n_points_to_add_at_a_time = 25, remove code in ALS to avoid this')
             self.n_points_to_add_at_a_time = 25
         self.certainty_ratio_threshold = certainty_ratio_threshold
         self.pct_unlabeled_to_label = pct_unlabeled_to_label
@@ -102,6 +104,8 @@ class ALS:
         #self.trace = []
         self.traces = []
         self.latest_trace = None
+        self.cores = cores
+        self.model_initial = None
         self.model_initial = self.fit_model()
 
     # PARTITIONING FUNCTIONS:
@@ -164,9 +168,19 @@ class ALS:
 
         if self.learning_method == 'bayesian_random':
             model = BayesianLogisticRegression()
-            self.latest_trace = model.fit(X, y, previous_trace = self.latest_trace) # returns trace when fitting
-            self.traces.append(self.latest_trace)
-
+            # self.latest_trace = model.fit(X, y, previous_trace = self.latest_trace, cores = self.cores) # returns trace when fitting
+            # self.traces.append(self.latest_trace)
+            # TODO: verify that the fitting below works
+            if self.model_initial is not None:
+                model.fit(X,
+                          y,
+                          prior_trace=self.model_initial.trace,
+                          cores=self.cores,
+                          prior_index=self.model_initial.training_data_index)
+            else:
+                model.fit(X,
+                          y,
+                          cores=self.cores)
         elif self.model_type == 'KNN':
             best_k = ALS.KNN_cv(X, y)
             model = KNeighborsClassifier(n_neighbors=best_k)

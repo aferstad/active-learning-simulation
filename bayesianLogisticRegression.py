@@ -11,6 +11,7 @@ class BayesianLogisticRegression:
         """
         :param fit_intercept: default true, makes first element in beta_hat be intercept
         """
+        self.training_data_index = None
         self.trace = None
         self.beta_hat = None
         self.fit_intercept = fit_intercept
@@ -18,17 +19,32 @@ class BayesianLogisticRegression:
         self.coef_ = None
         self.intercept_ = None
 
+        print('heiis')
+
     # TODO: maybe return trace to some traceObserver object?
-    def fit(self, x, y_obs, previous_trace=None):
+    def fit(self, x, y_obs, prior_trace=None, cores=4, prior_index = None):
         """
         :param x: training features
         :param y_obs: training binary class labels 0/1
-        :param previous_trace: default None, used as prior if not None
+        :param prior_trace: default None, used as prior if not None
+        :param cores: n CPU cores to use for sampling, default 4, set to 1 if get runtime error
+        :param prior_index: index previously used to fit betas, remove to avoid double weighting this data
         :return: trace, to be used as next prior
 
         finds distribution for coefficients in logistic regression
         sets beta_hat to mean vector of MvDistribution
         """
+        self.training_data_index = x.index
+
+        print('shape before index drop: ' + str(x.shape))
+        print(x.index)
+        print(y_obs.index)
+
+
+        if prior_index is not None:
+            x = x.drop(prior_index, errors='ignore')  # errors=ignore because deleted data indexes are not in new indexes
+            y_obs = y_obs.drop(prior_index, errors='ignore')
+
         x = np.array(x)
         y_obs = np.array(y_obs)
 
@@ -38,11 +54,18 @@ class BayesianLogisticRegression:
 
         n_features = x.shape[1]
 
+        #print('X looks like:')
+        #print(x)
+        #print('')
+        #print('y looks like:')
+        #print(y_obs)
+        print('shape after index drop: ' + str(x.shape))
+
         if True: #__name__ == 'bayesianLogisticRegression':
             try:
                 with pm.Model() as model:
 
-                    if previous_trace is None: # then model has not been initialized with original prior
+                    if prior_trace is None: # then model has not been initialized with original prior
                         # original prior:
                         mu = np.zeros(n_features)
                         cov = np.identity(n_features)
@@ -50,10 +73,10 @@ class BayesianLogisticRegression:
                     else:
                         # previous_trace is the sample from the latest found posterior
                         # here we find the new prior by estimating the parameters of the latest posterior
-                        nu = previous_trace['betas'].shape[
+                        nu = prior_trace['betas'].shape[
                             0]  # number of degrees of freedom for MvStudentT is assumed to be number of points in sample
-                        mu = previous_trace['betas'].mean(0)  # mean 0 gives mean of each column, i.e. coefficient beta_i
-                        cov = ((1. * nu) / (nu - 2)) * np.cov(previous_trace['betas'].T)
+                        mu = prior_trace['betas'].mean(0)  # mean 0 gives mean of each column, i.e. coefficient beta_i
+                        cov = ((1. * nu) / (nu - 2)) * np.cov(prior_trace['betas'].T)
 
                         betas = pm.MvStudentT('betas', mu=mu, cov=cov, nu=nu, shape=n_features)
 
@@ -63,7 +86,7 @@ class BayesianLogisticRegression:
                     y = pm.Bernoulli('y', p, observed=y_obs)
 
                     # Inference:
-                    self.trace = pm.sample(2000, cores = 1) # cores = 1, if runtime error
+                    self.trace = pm.sample(2000, cores=cores)  # cores = 1, if runtime error
 
                 self.beta_hat = self.trace['betas'].mean(0)
 
