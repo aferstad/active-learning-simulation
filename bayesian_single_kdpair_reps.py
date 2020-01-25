@@ -13,9 +13,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     data.iloc[:, 1:] = scaler.fit_transform(data.iloc[:, 1:]) # TODO: do this in ALS object instead
 
     accuracies = []
-    repetitions = 2
-    n_points_to_add_at_a_time = 100
-
+    repetitions = 10
+    n_points_to_add_at_a_time = 5
 
     for i in range(repetitions):
         print('##################################################################')

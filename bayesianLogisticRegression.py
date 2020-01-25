@@ -19,8 +19,6 @@ class BayesianLogisticRegression:
         self.coef_ = None
         self.intercept_ = None
 
-        print('heiis')
-
     # TODO: maybe return trace to some traceObserver object?
     def fit(self, x, y_obs, prior_trace=None, cores=4, prior_index = None):
         """

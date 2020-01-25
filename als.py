@@ -106,7 +106,6 @@ class ALS:
         self.latest_trace = None
         self.cores = cores
         self.model_initial = None
-        self.model_initial = self.fit_model()
 
     # PARTITIONING FUNCTIONS:
     def set_partitions(self):
@@ -230,6 +229,7 @@ class ALS:
         self.accuracies = []
         self.consistencies = []
 
+        self.model_initial = self.fit_model()
         self.accuracies.append(
             ALS.get_model_accuracy(self.model_initial, self.data['unknown']))
         self.delete_data()
@@ -241,16 +241,19 @@ class ALS:
         # decide all new points to label:
         self._label_new_points()
 
-        self.model_final = self.fit_model()
+        #self.model_final = self.fit_model()
 
-        self.model_initial_accuracy, self.model_final_accuracy = ALS.compare_models(
-            self.model_initial, self.model_final, self.data['unknown'])
+       #self.model_initial_accuracy, self.model_final_accuracy = ALS.compare_models(
+        #    self.model_initial, self.model_final, self.data['unknown'])
 
     def _label_new_points(self):
         """
         called by run_experiment to manage the process of labeling points and refitting models
         """
         self.model_current = self.fit_model()
+        self.accuracies.append(
+            ALS.get_model_accuracy(self.model_current,
+                                   self.data['unknown']))
 
         n_points_to_add = int(self.data['unlabeled'].shape[0] *
                               self.pct_unlabeled_to_label)

@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d76efbf8-4766-41c4-b072-f26d9e2d3be7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bayesian_single_kdpair_reps.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ALS_testing.ipynb" afterPath="$PROJECT_DIR$/ALS_testing.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/als.py" afterPath="$PROJECT_DIR$/als.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/als_repeater.py" afterPath="$PROJECT_DIR$/als_repeater.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bayesian LR active learning.ipynb" afterPath="$PROJECT_DIR$/bayesian LR active learning.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bayesianLogisticRegression.py" afterPath="$PROJECT_DIR$/bayesianLogisticRegression.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run_keep_delete_variations.py" afterPath="$PROJECT_DIR$/run_keep_delete_variations.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bayesian_accuracy_k10_d50_heart_rep2_step100.csv" afterPath="$PROJECT_DIR$/bayesian_accuracy_k10_d50_heart_rep2_step100.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bayesian_single_kdpair_reps.py" afterPath="$PROJECT_DIR$/bayesian_single_kdpair_reps.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,8 +20,8 @@
       <file leaf-file-name="bayesianLogisticRegression.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bayesianLogisticRegression.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="44" column="121" lean-forward="false" selection-start-line="44" selection-start-column="121" selection-end-line="44" selection-end-column="121" />
+            <state relative-caret-position="228">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding>
                 <element signature="e#27#45#0" expanded="true" />
               </folding>
@@ -35,8 +32,8 @@
       <file leaf-file-name="bayesian_single_kdpair_reps.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bayesian_single_kdpair_reps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="45" lean-forward="true" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+            <state relative-caret-position="240">
+              <caret line="16" column="33" lean-forward="true" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
               <folding>
                 <element signature="e#2#47#0" expanded="true" />
               </folding>
@@ -47,8 +44,8 @@
       <file leaf-file-name="als.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/als.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="54" column="93" lean-forward="true" selection-start-line="54" selection-start-column="93" selection-end-line="54" selection-end-column="93" />
+            <state relative-caret-position="243">
+              <caret line="250" column="45" lean-forward="false" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="45" />
               <folding>
                 <element signature="e#56#74#0" expanded="true" />
               </folding>
@@ -99,6 +96,10 @@
       <find>trace</find>
       <find>sys.argv</find>
       <find>previ</find>
+      <find>fit</find>
+      <find>self.fit_model</find>
+      <find>heiis</find>
+      <find>heis</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -115,9 +116,10 @@
         <option value="$PROJECT_DIR$/run_experiments.py" />
         <option value="$PROJECT_DIR$/als_repeater.py" />
         <option value="$PROJECT_DIR$/run_keep_delete_variations.py" />
-        <option value="$PROJECT_DIR$/bayesianLogisticRegression.py" />
-        <option value="$PROJECT_DIR$/als.py" />
         <option value="$PROJECT_DIR$/bayesian_test.py" />
+        <option value="$PROJECT_DIR$/als.py" />
+        <option value="$PROJECT_DIR$/bayesianLogisticRegression.py" />
+        <option value="$PROJECT_DIR$/bayesian_single_kdpair_reps.py" />
       </list>
     </option>
   </component>
@@ -271,16 +273,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/als.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="54" column="93" lean-forward="true" selection-start-line="54" selection-start-column="93" selection-end-line="54" selection-end-column="93" />
-          <folding>
-            <element signature="e#56#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/run_keep_delete_variations.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -299,10 +291,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/als.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="250" column="45" lean-forward="false" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="45" />
+          <folding>
+            <element signature="e#56#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bayesianLogisticRegression.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="44" column="121" lean-forward="false" selection-start-line="44" selection-start-column="121" selection-end-line="44" selection-end-column="121" />
+        <state relative-caret-position="228">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
             <element signature="e#27#45#0" expanded="true" />
           </folding>
@@ -311,8 +313,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bayesian_single_kdpair_reps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="45" lean-forward="true" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        <state relative-caret-position="240">
+          <caret line="16" column="33" lean-forward="true" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
           <folding>
             <element signature="e#2#47#0" expanded="true" />
           </folding>
