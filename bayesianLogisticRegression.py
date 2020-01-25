@@ -37,8 +37,8 @@ class BayesianLogisticRegression:
         self.training_data_index = x.index
 
         print('shape before index drop: ' + str(x.shape))
-        print(x.index)
-        print(y_obs.index)
+        #print(x.index)
+        #print(y_obs.index)
 
 
         if prior_index is not None:
@@ -59,7 +59,7 @@ class BayesianLogisticRegression:
         #print('')
         #print('y looks like:')
         #print(y_obs)
-        print('shape after index drop: ' + str(x.shape))
+        #print('shape after index drop: ' + str(x.shape))
 
         if True: #__name__ == 'bayesianLogisticRegression':
             try:

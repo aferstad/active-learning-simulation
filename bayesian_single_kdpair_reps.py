@@ -18,17 +18,19 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
 
 
     for i in range(repetitions):
+        print('##################################################################')
+        print('REPETITION NUMBER: ' + str(i))
         als = ALS(unsplit_data=data,
                   learning_method='bayesian_random',
                   n_points_labeled_delete=50,
                   n_points_labeled_keep=10,
                   scale=False,
                   n_points_to_add_at_a_time=n_points_to_add_at_a_time,
-                  seed=repetitions)
+                  seed=i)
         als.run_experiment()
         accuracies.append(als.accuracies)
 
-    print(accuracies)
+    #print(accuracies)
     a = pd.DataFrame(accuracies).mean(axis=0)
     print(a)
     a.to_csv('bayesian_accuracy_k10_d50_heart_rep' + str(repetitions)
