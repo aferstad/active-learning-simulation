@@ -51,9 +51,9 @@ class ALS:
         self.model_type = model_type
 
         self.n_points_to_add_at_a_time = n_points_to_add_at_a_time
-        if learning_method == 'bayesian_random' and n_points_to_add_at_a_time < 25:
-            print('setting n_points_to_add_at_a_time = 25, remove code in ALS to avoid this')
-            self.n_points_to_add_at_a_time = 25
+        #if learning_method == 'bayesian_random' and n_points_to_add_at_a_time < 25:
+        #    print('setting n_points_to_add_at_a_time = 25, remove code in ALS to avoid this')
+        #    self.n_points_to_add_at_a_time = 25
         self.certainty_ratio_threshold = certainty_ratio_threshold
         self.pct_unlabeled_to_label = pct_unlabeled_to_label
 
