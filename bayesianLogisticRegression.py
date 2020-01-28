@@ -79,6 +79,7 @@ class BayesianLogisticRegression:
                         betas = pm.MvStudentT('betas', mu=mu, cov=cov, nu=nu, shape=n_features)
 
                     p = pm.math.invlogit(x @ betas)  # give the probability in a logistic regression model
+                    # TODO: should it be -x @ beta?
 
                     # Define likelihood
                     y = pm.Bernoulli('y', p, observed=y_obs)
