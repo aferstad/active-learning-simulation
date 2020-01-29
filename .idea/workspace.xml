@@ -2,16 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d76efbf8-4766-41c4-b072-f26d9e2d3be7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/alsDataManager.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/alsLearningManager.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/alsModelManager.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_als.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/CONTINUE HERE working bayesian logsitic regression on heart data-checkpoint.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CONTINUE HERE working bayesian logsitic regression on heart data.ipynb" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/alsRepeater.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/alsRepeaterLauncher.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ALS_testing.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SUCCESFULL bayesian logsitic regression on heart data.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Untitled.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Untitled1.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/a.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/accuracy_bayesian_k10_d30_heart_rep10_step5.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/als_manager.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bayesian LR active learning.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bayesian_accuracy_k10_d50_heart_rep2.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bayesian_accuracy_k10_d50_heart_rep2_step100.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bayesian_logistic_regression.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bayesian_testing.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/consistency_bayesian_k10_d30_heart_rep10_step5.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data_manager.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pymc3_tutorial.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_keep_delete_test.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_als.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled1-checkpoint.ipynb" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled1-checkpoint.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/als.py" afterPath="$PROJECT_DIR$/als.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bayesianLogisticRegression.py" afterPath="$PROJECT_DIR$/bayesianLogisticRegression.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alsDataManager.py" afterPath="$PROJECT_DIR$/alsDataManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alsLearningManager.py" afterPath="$PROJECT_DIR$/alsLearningManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alsModelManager.py" afterPath="$PROJECT_DIR$/alsModelManager.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,14 +44,14 @@
     <SUITE FILE_PATH="coverage/privacy_active_learning$Unittests_for_test_als_TestInit_test_set_partitions.coverage" NAME="Unittests for test_als.TestInit.test_set_partitions Coverage Results" MODIFIED="1580234497489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.34348914">
+    <splitter split-orientation="horizontal" split-proportion="0.44048148">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="bayesianLogisticRegression.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/bayesianLogisticRegression.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="675">
-                  <caret line="45" column="23" lean-forward="true" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
+                <state relative-caret-position="330">
+                  <caret line="22" column="75" lean-forward="true" selection-start-line="22" selection-start-column="75" selection-end-line="22" selection-end-column="75" />
                   <folding>
                     <element signature="e#27#45#0" expanded="true" />
                   </folding>
@@ -59,24 +74,10 @@
           <file leaf-file-name="als.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/als.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="435">
-                  <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+                <state relative-caret-position="600">
+                  <caret line="40" column="38" lean-forward="true" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
                   <folding>
-                    <element signature="e#55#73#0" expanded="true" />
-                    <marker date="1580243700015" expanded="true" signature="2189:2228" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="test_als.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/test_als.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
-                  <folding>
-                    <element signature="e#0#15#0" expanded="true" />
-                    <marker date="1580234653904" expanded="true" signature="119:569" ph="..." />
+                    <element signature="e#55#96#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -95,7 +96,7 @@
           <file leaf-file-name="run_keep_delete_variations.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/run_keep_delete_variations.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="645">
+                <state relative-caret-position="840">
                   <caret line="56" column="24" lean-forward="false" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
                   <folding>
                     <element signature="e#37#56#0" expanded="true" />
@@ -107,76 +108,66 @@
         </leaf>
       </split-first>
       <split-second>
-        <splitter split-orientation="horizontal" split-proportion="0.4466264">
-          <split-first>
-            <leaf>
-              <file leaf-file-name="test_als.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/test_als.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="330">
-                      <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-                      <folding>
-                        <element signature="e#0#15#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="alsDataManager.py" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/alsDataManager.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="255">
-                      <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-                      <folding>
-                        <element signature="e#0#19#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="alsModelManager.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/alsModelManager.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="330">
-                      <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="21" />
-                      <folding>
-                        <element signature="e#0#19#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-first>
-          <split-second>
-            <leaf>
-              <file leaf-file-name="alsLearningManager.py" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="683">
-                      <caret line="171" column="0" lean-forward="true" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
-                      <folding>
-                        <element signature="e#0#22#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="alsDataManager.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/alsDataManager.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="1830">
-                      <caret line="132" column="30" lean-forward="true" selection-start-line="132" selection-start-column="30" selection-end-line="132" selection-end-column="30" />
-                      <folding>
-                        <element signature="e#0#19#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-second>
-        </splitter>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="alsLearningManager.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1064">
+                  <caret line="200" column="46" lean-forward="false" selection-start-line="200" selection-start-column="46" selection-end-line="200" selection-end-column="46" />
+                  <folding>
+                    <element signature="e#0#22#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="alsDataManager.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/alsDataManager.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="578">
+                  <caret line="99" column="37" lean-forward="false" selection-start-line="99" selection-start-column="37" selection-end-line="99" selection-end-column="37" />
+                  <folding>
+                    <element signature="e#0#19#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="alsRepeater.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/alsRepeater.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="645">
+                  <caret line="43" column="4" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
+                  <folding>
+                    <element signature="e#87#106#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="alsRepeaterLauncher.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/alsRepeaterLauncher.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="60">
+                  <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="alsModelManager.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/alsModelManager.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="615">
+                  <caret line="41" column="47" lean-forward="false" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+                  <folding>
+                    <element signature="e#0#19#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
       </split-second>
     </splitter>
   </component>
@@ -211,7 +202,10 @@
       <find>AlsD</find>
       <find>delete_data</find>
       <find>learning_method</find>
+      <find>add_interce</find>
+      <find>model_parameters</find>
       <find>KNN</find>
+      <find>certainties</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -235,10 +229,12 @@
         <option value="$PROJECT_DIR$/bayesian_single_kdpair_reps.py" />
         <option value="$PROJECT_DIR$/bayesianLogisticRegression.py" />
         <option value="$PROJECT_DIR$/test_als.py" />
+        <option value="$PROJECT_DIR$/alsDataManager.py" />
         <option value="$PROJECT_DIR$/alsModelManager.py" />
         <option value="$PROJECT_DIR$/als.py" />
         <option value="$PROJECT_DIR$/alsLearningManager.py" />
-        <option value="$PROJECT_DIR$/alsDataManager.py" />
+        <option value="$PROJECT_DIR$/alsRepeater.py" />
+        <option value="$PROJECT_DIR$/alsRepeaterLauncher.py" />
       </list>
     </option>
   </component>
@@ -248,9 +244,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1280" />
+    <option name="width" value="1916" />
     <option name="height" value="1417" />
   </component>
   <component name="ProjectView">
@@ -268,7 +264,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -281,6 +276,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -438,21 +434,21 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="2560" height="1417" extended-state="6" />
+    <frame x="0" y="23" width="1916" height="1417" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08401487" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936803" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08401487" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0640625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16544884" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936803" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -475,6 +471,92 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/bayesianLogisticRegression.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="45" column="23" lean-forward="true" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
+          <folding>
+            <element signature="e#27#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bayesian_single_kdpair_reps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="33" lean-forward="false" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+          <folding>
+            <element signature="e#2#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/als_repeater.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="43" column="14" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_keep_delete_variations.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="56" column="24" lean-forward="false" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
+          <folding>
+            <element signature="e#37#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/als.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+          <folding>
+            <element signature="e#55#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_als.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsModelManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsDataManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bayesianLogisticRegression.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -500,8 +582,7 @@
         <state relative-caret-position="3555">
           <caret line="250" column="45" lean-forward="false" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="45" />
           <folding>
-            <element signature="e#55#73#0" expanded="true" />
-            <marker date="1580243700015" expanded="true" signature="2189:2228" ph="..." />
+            <element signature="e#55#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -539,8 +620,7 @@
         <state relative-caret-position="3555">
           <caret line="250" column="45" lean-forward="false" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="45" />
           <folding>
-            <element signature="e#55#73#0" expanded="true" />
-            <marker date="1580243700015" expanded="true" signature="2189:2228" ph="..." />
+            <element signature="e#55#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -588,8 +668,7 @@
         <state relative-caret-position="3750">
           <caret line="250" column="45" lean-forward="false" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="45" />
           <folding>
-            <element signature="e#55#73#0" expanded="true" />
-            <marker date="1580243700015" expanded="true" signature="2189:2228" ph="..." />
+            <element signature="e#55#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -647,8 +726,7 @@
         <state relative-caret-position="3555">
           <caret line="250" column="45" lean-forward="false" selection-start-line="250" selection-start-column="44" selection-end-line="250" selection-end-column="45" />
           <folding>
-            <element signature="e#55#73#0" expanded="true" />
-            <marker date="1580243700015" expanded="true" signature="2189:2228" ph="..." />
+            <element signature="e#55#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -707,9 +785,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="uml://Python/als.ALS">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>Python</ID>
+          <OriginalElement>als.ALS</OriginalElement>
+          <nodes>
+            <node x="" y="">_collections_abc.Hashable</node>
+            <node x="" y="">als.ALS</node>
+            <node x="" y="">object</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="82.0" y="94.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_als.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsDataManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="99" column="37" lean-forward="false" selection-start-line="99" selection-start-column="37" selection-end-line="99" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsModelManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="47" lean-forward="false" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/run_keep_delete_variations.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
+        <state relative-caret-position="840">
           <caret line="56" column="24" lean-forward="false" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
           <folding>
             <element signature="e#37#56#0" expanded="true" />
@@ -725,17 +850,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_als.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <marker date="1580234653904" expanded="true" signature="119:569" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bayesian_single_kdpair_reps.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -748,69 +862,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bayesianLogisticRegression.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="23" lean-forward="true" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
+        <state relative-caret-position="330">
+          <caret line="22" column="75" lean-forward="true" selection-start-line="22" selection-start-column="75" selection-end-line="22" selection-end-column="75" />
           <folding>
             <element signature="e#27#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alsModelManager.py">
+    <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="21" />
+        <state relative-caret-position="1064">
+          <caret line="200" column="46" lean-forward="false" selection-start-line="200" selection-start-column="46" selection-end-line="200" selection-end-column="46" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#22#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="uml://Python/als.ALS">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>Python</ID>
-          <OriginalElement>als.ALS</OriginalElement>
-          <nodes>
-            <node x="" y="">_collections_abc.Hashable</node>
-            <node x="" y="">als.ALS</node>
-            <node x="" y="">object</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="1.0" x="81.5" y="93.5" />
-          <SelectedNodes />
-          <Categories />
+    <entry file="file://$PROJECT_DIR$/alsRepeaterLauncher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsRepeater.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="43" column="4" lean-forward="false" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
+          <folding>
+            <element signature="e#87#106#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/als.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="22" lean-forward="true" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+        <state relative-caret-position="600">
+          <caret line="40" column="38" lean-forward="true" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
           <folding>
-            <element signature="e#55#73#0" expanded="true" />
-            <marker date="1580243700015" expanded="true" signature="2189:2228" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alsDataManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1830">
-          <caret line="132" column="30" lean-forward="true" selection-start-line="132" selection-start-column="30" selection-end-line="132" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="171" column="0" lean-forward="true" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#55#96#0" expanded="true" />
           </folding>
         </state>
       </provider>

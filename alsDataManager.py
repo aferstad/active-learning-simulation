@@ -83,7 +83,7 @@ class AlsDataManager:
         return self.als.partitions_sizes.copy()
 
     # DATA TRANSFORMATION FUNCTIONS:
-    def transform_data(self, use_pca, scale, add_intercept_column):
+    def transform_data(self, use_pca, scale):
         '''
         scales data if scale == True
         pca transfroms data if use_pca == True
@@ -98,13 +98,6 @@ class AlsDataManager:
             known_X = self.get_all_known_X()
             self.als.pca.fit(known_X) # TODO: add functionality to set n output components of PCA
             self.pca_transform_data()
-
-        if add_intercept_column:
-            for key in self.als.data:
-                if self.als.data[key].shape[0] == 0:
-                    continue
-                self.als.data[key].insert(1, 'intercept', 1)
-
 
 
     def get_all_known_X(self):

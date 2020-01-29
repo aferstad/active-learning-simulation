@@ -23,9 +23,6 @@ class AlsLearningManager:
             alsModelManager.get_model_accuracy(self.als.model_initial, self.als.data['unknown']))
         self.als.dataManager.delete_data()
 
-        if self.als.model_type == 'KNN':
-            self.als.model_parameters.append(self.als.model_initial.n_neighbors)
-
         # decide all new points to label:
         self._label_new_points()
 
@@ -72,8 +69,6 @@ class AlsLearningManager:
             self.als.consistencies.append(
                 self.als.modelManager.get_model_consistency(self.model_current))
 
-            if self.als.model_type == 'KNN':
-                self.als.model_parameters.append(self.model_current.n_neighbors)
 
     def get_rows_to_add(self, learning_method=None):
         """
@@ -201,6 +196,17 @@ class AlsLearningManager:
         most_uncertain_rows = rows.loc[most_uncertain_rows_indexes, :]
         return most_uncertain_rows
 
+    def get_performance_results(self):
+        """
+        :return: dict with keys as metric_strs and values as a list of that metric per learning step
+        """
+        results = {}
+        results['accuracy'] = self.als.accuracies
+        results['consistencies'] = self.als.consistencies
+        results['similar_uncertainties'] = self.als.similar_uncertainties
+        results['max_uncertainties'] = self.als.max_uncertainties
+
+        return results
 
 
 

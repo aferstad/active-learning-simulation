@@ -3,10 +3,7 @@ import numpy as np
 import alsDataManager
 
 from bayesianLogisticRegression import BayesianLogisticRegression  # my custom model
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LogisticRegression
-
 
 
 def get_model_accuracy(m, data):
@@ -48,10 +45,6 @@ class AlsModelManager:
                 model.fit(X,
                           y,
                           cores=self.als.cores)
-        # elif self.als.model_type == 'KNN':
-        #    best_k = self.KNN_cv(X, y)
-        #    model = KNeighborsClassifier(n_neighbors=best_k)
-        #    model.fit(X, y)
         elif self.als.model_type == 'lr':
             model = LogisticRegression(
                 solver='liblinear', max_iter=1000
@@ -94,40 +87,3 @@ class AlsModelManager:
         df.insert(0, 'min_certainty_of_similar', self.als.similiar_uncertainties)
 
         return df
-
-
-"""
-    # NOT USED:
-    def KNN_cv(X, y, print_results=False):
-        '''
-      finds best K for KNN
-      '''
-        k_scores = []
-        k_ceiling = int(
-            X.shape[0] * 0.8
-        )  # when do 5 fold cross validation max number of neighbors is 80% of data points
-        k_ceiling = min(100,
-                        k_ceiling)  # TODO: find out best way to maximize K
-        k_range = range(3, k_ceiling)
-    
-        # use iteration to caclulator different k in models,
-        # then return the average accuracy based on the cross validation
-        for k in k_range:
-            if print_results:
-                print('k = ' + str(k))
-            knn = KNeighborsClassifier(n_neighbors=k)
-            scores = cross_val_score(knn, X, y, cv=5, scoring='accuracy')
-            k_scores.append(scores.mean())
-    
-        if print_results:
-            # plot to see clearly
-            plt.plot(k_range, k_scores)
-            plt.xlabel('Value of K for KNN')
-            plt.ylabel('Cross-Validated Accuracy')
-            plt.show()
-    
-        best_k = max(
-            np.array(k_range)[max(k_scores) <= k_scores + np.std(k_scores)])
-    
-        return best_k
-"""
