@@ -65,7 +65,7 @@ class AlsRepeater:
 
         mean_results = {}
         for metric_str in dict_of_result_matrices:
-            mean_results[metric_str] = np.array(dict_of_result_matrices[metric_str]).mean(0)
+            mean_results[metric_str] = list(np.array(dict_of_result_matrices[metric_str]).mean(0))  # make list again to be able to save as json
 
         return mean_results
 

@@ -19,8 +19,8 @@ class ALS:
                  seed=0,
                  n_points_labeled_keep=25,
                  n_points_labeled_delete=25,
-                 use_pca=False,
-                 scale=False,
+                 use_pca=False,  # TODO: decide whether I always should do PCA?
+                 scale=True,  # TODO: decide whether I always should scale?
                  n_points_to_add_at_a_time=1,
                  certainty_ratio_threshold=2,
                  pct_unlabeled_to_label=1.00,
@@ -48,6 +48,7 @@ class ALS:
         self.latest_trace = None
         self.cores = cores
         self.model_initial = None
+        self.model_current = None
 
         # Performance Metrics Init
         self.accuracies = []

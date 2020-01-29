@@ -35,9 +35,9 @@ class AlsLearningManager:
         """
         called by run_experiment to manage the process of labeling points and refitting models
         """
-        self.model_current = self.als.modelManager.fit_model()
+        self.als.model_current = self.als.modelManager.fit_model()
         self.als.accuracies.append(
-            alsModelManager.get_model_accuracy(self.model_current,
+            alsModelManager.get_model_accuracy(self.als.model_current,
                                                self.als.data['unknown']))
 
         n_points_to_add = int(self.als.data['unlabeled'].shape[0] *
@@ -62,13 +62,12 @@ class AlsLearningManager:
             self.als.data['labeled_keep'] = self.als.data['labeled_keep'].append(
                 rows_to_add)
 
-            self.model_current = self.als.modelManager.fit_model()
+            self.als.model_current = self.als.modelManager.fit_model()
             self.als.accuracies.append(
-                alsModelManager.get_model_accuracy(self.model_current,
+                alsModelManager.get_model_accuracy(self.als.model_current,
                                                    self.als.data['unknown']))
             self.als.consistencies.append(
-                self.als.modelManager.get_model_consistency(self.model_current))
-
+                self.als.modelManager.get_model_consistency(self.als.model_current))
 
     def get_rows_to_add(self, learning_method=None):
         """

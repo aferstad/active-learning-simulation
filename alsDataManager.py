@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 from scipy import spatial  # for nearest neighbour
-
+import json
 
 def get_X_y(df):
     '''
@@ -22,6 +22,24 @@ def nearest_neighbour(points_a, points_b):
     '''
     tree = spatial.cKDTree(points_b)
     return pd.Series(tree.query(points_a)[1])
+
+
+def save_dict_as_json(output_dict, output_path):
+    """
+    :param output_path: where to save json file
+    :return: nothing, saves dict as json at output_path
+    """
+    with open(output_path, 'w') as outfile:
+        json.dump(output_dict, outfile)
+
+
+def open_dict_from_json(input_path):
+    """
+    :return: dict read from json at input_path
+    """
+    with open(input_path) as json_file:
+        input_dict = json.load(json_file)
+    return input_dict
 
 
 class AlsDataManager:
@@ -102,7 +120,7 @@ class AlsDataManager:
 
     def get_all_known_X(self):
         X, y = get_X_y(self.get_labeled_data())
-        X_unlabled, y_unlabeled = get_X_y(self.data['unlabeled'])
+        X_unlabled, y_unlabeled = get_X_y(self.als.data['unlabeled'])
         all_known_X = pd.concat([X.copy(), X_unlabled.copy()],
                                 axis=0,
                                 ignore_index=True)
@@ -123,7 +141,7 @@ class AlsDataManager:
             labels = list(y.copy())
 
             X.insert(0, label_name, labels)
-            self.data[key] = X
+            self.als.data[key] = X
 
     def pca_transform_data(self):
         for key in self.als.data:
