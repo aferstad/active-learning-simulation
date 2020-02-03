@@ -43,14 +43,14 @@ class AlsLearningManager:
         n_points_to_add = int(self.als.data['unlabeled'].shape[0] *
                               self.als.pct_unlabeled_to_label)
         n_points_added = 0
-        n_quartile_complete = 0
+        n_third_complete = 1
 
         while n_points_added + self.als.n_points_to_add_at_a_time < n_points_to_add:
             pct_complete = round(100.0 * n_points_added / n_points_to_add)
-            if pct_complete // 25 >= n_quartile_complete:
+            if pct_complete // 33.34 >= n_third_complete:
                 print('[Current learning_method ' + self.als.learning_method + '] [pct complete: ' +
                       str(pct_complete) + '%]')
-                n_quartile_complete += 1
+                n_third_complete += 1
 
             n_points_added += self.als.n_points_to_add_at_a_time
 

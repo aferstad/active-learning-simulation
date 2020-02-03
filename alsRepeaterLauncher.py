@@ -79,6 +79,8 @@ class AlsRepeaterLauncher:
                     result_key3 = argument_strs[2] + '_' + str(k)
                     results[result_key1][result_key2][result_key3] = alsr.get_mean_results()
 
+                    print('#### COMPLETED REPS: ' + result_key1 + ' | ' + result_key2 + ' | ' + result_key3 + '####')
+
         return results
 
 
