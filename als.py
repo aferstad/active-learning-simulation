@@ -68,7 +68,6 @@ class ALS:
         self.pct_unlabeled_to_label = pct_unlabeled_to_label
         self.similar_learning_method_initiated = False
         self.similar_learning_method_closest_unlabeled_rows = pd.DataFrame()
-        self.similar_uncertainties = []
 
 
 

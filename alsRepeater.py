@@ -2,6 +2,7 @@
 
 from als import ALS
 import numpy as np
+import alsDataManager
 
 
 class AlsRepeater:
@@ -37,6 +38,8 @@ class AlsRepeater:
             result = als.learningManager.get_performance_results()
             self.results.append(result)
 
+
+
     def get_mean_results(self):
         """
         :return: dict with a key for each performance metric (accuracy, consistency, etc.)
@@ -65,7 +68,11 @@ class AlsRepeater:
 
         mean_results = {}
         for metric_str in dict_of_result_matrices:
-            mean_results[metric_str] = list(np.array(dict_of_result_matrices[metric_str]).mean(0))  # make list again to be able to save as json
+            matrix = alsDataManager.create_matrix(columns_of_unequal_length=dict_of_result_matrices[metric_str])
+
+            mean_of_columns = np.nanmean(matrix, axis = 0) # axis = 0 gives row means
+
+            mean_results[metric_str] = list(mean_of_columns)  # make list again to be able to save as json
 
         return mean_results
 

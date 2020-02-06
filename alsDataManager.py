@@ -4,6 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 from scipy import spatial  # for nearest neighbour
+import numpy as np
 import json
 
 def get_X_y(df):
@@ -40,6 +41,22 @@ def open_dict_from_json(input_path):
     with open(input_path) as json_file:
         input_dict = json.load(json_file)
     return input_dict
+
+def create_matrix(columns_of_unequal_length):
+    columns = columns_of_unequal_length.copy()
+
+    max_column_length = 0
+    for column in columns:
+        if len(column) > max_column_length:
+            max_column_length = len(column)
+
+    for column in columns:
+        needed_extension = max_column_length - len(column)
+        extension = [np.nan] * needed_extension
+        column.extend(extension)
+
+    return columns
+
 
 
 class AlsDataManager:

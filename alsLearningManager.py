@@ -89,30 +89,30 @@ class AlsLearningManager:
         elif learning_method == 'similar':
             if not self.als.similar_learning_method_initiated:
                 self.initiate_similar_learning_method()
-            if self.als.similiar_learning_method_closest_unlabeled_rows.shape[0] == 0:
+            if self.als.similar_learning_method_closest_unlabeled_rows.shape[0] == 0:
                 return self.get_rows_to_add(learning_method='uncertainty')
 
             most_uncertain_similar_rows = self.get_most_uncertain_rows(
-                self.als.similiar_learning_method_closest_unlabeled_rows)
+                self.als.similar_learning_method_closest_unlabeled_rows)
 
-            self.als.similiar_learning_method_closest_unlabeled_rows.drop(
+            self.als.similar_learning_method_closest_unlabeled_rows.drop(
                 most_uncertain_similar_rows.index, inplace=True)
             return most_uncertain_similar_rows
         elif learning_method == 'similar_uncertainty_optimization':
             # TODO: Move the code below into its own function to decrease clutter
             if not self.als.similar_learning_method_initiated:
                 self.initiate_similar_learning_method()
-            if self.als.similiar_learning_method_closest_unlabeled_rows.shape[0] == 0:
+            if self.als.similar_learning_method_closest_unlabeled_rows.shape[0] == 0:
                 return self.get_rows_to_add(learning_method='uncertainty')
 
             most_uncertain_similar_rows = self.get_most_uncertain_rows(
-                self.als.similiar_learning_method_closest_unlabeled_rows)
+                self.als.similar_learning_method_closest_unlabeled_rows)
             most_uncertain_rows = self.get_most_uncertain_rows(
                 self.als.data['unlabeled'])
 
             if self.als.n_points_to_add_at_a_time != 1:
                 print(
-                    'Error: similiar_uncertainty_ratio not possible to calculate when n_points_to_add_at_a_time != 1'
+                    'Error: similar_uncertainty_ratio not possible to calculate when n_points_to_add_at_a_time != 1'
                 )
                 return None
 
@@ -131,7 +131,7 @@ class AlsLearningManager:
             if certainty_ratio >= self.als.certainty_ratio_threshold:
                 return most_uncertain_rows
             else:
-                self.als.similiar_learning_method_closest_unlabeled_rows.drop(
+                self.als.similar_learning_method_closest_unlabeled_rows.drop(
                     most_uncertain_similar_rows.index, inplace=True)
                 return most_uncertain_similar_rows
 
@@ -174,7 +174,7 @@ class AlsLearningManager:
         closest_rows = pd.DataFrame(closest_rows)
 
         self.als.similar_learning_method_initiated = True
-        self.als.similiar_learning_method_closest_unlabeled_rows = closest_rows
+        self.als.similar_learning_method_closest_unlabeled_rows = closest_rows
 
     def get_most_uncertain_rows(self, rows):
         """
