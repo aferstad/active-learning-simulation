@@ -30,7 +30,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     argument_value_dict['n_points_labeled_delete'] = [10, 20, 30]
 
 
-    test = True
+    test = False #True
 
     if test:
         print('RUNNING AS TEST, EDIT TEST = FALSE TO AVOID THIS')
