@@ -8,8 +8,6 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
 
     input_arguments = sys.argv
 
-
-
     if len(input_arguments) == 1:
         #raise Exception('ERROR: no save path specified')
         save_path = 'no_save_path_specified'
@@ -20,8 +18,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher = AlsRepeaterLauncher()
 
     launcher.input_dict['unsplit_data'] = data
-    launcher.reps = 10
-    launcher.input_dict['n_points_labeled_keep'] = 15
+    launcher.reps = 100
+    launcher.input_dict['n_points_labeled_keep'] = 10
 
     argument_value_dict = {}
     argument_value_dict['learning_method'] =  ['random',
