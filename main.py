@@ -44,7 +44,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
         launcher.input_dict['n_points_labeled_delete'] = 300
         argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
 
-    test = True #False #False #True
+    test = False #True #False #False #True
+
 
     if test:
         print('RUNNING AS TEST, EDIT TEST = FALSE TO AVOID THIS')
