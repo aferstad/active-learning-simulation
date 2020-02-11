@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
 import alsDataManager
 
-json_path = 'non_bayesian_thresholding.txt'
-save_path_name = json_path.split('.')[0] + '.png'
+json_path = 'non_bayesian_thresholding_100reps.txt'
+
+
 
 d = alsDataManager.open_dict_from_json(json_path)
 
@@ -20,10 +21,13 @@ keys4 = list(d[keys1[0]][keys2[0]][keys3[0]].keys())  # assumed to be performanc
 n_rows = len(keys2)
 n_cols = len(keys3)
 methods = keys1
-metric = 'accuracy'  # keys4[0]
-max_x = 60
-max_y = 0.84
-min_y = 0.76
+metric = 'consistencies'  # keys4[0] #consistencies
+max_x = 50
+max_y = 0.88
+min_y = 0.81
+N_DELETED = None
+TITLE_STR = 'Heart Dataset, n_keep = 10, reps = 100, pct_unlabeled_labeled = 0.3 ,' + metric
+save_path_name = metric + json_path.split('.')[0] + '.png'
 
 fig, axs = plt.subplots(n_rows, n_cols)  # sharex=True, sharey=True)
 fig.set_size_inches(30, 20)
@@ -38,7 +42,8 @@ for i in range(n_rows):
                 elif 'delete' in keys3[0]:
                     n_deleted = int(keys3[j].split('_')[-1])  # get the number of deleted by splitting str
                 else:
-                    n_deleted = 0  # TODO: alter this to be input parameter to plotting function
+                    n_deleted = N_DELETED # TODO: alter this to be input parameter to plotting function
+
 
                 axs[i, j].set_xlim(0, max_x)
                 axs[i, j].set_ylim(min_y, max_y)
@@ -54,10 +59,13 @@ for i in range(n_rows):
                                   alpha=0.5,
                                   label='intitial ' + metric,
                                   linestyle='dotted')
+                grid_element_initialized = True
+
 
             axs[i, j].plot(d[method][keys2[i]][keys3[j]][metric],
                            # color=method_colors[method],
-                           label='_'.join(method.split('_')[2:]))
+                           label='_'.join(method.split('_')[2:]),
+                           alpha = 0.75)
 
         title = keys2[i] + ' | ' + keys3[j]
 
@@ -73,9 +81,7 @@ handles, labels = axs[0, 0].get_legend_handles_labels()
 by_label = dict(zip(labels, handles))
 fig.legend(by_label.values(), by_label.keys(), loc='center right')
 
-# title_string = 'Dataset: ' + dataset_str + ', repetitions per keep-delete pair: ' + str(
-#    reps) + ', minutes run time: ' + str(run_time)
-# fig.suptitle(title_string)
+fig.suptitle(TITLE_STR, fontsize=40)
 
 # fig.legend()
 fig.savefig(save_path_name, dpi=200)
