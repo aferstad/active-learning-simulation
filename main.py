@@ -11,6 +11,18 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
 
     launcher = AlsRepeaterLauncher()
     launcher.reps = 10
+    if len(input_arguments) == 1:
+        #raise Exception('ERROR: no save path specified')
+        save_path = 'no_save_path_specified'
+    else:
+        save_path = input_arguments[1]
+
+    data = get_heart_data()
+    launcher = AlsRepeaterLauncher()
+
+    launcher.input_dict['unsplit_data'] = data
+    launcher.reps = 100
+    launcher.input_dict['n_points_labeled_keep'] = 10
 
     # arguments to vary on:
     argument_value_dict = {}
@@ -67,5 +79,3 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     json_path = save_path + '.txt'
 
     alsDataManager.save_dict_as_json(results, json_path)
-
-
