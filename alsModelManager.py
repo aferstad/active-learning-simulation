@@ -4,6 +4,7 @@ import alsDataManager
 
 from bayesianLogisticRegression import BayesianLogisticRegression  # my custom model
 from sklearn.linear_model import LogisticRegression
+from xgboost.sklearn import XGBClassifier
 
 
 def get_model_accuracy(m, data):
@@ -29,7 +30,34 @@ class AlsModelManager:
         labeled = self.als.dataManager.get_labeled_data()
         X, y = alsDataManager.get_X_y(labeled)
 
-        if self.als.learning_method == 'bayesian_random':
+        if self.als.model_type == 'xgboost':
+            xgboost_heart_params = {'base_score': 0.5,
+                                    'booster': 'gbtree',
+                                    'colsample_bylevel': 1,
+                                    'colsample_bynode': 1,
+                                    'colsample_bytree': 0.5555555555555556,
+                                    'gamma': 0.25,
+                                    'learning_rate': 0.01,
+                                    'max_delta_step': 0,
+                                    'max_depth': 4,
+                                    'min_child_weight': 5,
+                                    'missing': None,
+                                    'n_estimators': 75,
+                                    'n_jobs': 1,
+                                    'nthread': 8,
+                                    'objective': 'binary:logistic',
+                                    'random_state': 0,
+                                    'reg_alpha': 1e-05,
+                                    'reg_lambda': 1,
+                                    'scale_pos_weight': 1,
+                                    'seed': 0,
+                                    'silent': None,
+                                    'subsample': 1.0,
+                                    'verbosity': 1}
+            model = XGBClassifier(**xgboost_heart_params)
+            model.fit(X, y)
+
+        elif self.als.learning_method == 'bayesian_random':
             model = BayesianLogisticRegression()
 
             # self.latest_trace = model.fit(X, y, previous_trace = self.latest_trace, cores = self.cores) # returns trace when fitting

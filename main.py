@@ -10,7 +10,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     input_arguments = sys.argv
 
     launcher = AlsRepeaterLauncher()
-    launcher.reps = 10
+    #launcher.reps = 10
     if len(input_arguments) == 1:
         #raise Exception('ERROR: no save path specified')
         save_path = 'no_save_path_specified'
@@ -21,8 +21,9 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher = AlsRepeaterLauncher()
 
     launcher.input_dict['unsplit_data'] = data
+    launcher.input_dict['model_type'] = 'xgboost'
     launcher.reps = 100
-    launcher.input_dict['n_points_labeled_keep'] = 10
+    #launcher.input_dict['n_points_labeled_keep'] = 10
 
     # arguments to vary on:
     argument_value_dict = {}
@@ -32,8 +33,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
                                               'similar_uncertainty_optimization']
 
     argument_value_dict['certainty_ratio_threshold'] = [5, 50, 100, 500]
-    #argument_value_dict['n_points_labeled_delete'] = [0, 10, 20, 30]
-    #launcher.input_dict['n_points_labeled_keep'] = 15
+    argument_value_dict['n_points_labeled_delete'] = [0, 10, 20, 30]
+    launcher.input_dict['n_points_labeled_keep'] = 15
 
 
     if len(input_arguments) == 1:
@@ -56,7 +57,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
         launcher.input_dict['n_points_labeled_delete'] = 300
         argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
 
-    test = False #True #False #False #True
+    test = True #False #True #False #False #True
 
 
     if test:
@@ -71,8 +72,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
                                              #     'similar_uncertainty_optimization']
 
         argument_value_dict['certainty_ratio_threshold'] = [2, 500]
-        #argument_value_dict['n_points_labeled_delete'] = [0, 40]
-        argument_value_dict['n_points_labeled_keep'] = [400, 700]
+        argument_value_dict['n_points_labeled_delete'] = [0, 40]
+        #argument_value_dict['n_points_labeled_keep'] = [400, 700]
 
     results = launcher.run_3_dimensional_varied_reps(argument_value_dict)
 
