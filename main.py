@@ -23,7 +23,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher.input_dict['unsplit_data'] = data
     launcher.input_dict['model_type'] = 'xgboost'
     launcher.reps = 100
-    #launcher.input_dict['n_points_labeled_keep'] = 10
+    launcher.input_dict['n_points_labeled_keep'] = 10
 
     # arguments to vary on:
     argument_value_dict = {}
@@ -34,7 +34,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
 
     argument_value_dict['certainty_ratio_threshold'] = [5, 50, 100, 500]
     argument_value_dict['n_points_labeled_delete'] = [0, 10, 20, 30]
-    launcher.input_dict['n_points_labeled_keep'] = 15
+    #launcher.input_dict['n_points_labeled_keep'] = 15
 
 
     if len(input_arguments) == 1:
@@ -57,7 +57,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
         launcher.input_dict['n_points_labeled_delete'] = 300
         argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
 
-    test = True #False #True #False #False #True
+    test = False #True #False #True #False #False #True
 
 
     if test:
