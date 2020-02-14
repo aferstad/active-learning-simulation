@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import alsDataManager
 
-json_path = 'non_bayesian_thresholding_100reps.txt'
+json_path = 'non_bayesian_xgboost_keep10_vary_delete_threshold.txt'
 
 
 
@@ -21,10 +21,10 @@ keys4 = list(d[keys1[0]][keys2[0]][keys3[0]].keys())  # assumed to be performanc
 n_rows = len(keys2)
 n_cols = len(keys3)
 methods = keys1
-metric = 'consistencies'  # keys4[0] #consistencies
-max_x = 50
-max_y = 0.88
-min_y = 0.81
+metric = 'accuracy'  # keys4[0] #consistencies
+max_x = 100
+max_y = 0.85
+min_y = 0.45
 N_DELETED = None
 TITLE_STR = 'Heart Dataset, n_keep = 10, reps = 100, pct_unlabeled_labeled = 0.3 ,' + metric
 save_path_name = metric + json_path.split('.')[0] + '.png'
