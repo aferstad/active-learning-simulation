@@ -18,7 +18,7 @@ class AlsLearningManager:
         self.als.accuracies = []
         self.als.consistencies = []
 
-        self.als.model_initial = self.als.modelManager.fit_model()
+        self.als.model_initial = self.als.modelManager.fit_model(with_tuning=True)  # currently only xgboost that tunes
         self.als.accuracies.append(
             alsModelManager.get_model_accuracy(self.als.model_initial, self.als.data['unknown']))
         self.als.dataManager.delete_data()
@@ -35,7 +35,7 @@ class AlsLearningManager:
         """
         called by run_experiment to manage the process of labeling points and refitting models
         """
-        self.als.model_current = self.als.modelManager.fit_model()
+        self.als.model_current = self.als.modelManager.fit_model(with_tuning=True) # currently only xgboost that tunes
         self.als.accuracies.append(
             alsModelManager.get_model_accuracy(self.als.model_current,
                                                self.als.data['unknown']))
@@ -62,7 +62,12 @@ class AlsLearningManager:
             self.als.data['labeled_keep'] = self.als.data['labeled_keep'].append(
                 rows_to_add)
 
-            self.als.model_current = self.als.modelManager.fit_model()
+            # TODO: decide when to tune xgboost
+            if n_points_added == self.als.n_points_labeled_delete or n_points_added + 1 == n_points_to_add:
+                self.als.model_current = self.als.modelManager.fit_model(with_tuning=True)
+            else:
+                self.als.model_current = self.als.modelManager.fit_model(with_tuning=False)
+
             self.als.accuracies.append(
                 alsModelManager.get_model_accuracy(self.als.model_current,
                                                    self.als.data['unknown']))

@@ -71,5 +71,3 @@ def OLD_get_ads_data(path='input/farm-ads-vect', n=5000, random_state=1):
 
     return X
 
-def test():
-    sgs

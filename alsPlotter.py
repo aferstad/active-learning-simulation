@@ -1,7 +1,13 @@
 import matplotlib.pyplot as plt
 import alsDataManager
+import sys  # to get arguments from terminal
 
-json_path = 'non_bayesian_xgboost_keep10_vary_delete_threshold.txt'
+input_arguments = sys.argv
+
+if len(input_arguments) > 1:
+    json_path = input_arguments[1]
+else:
+    json_path = 'non_bayesian_xgboost_keep10_vary_delete_threshold.txt'
 
 
 
