@@ -21,7 +21,9 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
 
     launcher.input_dict['model_type'] = 'xgboost'
     launcher.reps = 100
-    launcher.input_dict['n_points_labeled_keep'] = 15
+    launcher.input_dict['n_points_labeled_keep'] = 10
+    launcher.input_dict['n_points_labeled_delete'] = 30
+
 
     # arguments to vary on:
     argument_value_dict = {}
@@ -30,9 +32,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
                                               'similar',
                                               'similar_uncertainty_optimization']
 
-    argument_value_dict['certainty_ratio_threshold'] = [5, 50, 100, 500]
-    argument_value_dict['n_points_labeled_delete'] = [0, 10, 20, 30]
-
+    argument_value_dict['certainty_ratio_threshold'] = [2, 10, 50, 250]
+    argument_value_dict['n_points_labeled_keep'] = [10, 20, 30]
 
     if len(input_arguments) == 1:
         print('ERROR: no save path specified, setting save path to "no_save_path_specified"')
