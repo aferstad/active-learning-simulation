@@ -20,10 +20,10 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher = AlsRepeaterLauncher()
 
     launcher.input_dict['model_type'] = 'xgboost'
-    launcher.reps = 100
-    launcher.input_dict['n_points_labeled_keep'] = 10
+    launcher.reps = 25
+    launcher.input_dict['n_points_labeled_keep'] = 15
     launcher.input_dict['n_points_labeled_delete'] = 30
-
+    launcher.input_dict['pct_unlabeled_to_label'] = 0.3
 
     # arguments to vary on:
     argument_value_dict = {}
@@ -33,7 +33,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
                                               'similar_uncertainty_optimization']
 
     argument_value_dict['certainty_ratio_threshold'] = [2, 10, 50, 250]
-    argument_value_dict['n_points_labeled_keep'] = [10, 20, 30]
+    argument_value_dict['n_points_labeled_keep'] = [15, 30]
 
     if len(input_arguments) == 1:
         print('ERROR: no save path specified, setting save path to "no_save_path_specified"')
@@ -55,7 +55,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
         launcher.input_dict['n_points_labeled_delete'] = 300
         argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
 
-    test = True #False #True #False #False #True
+    test = False #True #False #True #False #False #True
 
 
     if test:
