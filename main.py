@@ -16,9 +16,9 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher.n_jobs = multiprocessing.cpu_count()
     launcher.input_dict['model_type'] = 'xgboost'
 
-    launcher.reps = 12
-    launcher.input_dict['n_points_labeled_keep'] = 400
-    launcher.input_dict['n_points_labeled_delete'] = 300
+    launcher.reps = 50
+    launcher.input_dict['n_points_labeled_keep'] = 15
+    launcher.input_dict['n_points_labeled_delete'] = 30
     launcher.input_dict['pct_unlabeled_to_label'] = 0.30
 
     # arguments to vary on:
@@ -28,8 +28,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
                                               'similar',
                                               'similar_uncertainty_optimization']  # bayesian_random can be added
 
-    argument_value_dict['certainty_ratio_threshold'] = [500]  # [2, 10, 50, 250]
-    argument_value_dict['n_points_labeled_delete'] = [300]  # , 20, 30]
+    argument_value_dict['certainty_ratio_threshold'] = [10]  # [2, 10, 50, 250]
+    argument_value_dict['n_points_labeled_delete'] = [30]  # , 20, 30]
 
     input_arguments = sys.argv
 
@@ -44,9 +44,10 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     if len(input_arguments) == 3:
         data_str = input_arguments[2]
     else:
-        print('ERROR: no data specified, setting data path to ads')
+        data_str = 'heart'
+        print('ERROR: no data specified, setting data path to' + data_str)
         #data_str = 'heart'
-        data_str = 'ads'
+        #data_str = 'ads'
 
     if data_str == 'heart':
         launcher.input_dict['unsplit_data'] = get_heart_data()
