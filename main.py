@@ -66,8 +66,6 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     if test:
         print('RUNNING AS TEST, EDIT TEST = FALSE TO AVOID THIS')
         launcher.reps = 2  # run tests with 2 reps to test that mean() functions are working properly
-        #launcher.input_dict['n_points_labeled_keep'] = 15
-
         argument_value_dict = {}
         argument_value_dict['learning_method'] = ['random']
                                             #      'uncertainty',  # 'bayesian_random',
