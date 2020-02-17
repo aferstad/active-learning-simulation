@@ -24,8 +24,8 @@ keys2 = list(d[keys1[0]].keys())  # assumed to be row variation
 keys3 = list(d[keys1[0]][keys2[0]].keys())  # assumed to be column variation
 keys4 = list(d[keys1[0]][keys2[0]][keys3[0]].keys())  # assumed to be performance metrics
 
-n_rows = len(keys2)
-n_cols = len(keys3)
+n_rows = max(len(keys2), 2)
+n_cols = max(len(keys3), 2)
 methods = keys1
 metric = 'accuracy'  # keys4[0] #consistencies
 max_x = 100
@@ -38,10 +38,16 @@ save_path_name = metric + json_path.split('.')[0] + '.png'
 fig, axs = plt.subplots(n_rows, n_cols)  # sharex=True, sharey=True)
 fig.set_size_inches(30, 20)
 
-for i in range(n_rows):
-    for j in range(n_cols):
+single = True
+b = False
+
+for i in range(n_rows-1):
+    for j in range(n_cols-1):
         grid_element_initialized = False
         for method in methods:
+
+
+
             if not grid_element_initialized:
                 if 'delete' in keys2[0]:
                     n_deleted = int(keys2[i].split('_')[-1])  # get the number of deleted by splitting str

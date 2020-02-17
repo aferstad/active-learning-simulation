@@ -4,7 +4,6 @@ from als import ALS
 import numpy as np
 import alsDataManager
 
-import multiprocessing
 from joblib import Parallel, delayed
 from tqdm import tqdm
 
@@ -37,7 +36,6 @@ class AlsRepeater:
 
         seeds = list(range(n_reps))
         inputs = tqdm(seeds)
-        n_jobs = multiprocessing.cpu_count()
 
         def myfunction(seed):
             input_dict_copy = self.input_dict.copy()

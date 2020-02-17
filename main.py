@@ -3,6 +3,8 @@ from input.ads_import import get_ads_data
 from alsRepeaterLauncher import AlsRepeaterLauncher
 import alsDataManager
 import sys  # to get arguments from terminal
+import multiprocessing
+
 
 
 if __name__ == '__main__':  # to avoid multiprocessor children to begin from start
@@ -20,11 +22,11 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher = AlsRepeaterLauncher()
 
     launcher.input_dict['model_type'] = 'xgboost'
-    launcher.reps = 100
-    launcher.n_jobs = 5 # TODO: decide what to pick here
-    launcher.input_dict['n_points_labeled_keep'] = 10
-    launcher.input_dict['n_points_labeled_delete'] = 30
-
+    launcher.reps = 12  # 10
+    launcher.n_jobs = multiprocessing.cpu_count()  # TODO: decide what to pick here
+    launcher.input_dict['n_points_labeled_keep'] = 400
+    launcher.input_dict['n_points_labeled_delete'] = 300
+    launcher.input_dict['pct_unlabeled_to_label'] = 0.30
 
     # arguments to vary on:
     argument_value_dict = {}
@@ -33,8 +35,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
                                               'similar',
                                               'similar_uncertainty_optimization']
 
-    argument_value_dict['certainty_ratio_threshold'] = [2, 10, 50, 250]
-    argument_value_dict['n_points_labeled_keep'] = [10, 20, 30]
+    argument_value_dict['certainty_ratio_threshold'] = [500]  # [2, 10, 50, 250]
+    argument_value_dict['n_points_labeled_delete'] = [300]  # , 20, 30]
 
     if len(input_arguments) == 1:
         print('ERROR: no save path specified, setting save path to "no_save_path_specified"')
@@ -45,8 +47,10 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     if len(input_arguments) == 3:
         data_str = input_arguments[2]
     else:
-        print('ERROR: no data specified, setting data path to heart')
-        data_str = 'heart'
+        print('ERROR: no data specified, setting data path to ads')
+        #data_str = 'heart'
+        data_str = 'ads'
+
 
     if data_str == 'heart':
         launcher.input_dict['unsplit_data'] = get_heart_data()
@@ -56,7 +60,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
         launcher.input_dict['n_points_labeled_delete'] = 300
         argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
 
-    test = True #False #True #False #False #True
+    test = False #True #False #True #False #False #True
 
 
     if test:
