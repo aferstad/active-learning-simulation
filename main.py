@@ -16,7 +16,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher.n_jobs = multiprocessing.cpu_count()
     launcher.input_dict['model_type'] = 'xgboost'
 
-    launcher.reps = 50
+    launcher.reps = 24
     launcher.input_dict['n_points_labeled_keep'] = 15
     launcher.input_dict['n_points_labeled_delete'] = 30
     launcher.input_dict['pct_unlabeled_to_label'] = 0.30
