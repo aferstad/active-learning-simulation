@@ -5,25 +5,14 @@ import alsDataManager
 import sys  # to get arguments from terminal
 import multiprocessing
 
-
-
 if __name__ == '__main__':  # to avoid multiprocessor children to begin from start
 
-    input_arguments = sys.argv
-
-    launcher = AlsRepeaterLauncher()
-    #launcher.reps = 10
-    if len(input_arguments) == 1:
-        #raise Exception('ERROR: no save path specified')
-        save_path = 'no_save_path_specified'
-    else:
-        save_path = input_arguments[1]
-
     launcher = AlsRepeaterLauncher()
 
+    launcher.n_jobs = multiprocessing.cpu_count()
     launcher.input_dict['model_type'] = 'xgboost'
-    launcher.reps = 12  # 10
-    launcher.n_jobs = multiprocessing.cpu_count()  # TODO: decide what to pick here
+
+    launcher.reps = 12
     launcher.input_dict['n_points_labeled_keep'] = 400
     launcher.input_dict['n_points_labeled_delete'] = 300
     launcher.input_dict['pct_unlabeled_to_label'] = 0.30
@@ -31,18 +20,22 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     # arguments to vary on:
     argument_value_dict = {}
     argument_value_dict['learning_method'] = ['random',
-                                              'uncertainty',  # 'bayesian_random',
+                                              'uncertainty',
                                               'similar',
-                                              'similar_uncertainty_optimization']
+                                              'similar_uncertainty_optimization']  # bayesian_random can be added
 
     argument_value_dict['certainty_ratio_threshold'] = [500]  # [2, 10, 50, 250]
     argument_value_dict['n_points_labeled_delete'] = [300]  # , 20, 30]
 
+    input_arguments = sys.argv
+
     if len(input_arguments) == 1:
-        print('ERROR: no save path specified, setting save path to "no_save_path_specified"')
+        #raise Exception('ERROR: no save path specified')
+        print('WARNING: NO SAVE PATH SPECIFIED. SETTING SAVE PATH TO "no_save_path_specified"')
         save_path = 'no_save_path_specified'
     else:
         save_path = input_arguments[1]
+        print('Save path set to ' + save_path)
 
     if len(input_arguments) == 3:
         data_str = input_arguments[2]
@@ -51,23 +44,21 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
         #data_str = 'heart'
         data_str = 'ads'
 
-
     if data_str == 'heart':
         launcher.input_dict['unsplit_data'] = get_heart_data()
     elif data_str == 'ads':
         launcher.input_dict['unsplit_data'] = get_ads_data(n_components = 1000)
-        launcher.input_dict['pct_unlabeled_to_label'] = 0.30
-        launcher.input_dict['n_points_labeled_delete'] = 300
-        argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
+        # launcher.input_dict['pct_unlabeled_to_label'] = 0.30
+        # launcher.input_dict['n_points_labeled_delete'] = 300
+        # argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
 
-    test = False #True #False #True #False #False #True
-
+    test = False
 
     if test:
         print('RUNNING AS TEST, EDIT TEST = FALSE TO AVOID THIS')
         launcher.reps = 2  # run tests with 2 reps to test that mean() functions are working properly
-        #launcher.input_dict['n_points_labeled_keep'] = 15
 
+        # launcher.input_dict['n_points_labeled_keep'] = 15
         argument_value_dict = {}
         argument_value_dict['learning_method'] = ['random']
                                             #      'uncertainty',  # 'bayesian_random',
@@ -82,5 +73,4 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     results = launcher.run_3_dimensional_varied_reps(argument_value_dict)
 
     json_path = save_path + '.txt'
-
     alsDataManager.save_dict_as_json(results, json_path)
