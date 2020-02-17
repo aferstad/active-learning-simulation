@@ -6,7 +6,7 @@ import json
 
 class AlsRepeaterLauncher:
 
-    def __init__(self, input_dict = None, reps =5):
+    def __init__(self, input_dict = None, reps =5, n_jobs = 5):
         if input_dict is None:
             default_values = ALS.__init__.__defaults__
             argument_names = ALS.__init__.__code__.co_varnames[1:]  # [1:] to remove 'self' as input argument
@@ -22,6 +22,7 @@ class AlsRepeaterLauncher:
 
         self.results = []
         self.reps = reps
+        self.n_jobs = n_jobs
 
     def run_varied_reps(self, argument_str, argument_value_range):
         """
@@ -74,7 +75,7 @@ class AlsRepeaterLauncher:
 
                     # run reps with the two arguments having value i and j
                     alsr = AlsRepeater(input_dict_altered)
-                    alsr.run(n_reps=self.reps)
+                    alsr.run(n_reps=self.reps, n_jobs=self.n_jobs)
 
                     result_key3 = argument_strs[2] + '_' + str(k)
                     results[result_key1][result_key2][result_key3] = alsr.get_mean_results()

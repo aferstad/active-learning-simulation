@@ -4,6 +4,10 @@ from als import ALS
 import numpy as np
 import alsDataManager
 
+import multiprocessing
+from joblib import Parallel, delayed
+from tqdm import tqdm
+
 
 class AlsRepeater:
 
@@ -23,20 +27,41 @@ class AlsRepeater:
 
         self.results = []
 
-    def run(self, n_reps):
+    def run(self, n_reps, n_jobs=4):
         """
         :param n_reps: number of repetitions of als to perform with the exact same parameters (except seed)
+        :param n_jobs: number of cores to use
         :return: nothing, self.results gets new values
         """
         self.results = []
-        for i in range(n_reps):
-            self.input_dict['seed'] = i
-            als = ALS(**self.input_dict)  # ** allows to pass arguments as dict
+
+        seeds = list(range(n_reps))
+        inputs = tqdm(seeds)
+        n_jobs = multiprocessing.cpu_count()
+
+        def myfunction(seed):
+            input_dict_copy = self.input_dict.copy()
+            input_dict_copy['seed'] = seed
+
+            als = ALS(**input_dict_copy)  # ** allows to pass arguments as dict
             als.learningManager.run_experiment()
 
             # result is a dict with keys as metric_strs and values as list of that metric per learning step
             result = als.learningManager.get_performance_results()
-            self.results.append(result)
+            return result.copy()
+
+        #print(__name__)
+        if __name__ == 'alsRepeater':
+            self.results = Parallel(n_jobs=n_jobs)(delayed(myfunction)(i) for i in inputs)
+
+        # for i in range(n_reps):
+        #    self.input_dict['seed'] = i
+        #    als = ALS(**self.input_dict)  # ** allows to pass arguments as dict
+        #    als.learningManager.run_experiment()
+        #
+        #    # result is a dict with keys as metric_strs and values as list of that metric per learning step
+        #    result = als.learningManager.get_performance_results()
+        #    self.results.append(result)
 
 
 

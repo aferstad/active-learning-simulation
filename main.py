@@ -21,6 +21,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
 
     launcher.input_dict['model_type'] = 'xgboost'
     launcher.reps = 100
+    launcher.n_jobs = 5 # TODO: decide what to pick here
     launcher.input_dict['n_points_labeled_keep'] = 10
     launcher.input_dict['n_points_labeled_delete'] = 30
 

@@ -48,8 +48,8 @@ class AlsLearningManager:
         while n_points_added + self.als.n_points_to_add_at_a_time < n_points_to_add:
             pct_complete = round(100.0 * n_points_added / n_points_to_add)
             if pct_complete // 33.34 >= n_third_complete:
-                print('[Current learning_method ' + self.als.learning_method + '] [pct complete: ' +
-                      str(pct_complete) + '%]')
+                #print('[Current learning_method ' + self.als.learning_method + '] [pct complete: ' +
+                #      str(pct_complete) + '%]')
                 n_third_complete += 1
 
             n_points_added += self.als.n_points_to_add_at_a_time
