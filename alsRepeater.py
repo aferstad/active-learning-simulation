@@ -7,7 +7,6 @@ import alsDataManager
 from joblib import Parallel, delayed
 from tqdm import tqdm
 
-
 class AlsRepeater:
 
     def __init__(self, input_dict = None):

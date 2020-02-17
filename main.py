@@ -5,6 +5,10 @@ import alsDataManager
 import sys  # to get arguments from terminal
 import multiprocessing
 
+import matplotlib
+matplotlib.use('Agg')
+
+
 if __name__ == '__main__':  # to avoid multiprocessor children to begin from start
 
     launcher = AlsRepeaterLauncher()

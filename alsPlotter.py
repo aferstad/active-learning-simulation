@@ -32,21 +32,21 @@ max_x = 100
 max_y = 0.85
 min_y = 0.45
 N_DELETED = None
-TITLE_STR = 'Heart Dataset, n_keep = 10, reps = 100, pct_unlabeled_labeled = 0.3 ,' + metric
-save_path_name = metric + json_path.split('.')[0] + '.png'
+TITLE_STR = '? Dataset, n_keep = ?, reps = ?, pct_unlabeled_labeled = ? ,' + metric
+save_path_name = metric + '_plotted_' + json_path.split('.')[0] + '.png'
 
 fig, axs = plt.subplots(n_rows, n_cols)  # sharex=True, sharey=True)
 fig.set_size_inches(30, 20)
 
-single = True
-b = False
+grid_element_initialized = False
+
+# TODO: REMOVE -1 FROM LOOPS IF ERROR IN PLOTS
 
 for i in range(n_rows-1):
     for j in range(n_cols-1):
         grid_element_initialized = False
+
         for method in methods:
-
-
 
             if not grid_element_initialized:
                 if 'delete' in keys2[0]:
@@ -55,7 +55,6 @@ for i in range(n_rows-1):
                     n_deleted = int(keys3[j].split('_')[-1])  # get the number of deleted by splitting str
                 else:
                     n_deleted = N_DELETED # TODO: alter this to be input parameter to plotting function
-
 
                 axs[i, j].set_xlim(0, max_x)
                 axs[i, j].set_ylim(min_y, max_y)
