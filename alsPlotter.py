@@ -5,9 +5,9 @@ import sys  # to get arguments from terminal
 input_arguments = sys.argv
 
 if len(input_arguments) > 1:
-    json_path = input_arguments[1]
-else:
-    json_path = 'non_bayesian_xgboost_keep10_vary_delete_threshold.txt'
+    json_path = 'output/jsons/' + input_arguments[1]
+#else:
+#    json_path = 'non_bayesian_xgboost_keep10_vary_delete_threshold.txt'
 
 
 
@@ -27,13 +27,13 @@ keys4 = list(d[keys1[0]][keys2[0]][keys3[0]].keys())  # assumed to be performanc
 n_rows = max(len(keys2), 2)
 n_cols = max(len(keys3), 2)
 methods = keys1
-metric = 'accuracy'  # keys4[0] #consistencies
+metric = 'consistencies'  # keys4[0] #accuracy
 max_x = 100
 max_y = 0.85
 min_y = 0.45
 N_DELETED = None
 TITLE_STR = '? Dataset, n_keep = ?, reps = ?, pct_unlabeled_labeled = ? ,' + metric
-save_path_name = metric + '_plotted_' + json_path.split('.')[0] + '.png'
+save_path_name = 'output/plots/' + metric + '_plotted_' + json_path.split('.')[0] + '.png'
 
 fig, axs = plt.subplots(n_rows, n_cols)  # sharex=True, sharey=True)
 fig.set_size_inches(30, 20)

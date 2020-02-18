@@ -9,14 +9,18 @@ class AlsLearningManager:
 
     def __init__(self, als):
         self.als = als
+        self.n_als_performed = None
+        self.n_als_to_perform = None
 
     # ACTIVE LEARNING FUNCTIONS
-    def run_experiment(self):
+    def run_experiment(self, n_als_performed, n_als_to_perform):
         """
         Runs experiments with the parameters specified when initializing the als object
         """
         self.als.accuracies = []
         self.als.consistencies = []
+        self.n_als_performed = n_als_performed
+        self.n_als_to_perform = n_als_to_perform
 
         self.als.model_initial = self.als.modelManager.fit_model(with_tuning=True)  # currently only xgboost that tunes
         self.als.accuracies.append(
@@ -47,7 +51,9 @@ class AlsLearningManager:
 
         while n_points_added + self.als.n_points_to_add_at_a_time < n_points_to_add:
             pct_complete = round(100.0 * n_points_added / n_points_to_add)
-            if pct_complete // 33.34 >= n_third_complete:
+            if pct_complete // 25 >= n_third_complete:
+                pct_grid_complete = round(100. * (self.n_als_performed + pct_complete/100) / self.n_als_to_perform)
+                print('### PCT COMPLETE: ' + str(pct_grid_complete) + '% ###')
                 #print('[Current learning_method ' + self.als.learning_method + '] [pct complete: ' +
                 #      str(pct_complete) + '%]')
                 n_third_complete += 1
@@ -63,7 +69,7 @@ class AlsLearningManager:
                 rows_to_add)
 
             # TODO: decide when to tune xgboost
-            if n_points_added == self.als.n_points_labeled_delete or n_points_added + 1 == n_points_to_add:
+            if False:  # n_points_added == self.als.n_points_labeled_delete or n_points_added + 1 == n_points_to_add:
                 self.als.model_current = self.als.modelManager.fit_model(with_tuning=True)
             else:
                 self.als.model_current = self.als.modelManager.fit_model(with_tuning=False)

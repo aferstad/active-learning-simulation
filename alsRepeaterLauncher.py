@@ -59,6 +59,12 @@ class AlsRepeaterLauncher:
 
         results = {} # initiate output 3D dict
 
+        # To print progress percentages later:
+        n_als_to_perform = self.reps
+        for key in argument_value_dict:
+            n_als_to_perform = n_als_to_perform * len(argument_value_dict[key])
+        n_als_performed = 0
+
         for i in argument_value_dict[argument_strs[0]]:  # iterate over argument values of first argument string
             input_dict_altered = self.input_dict.copy()
             input_dict_altered[argument_strs[0]] = i  # alter argument1 to have value i
@@ -75,7 +81,8 @@ class AlsRepeaterLauncher:
 
                     # run reps with the two arguments having value i and j
                     alsr = AlsRepeater(input_dict_altered)
-                    alsr.run(n_reps=self.reps, n_jobs=self.n_jobs)
+                    alsr.run(n_reps=self.reps, n_jobs=self.n_jobs,  n_als_to_perform=n_als_to_perform, n_als_performed=n_als_performed)
+                    n_als_performed = n_als_performed + self.reps
 
                     result_key3 = argument_strs[2] + '_' + str(k)
                     results[result_key1][result_key2][result_key3] = alsr.get_mean_results()

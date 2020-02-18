@@ -5,7 +5,7 @@ import numpy as np
 import alsDataManager
 
 from joblib import Parallel, delayed
-from tqdm import tqdm
+#from tqdm import tqdm
 
 class AlsRepeater:
 
@@ -25,7 +25,7 @@ class AlsRepeater:
 
         self.results = []
 
-    def run(self, n_reps, n_jobs=4):
+    def run(self, n_reps, n_als_to_perform, n_als_performed, n_jobs=4):
         """
         :param n_reps: number of repetitions of als to perform with the exact same parameters (except seed)
         :param n_jobs: number of cores to use
@@ -34,7 +34,8 @@ class AlsRepeater:
         self.results = []
 
         seeds = list(range(n_reps))
-        inputs = tqdm(seeds)
+        inputs = seeds
+        #inputs = tqdm(seeds)
 
         def myfunction(seed):
             input_dict_copy = self.input_dict.copy()
@@ -47,18 +48,18 @@ class AlsRepeater:
             result = als.learningManager.get_performance_results()
             return result.copy()
 
-        #print(__name__)
-        if __name__ == 'alsRepeater':
-            self.results = Parallel(n_jobs=n_jobs)(delayed(myfunction)(i) for i in inputs)
+        # print(__name__)
+        # if __name__ == 'alsRepeater':
+        #    self.results = Parallel(n_jobs=n_jobs)(delayed(myfunction)(i) for i in inputs)
 
-        # for i in range(n_reps):
-        #    self.input_dict['seed'] = i
-        #    als = ALS(**self.input_dict)  # ** allows to pass arguments as dict
-        #    als.learningManager.run_experiment()
-        #
-        #    # result is a dict with keys as metric_strs and values as list of that metric per learning step
-        #    result = als.learningManager.get_performance_results()
-        #    self.results.append(result)
+        for i in range(n_reps):
+            self.input_dict['seed'] = i
+            als = ALS(**self.input_dict)  # ** allows to pass arguments as dict
+            als.learningManager.run_experiment(n_als_performed=n_als_performed, n_als_to_perform=n_als_to_perform)
+            n_als_performed = n_als_performed + 1
+            # result is a dict with keys as metric_strs and values as list of that metric per learning step
+            result = als.learningManager.get_performance_results()
+            self.results.append(result)
 
 
 

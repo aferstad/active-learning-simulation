@@ -5,8 +5,8 @@ import alsDataManager
 import sys  # to get arguments from terminal
 import multiprocessing
 
-import matplotlib
-matplotlib.use('Agg')
+# import matplotlib
+# matplotlib.use('Agg')
 
 
 if __name__ == '__main__':  # to avoid multiprocessor children to begin from start
@@ -14,12 +14,12 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher = AlsRepeaterLauncher()
 
     launcher.n_jobs = multiprocessing.cpu_count()
-    launcher.input_dict['model_type'] = 'xgboost'
+    #launcher.input_dict['model_type'] = 'xgboost'
 
-    launcher.reps = 24
-    launcher.input_dict['n_points_labeled_keep'] = 15
-    launcher.input_dict['n_points_labeled_delete'] = 30
-    launcher.input_dict['pct_unlabeled_to_label'] = 0.30
+    launcher.reps = 10
+    launcher.input_dict['n_points_labeled_keep'] = 400
+    launcher.input_dict['n_points_labeled_delete'] = 300
+    launcher.input_dict['pct_unlabeled_to_label'] = 0.25
 
     # arguments to vary on:
     argument_value_dict = {}
@@ -28,24 +28,25 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
                                               'similar',
                                               'similar_uncertainty_optimization']  # bayesian_random can be added
 
-    argument_value_dict['certainty_ratio_threshold'] = [10]  # [2, 10, 50, 250]
-    argument_value_dict['n_points_labeled_delete'] = [30]  # , 20, 30]
+    argument_value_dict['certainty_ratio_threshold'] = [50]  # [2, 10, 50, 250]
+    argument_value_dict['n_points_labeled_delete'] = [300]  # , 20, 30]
 
     input_arguments = sys.argv
 
     if len(input_arguments) == 1:
         #raise Exception('ERROR: no save path specified')
         print('WARNING: NO SAVE PATH SPECIFIED. SETTING SAVE PATH TO "no_save_path_specified"')
-        save_path = 'no_save_path_specified'
+        save_path = 'output/jsons/no_save_path_specified'
     else:
-        save_path = input_arguments[1]
+        save_path = 'output/jsons/' + input_arguments[1]
         print('Save path set to ' + save_path)
 
     if len(input_arguments) == 3:
         data_str = input_arguments[2]
     else:
-        data_str = 'heart'
-        print('ERROR: no data specified, setting data path to' + data_str)
+        #data_str = 'heart'
+        data_str = 'ads'
+        print('ERROR: no data specified, setting data path to ' + data_str)
         #data_str = 'heart'
         #data_str = 'ads'
 
@@ -57,7 +58,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
         # launcher.input_dict['n_points_labeled_delete'] = 300
         # argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
 
-    test = False
+    test = True
 
     if test:
         print('RUNNING AS TEST, EDIT TEST = FALSE TO AVOID THIS')
@@ -65,8 +66,8 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
 
         # launcher.input_dict['n_points_labeled_keep'] = 15
         argument_value_dict = {}
-        argument_value_dict['learning_method'] = ['random']
-                                            #      'uncertainty',  # 'bayesian_random',
+        argument_value_dict['learning_method'] = ['random',
+                                                  'uncertainty']  # 'bayesian_random',
                                             #      'similar',
                                              #     'similar_uncertainty_optimization']
 
