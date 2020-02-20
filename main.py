@@ -14,7 +14,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     launcher = AlsRepeaterLauncher()
 
     launcher.n_jobs = multiprocessing.cpu_count()
-    #launcher.input_dict['model_type'] = 'xgboost'
+    launcher.input_dict['model_type'] = 'xgboost'
 
     launcher.reps = 10
     launcher.input_dict['n_points_labeled_keep'] = 400
@@ -58,7 +58,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
         # launcher.input_dict['n_points_labeled_delete'] = 300
         # argument_value_dict['n_points_labeled_keep'] = [400, 500, 600, 700]
 
-    test = True
+    test = False# True
 
     if test:
         print('RUNNING AS TEST, EDIT TEST = FALSE TO AVOID THIS')
