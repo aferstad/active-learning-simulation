@@ -70,9 +70,6 @@ class ALS:
         self.similar_learning_method_closest_unlabeled_rows = pd.DataFrame()
 
 
-
-
-
         # Prepare Data
         self.dataManager.set_partitions()
         self.dataManager.transform_data(use_pca, scale)

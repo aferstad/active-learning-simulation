@@ -28,12 +28,12 @@ n_rows = max(len(keys2), 2)
 n_cols = max(len(keys3), 2)
 methods = keys1
 metric = 'consistencies'  # keys4[0] #accuracy
-max_x = 100
-max_y = 0.85
-min_y = 0.45
+max_x = 625
+max_y = 0.92
+min_y = 0.88
 N_DELETED = None
 TITLE_STR = '? Dataset, n_keep = ?, reps = ?, pct_unlabeled_labeled = ? ,' + metric
-save_path_name = 'output/plots/' + metric + '_plotted_' + json_path.split('.')[0] + '.png'
+save_path_name = 'output/plots/' + metric + '_plotted_' + input_arguments[1].split('.')[0] + '.png'
 
 fig, axs = plt.subplots(n_rows, n_cols)  # sharex=True, sharey=True)
 fig.set_size_inches(30, 20)

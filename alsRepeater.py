@@ -6,10 +6,12 @@ import alsDataManager
 
 from joblib import Parallel, delayed
 #from tqdm import tqdm
+from datetime import datetime
+
 
 class AlsRepeater:
 
-    def __init__(self, input_dict = None):
+    def __init__(self, input_dict = None, id = None):
         if input_dict is None:
             default_values = ALS.__init__.__defaults__
             argument_names = ALS.__init__.__code__.co_varnames[1:]  # [1:] to remove 'self' as input argument
@@ -24,6 +26,7 @@ class AlsRepeater:
             self.input_dict = input_dict
 
         self.results = []
+        self.id = id
 
     def run(self, n_reps, n_als_to_perform, n_als_performed, n_jobs=4):
         """
@@ -60,7 +63,19 @@ class AlsRepeater:
             # result is a dict with keys as metric_strs and values as list of that metric per learning step
             result = als.learningManager.get_performance_results()
             self.results.append(result)
+            self.save_temp_results()
 
+    def save_temp_results(self):
+        temp_dict = {}
+        temp_dict['results'] = self.results.copy()
+        temp_dict['input_dict'] = self.input_dict.copy()
+
+        now = datetime.now()
+        path = 'output/jsons/temp/alsRepeater_id' + str(self.id) + '_' + now.strftime("%Y-%m-%d-%H%M-%s") + '.txt'
+        #print(path)
+        #print(self.results)
+
+        alsDataManager.save_dict_as_json(self.results, path)
 
 
     def get_mean_results(self):
