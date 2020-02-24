@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d76efbf8-4766-41c4-b072-f26d9e2d3be7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainManager.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled-checkpoint.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled1-checkpoint.ipynb" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_xgboost_ads_single.png" afterPath="$PROJECT_DIR$/output/plots/consistencies_plotted_xgboost_ads_single.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/als.py" afterPath="$PROJECT_DIR$/als.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alsPlotter.py" afterPath="$PROJECT_DIR$/alsPlotter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alsRepeater.py" afterPath="$PROJECT_DIR$/alsRepeater.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alsRepeaterLauncher.py" afterPath="$PROJECT_DIR$/alsRepeaterLauncher.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,132 +26,102 @@
     <SUITE FILE_PATH="coverage/privacy_active_learning$Unittests_for_test_als_TestInit_test_set_partitions.coverage" NAME="Unittests for test_als.TestInit.test_set_partitions Coverage Results" MODIFIED="1580234497489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.47741365">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="alsModelManager.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/alsModelManager.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="188">
-                  <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
-                  <folding>
-                    <element signature="e#0#19#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="27" column="3" lean-forward="false" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
-                  <folding>
-                    <element signature="e#0#45#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ads_import.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/input/ads_import.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
-                  <caret line="19" column="54" lean-forward="false" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="alsPlotter.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/alsPlotter.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="75">
-                  <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="alsRepeaterLauncher.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/alsRepeaterLauncher.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1755">
-                  <caret line="117" column="53" lean-forward="false" selection-start-line="117" selection-start-column="53" selection-end-line="117" selection-end-column="53" />
-                  <folding>
-                    <element signature="e#23#58#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="als.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/als.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="716">
-                  <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#55#96#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="alsDataManager.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/alsDataManager.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="27" column="22" lean-forward="false" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="47" />
-                  <folding>
-                    <element signature="e#0#19#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="alsLearningManager.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1080">
-                  <caret line="76" column="39" lean-forward="false" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
-                  <folding>
-                    <element signature="e#0#22#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="alsRepeater.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/alsRepeater.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="665">
-                  <caret line="74" column="9" lean-forward="false" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
-                  <folding>
-                    <element signature="e#87#106#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="mainManager.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/mainManager.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-                  <folding>
-                    <element signature="e#0#21#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="alsModelManager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alsModelManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="27" column="3" lean-forward="false" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ads_import.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/input/ads_import.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="19" column="54" lean-forward="false" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="alsPlotter.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/alsPlotter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="52" lean-forward="true" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="alsRepeaterLauncher.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alsRepeaterLauncher.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1680">
+              <caret line="117" column="53" lean-forward="false" selection-start-line="117" selection-start-column="53" selection-end-line="117" selection-end-column="53" />
+              <folding>
+                <element signature="e#23#58#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="als.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/als.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="463">
+              <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+              <folding>
+                <element signature="e#55#96#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="alsDataManager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alsDataManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="27" column="22" lean-forward="false" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="47" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="alsLearningManager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1080">
+              <caret line="76" column="39" lean-forward="false" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -226,13 +194,13 @@
         <option value="$PROJECT_DIR$/xgBoostModel.py" />
         <option value="$PROJECT_DIR$/alsModelManager.py" />
         <option value="$PROJECT_DIR$/models/bayesianLogisticRegression.py" />
-        <option value="$PROJECT_DIR$/alsPlotter.py" />
         <option value="$PROJECT_DIR$/alsLearningManager.py" />
         <option value="$PROJECT_DIR$/mainManager.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/alsRepeaterLauncher.py" />
         <option value="$PROJECT_DIR$/alsRepeater.py" />
         <option value="$PROJECT_DIR$/als.py" />
+        <option value="$PROJECT_DIR$/alsPlotter.py" />
       </list>
     </option>
   </component>
@@ -242,11 +210,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="y" value="24" />
-    <option name="width" value="2560" />
-    <option name="height" value="1417" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="924" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -263,6 +230,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -284,8 +253,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -452,20 +419,20 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="24" width="2560" height="1417" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11796875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31078067" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936803" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936803" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31078067" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.099378884" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.04535316" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.04535316" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -637,9 +604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1649">
           <caret line="110" column="8" lean-forward="false" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="8" />
-          <folding>
-            <element signature="e#27#45#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -673,7 +637,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/alsModelManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
+        <state relative-caret-position="300">
           <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -681,27 +645,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alsPlotter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/mainManager.py" />
     <entry file="file://$PROJECT_DIR$/alsRepeaterLauncher.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1755">
+        <state relative-caret-position="1680">
           <caret line="117" column="53" lean-forward="false" selection-start-line="117" selection-start-column="53" selection-end-line="117" selection-end-column="53" />
           <folding>
             <element signature="e#23#58#0" expanded="true" />
@@ -711,17 +658,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/alsRepeater.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
+        <state relative-caret-position="463">
           <caret line="74" column="9" lean-forward="false" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
           <folding>
-            <element signature="e#87#106#0" expanded="true" />
+            <element signature="e#87#106#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
+        <state relative-caret-position="330">
           <caret line="27" column="3" lean-forward="false" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
@@ -731,7 +678,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/alsDataManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
+        <state relative-caret-position="300">
           <caret line="27" column="22" lean-forward="false" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="47" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -741,10 +688,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/als.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
-          <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+        <state relative-caret-position="463">
+          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
             <element signature="e#55#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsPlotter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="52" lean-forward="true" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
