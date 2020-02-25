@@ -1,5 +1,3 @@
-from input.heart_import import get_heart_data
-from input.ads_import import get_ads_data
 from alsRepeaterLauncher import AlsRepeaterLauncher
 import alsDataManager
 import sys  # to get arguments from terminal
