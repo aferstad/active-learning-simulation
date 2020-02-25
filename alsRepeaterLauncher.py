@@ -4,9 +4,9 @@ from alsRepeater import AlsRepeater
 from als import ALS
 import json
 
-from input.heart_import import get_heart_data
-from input.ads_import import get_ads_data
-from input.voice_import import get_voice_data
+from input.heart.heart_import import get_heart_data
+from input.ads.ads_import import get_ads_data
+from input.voice.voice_import import get_voice_data
 
 
 def initialize_record():
