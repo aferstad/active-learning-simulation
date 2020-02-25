@@ -77,9 +77,19 @@ class AlsModelManager:
         :return: certainty per row
         """
         X, y = alsDataManager.get_X_y(rows)
-        proba_class_1 = self.als.model_current.predict_proba(X)[:, 1]
-        class_certainty = np.abs(proba_class_1 - 0.5)[0] / 0.5  # NOTE: assumes only one element in rows
-        return class_certainty
+        probas = self.als.model_current.predict_proba(X)
+
+        class_certainty = probas.max(1)  # max(1) gives max of each row
+
+        #if probas.shape[1] == 2:
+        #    proba_class_1 = probas[:, 1]
+        #elif probas.shape[1] > 2:
+        #    max_probas = probas.max(1)  # max(1) gives max of each row
+        #
+        #    min_max_proba_index = max_probas.argmin()  # gives index of min element
+        #    return rows.iloc[min_max_proba_index, :]
+        #class_certainty = np.abs(proba_class_1 - 0.5)[0] / 0.5  # NOTE: assumes only one element in rows
+        return class_certainty[0]  # assume only one input row, make list to allow for json saving later
 
     def get_certainties(self):
         """

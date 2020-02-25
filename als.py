@@ -99,7 +99,7 @@ class ALS:
 
         labeled_data = self.dataManager.get_labeled_data()
 
-        if len(labeled_data.iloc[:, 0].unique()) != 2:
+        if len(labeled_data.iloc[:, 0].unique()) == 1:
             print('Error: initial labeled data only contains one class')
             return False
 

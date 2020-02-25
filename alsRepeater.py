@@ -63,9 +63,11 @@ class AlsRepeater:
             # result is a dict with keys as metric_strs and values as list of that metric per learning step
             result = als.learningManager.get_performance_results()
             self.results.append(result)
+            #if n_reps > 1:  #
             self.save_temp_results()
 
     def save_temp_results(self):
+        print(self.results)
         temp_dict = {}
         temp_dict['results'] = self.results.copy()
         temp_dict['input_dict'] = self.input_dict.copy()

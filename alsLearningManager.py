@@ -193,18 +193,46 @@ class AlsLearningManager:
         :return: the n_points_to_add_at_a_time number of most uncertain rows
         """
 
+        #print('rows:')
+        #print(rows)
+
         X, y = alsDataManager.get_X_y(rows)
 
-        proba_class_1 = self.als.model_current.predict_proba(X)[:, 1]
+        probas = self.als.model_current.predict_proba(X)
 
-        # gives the length from probability 0.5, more length means more certainty
-        X['class_certainty'] = np.abs(proba_class_1 - 0.5)
+        class_certainty = probas.max(1)  # max(1) gives max of each row
+        min_class_certainty_index = class_certainty.argmin()  # gives index of min element
+        most_uncertain_row = rows.iloc[min_class_certainty_index,:]
+        """
+                if probas.shape[1] == 2:
+                    proba_class_1 = probas[:, 1]
 
-        most_uncertain_rows_indexes = X.class_certainty.sort_values(
-        ).index[:self.als.n_points_to_add_at_a_time]
+                    # gives the length from probability 0.5, more length means more certainty
+                    X['class_certainty'] = np.abs(proba_class_1 - 0.5)
 
-        most_uncertain_rows = rows.loc[most_uncertain_rows_indexes, :]
-        return most_uncertain_rows
+                    most_uncertain_rows_indexes = X.class_certainty.sort_values(
+                    ).index[:self.als.n_points_to_add_at_a_time]
+
+                    most_uncertain_rows = rows.loc[most_uncertain_rows_indexes, :]  # TODO: check if I should change loc here to iloc?
+                    return most_uncertain_rows
+                elif probas.shape[1] > 2:
+                    if self.als.n_points_to_add_at_a_time > 1:
+                        print('ERROR n_points_to_add_at_a_time must be 1 when multiclass problem')
+                    max_probas = probas.max(1)  # max(1) gives max of each row
+
+
+
+
+                    min_max_proba_index = max_probas.argmin()  # gives index of min element
+                    return rows.iloc[min_max_proba_index, :]
+        """
+       #print('most_uncertain_row')
+        #print(pd.DataFrame(most_uncertain_row).transpose())
+        return pd.DataFrame(most_uncertain_row).transpose()  # convert series row to dataframe to allow for input in model later
+
+
+
+
 
     def get_performance_results(self):
         """

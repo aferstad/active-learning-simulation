@@ -6,6 +6,7 @@ import json
 
 from input.heart_import import get_heart_data
 from input.ads_import import get_ads_data
+from input.voice_import import get_voice_data
 
 
 def initialize_record():
@@ -53,9 +54,10 @@ class AlsRepeaterLauncher:
                 self.record['input_dict']['unsplit_data'] = get_heart_data()
             elif data_str == 'ads':
                 self.record['input_dict']['unsplit_data'] = get_ads_data(n_components=1000)
+            elif data_str == 'voice':
+                self.record['input_dict']['unsplit_data'] = get_voice_data()
             else:
                 print('ERROR data_str NOT VALID')
-
         else:
             print('RECORD NOT VALID')
 

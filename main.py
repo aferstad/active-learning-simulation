@@ -14,6 +14,7 @@ if __name__ == '__main__':  # to avoid multiprocessor children to begin from sta
     input_arguments = sys.argv
 
     params = alsDataManager.open_dict_from_json(input_arguments[1])
+    print(params)
     launcher = AlsRepeaterLauncher(params)
 
     results = launcher.run_3_dimensional_varied_reps()
