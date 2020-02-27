@@ -13,6 +13,9 @@ if len(input_arguments) > 1:
 d = alsDataManager.open_dict_from_json(json_path)
 d = d['results']  # NOTE: remove this line if json is in old format
 
+for key in d:
+    del d[key]['certainty_ratio_threshold_100']
+
 """
 @param d : dictionary of experiment result data
     first key: learning_method
@@ -29,14 +32,14 @@ n_cols = len(keys3)
 print(n_rows)
 print(n_cols)
 methods = keys1
-#metric = 'consistencies'  # keys4[0] #accuracy
-max_x = 2000
+max_x = 300
 N_DELETED = None
+rolling_window_size = 1
 
 metrics = ['accuracy', 'consistencies']
 y_range_dict = {
-    'accuracy' : [0.5, 1],
-    'consistencies' : [0.5, 1]
+    'accuracy' : [0.6, 0.9],
+    'consistencies' : [0.65, 0.85]
 }
 
 for metric in metrics:
@@ -44,13 +47,11 @@ for metric in metrics:
     min_y = y_range_dict[metric][0]
     max_y = y_range_dict[metric][1]
 
-    TITLE_STR = '? Dataset, n_keep = ?, reps = ?, pct_unlabeled_labeled = ? ,' + metric
+    TITLE_STR = 'Voice data, n_keep: 100, reps: 5 or 10, pct_unlabeled_labeled: 0.1, ' + metric
     save_path_name = 'output/plots/' + metric + '_plotted_' + input_arguments[1].split('.')[0] + '.png'
 
     fig, axs = plt.subplots(n_rows, n_cols)  # sharex=True, sharey=True)
-    fig.set_size_inches(30, 20)
-
-    grid_element_initialized = False
+    fig.set_size_inches(20, 40)
 
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
     color_dict = dict(zip(methods, colors[:len(methods)]))
@@ -58,8 +59,12 @@ for metric in metrics:
     for i in range(n_rows):
         for j in range(n_cols):
             grid_element_initialized = False
-            if n_rows > 1 or n_cols > 1:
+            if n_rows > 1 and n_cols > 1:
                 current_ax = axs[i, j]
+            elif n_rows > 1:
+                current_ax = axs[i]
+            elif n_cols > 1:
+                current_ax = axs[j]
             else:
                 current_ax = axs
 
@@ -91,7 +96,7 @@ for metric in metrics:
                     grid_element_initialized = True
 
                 s = pd.Series(d[method][keys2[i]][keys3[j]][metric])
-                s = s.rolling(10).mean()
+                s = s.rolling(rolling_window_size).mean()
 
                 current_ax.plot(d[method][keys2[i]][keys3[j]][metric],
                                 label='_'.join(method.split('_')[2:]),
@@ -107,13 +112,20 @@ for metric in metrics:
             current_ax.set_title(title)
 
 
-    if n_cols > 1 or n_rows > 1:
+    if n_cols > 1 and n_rows > 1:
         # iterates over all subplots:
         for ax in axs.flat:
             ax.set(xlabel='n points added', ylabel=metric)
             # ax.grid()
         # ax.label_outer()  # hides x labels and tick labels for top plots and y ticks for right plots.
         handles, labels = axs[0, 0].get_legend_handles_labels()
+    if n_cols > 1 or n_rows > 1:
+        # iterates over all subplots:
+        for ax in axs.flat:
+            ax.set(xlabel='n points added', ylabel=metric)
+            # ax.grid()
+        # ax.label_outer()  # hides x labels and tick labels for top plots and y ticks for right plots.
+        handles, labels = axs[0].get_legend_handles_labels()
     else:
         axs.set(xlabel='n points added', ylabel=metric)
         handles, labels = axs.get_legend_handles_labels()
@@ -122,7 +134,7 @@ for metric in metrics:
     by_label = dict(zip(labels, handles))
     fig.legend(by_label.values(), by_label.keys(), loc='center right')
 
-    fig.suptitle(TITLE_STR, fontsize=40)
+    fig.suptitle(TITLE_STR, fontsize=24)
 
     # fig.legend()
     fig.savefig(save_path_name, dpi=200)
