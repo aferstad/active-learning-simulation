@@ -67,7 +67,7 @@ class AlsRepeater:
             self.save_temp_results()
 
     def save_temp_results(self):
-        print(self.results)
+        #print(self.results)
         temp_dict = {}
         temp_dict['results'] = self.results.copy()
         temp_dict['input_dict'] = self.input_dict.copy()
