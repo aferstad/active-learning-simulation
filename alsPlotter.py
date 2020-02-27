@@ -30,14 +30,12 @@ print(n_rows)
 print(n_cols)
 methods = keys1
 #metric = 'consistencies'  # keys4[0] #accuracy
-max_x = 625
-max_y = 0.92
-min_y = 0.88
+max_x = 2000
 N_DELETED = None
 
 metrics = ['accuracy', 'consistencies']
 y_range_dict = {
-    'accuracy' : [0.3, 0.9],
+    'accuracy' : [0.5, 1],
     'consistencies' : [0.5, 1]
 }
 
