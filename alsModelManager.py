@@ -82,7 +82,7 @@ class AlsModelManager:
         probas = self.als.model_current.predict_proba(X)
 
         if entropy_based:
-            entropy_of_each_point = entropy(probas, axis = 1)
+            entropy_of_each_point = entropy(probas, axis = 1, base=2)
             return -1 * entropy_of_each_point[0]  # multiply by -1 because higher entropy means less certainty
         else:
             class_certainty = probas.max(1)  # max(1) gives max of each row

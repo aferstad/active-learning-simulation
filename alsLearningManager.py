@@ -203,7 +203,7 @@ class AlsLearningManager:
 
         if entropy_based:
             # the point with the maximum entropy is the least certain
-            entropy_of_each_point = entropy(probas, axis = 1)
+            entropy_of_each_point = entropy(probas, axis = 1, base = 2)  # base 2 makes it so if p = (0.5, 0.5) then entropy is 1
             min_class_certainty_index = entropy_of_each_point.argmax()
         else:
             class_certainty = probas.max(1)  # max(1) gives max of each row
