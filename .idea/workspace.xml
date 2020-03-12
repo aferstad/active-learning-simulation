@@ -2,9 +2,78 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d76efbf8-4766-41c4-b072-f26d9e2d3be7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Untitled.ipynb" afterPath="$PROJECT_DIR$/Untitled.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alsLearningManager.py" afterPath="$PROJECT_DIR$/alsLearningManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alsModelManager.py" afterPath="$PROJECT_DIR$/alsModelManager.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Untitled.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ads_xgboost_many_ts" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ads_xgboost_t100" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ads_xgboost_t1000" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ads_xgboost_t50" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ads_xgboost_t500" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dorothea_cleaner.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/ads_xgboost_many_ts.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/ads_xgboost_many_ts_merged.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/ads_xgboost_t100.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/ads_xgboost_t1000.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/ads_xgboost_t50.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/ads_xgboost_t500.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/ads_xgboost_ts.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/multi_test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/multi_test_xgboost.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/non_bayesian_keep_threshold_ads_10_rep.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/non_bayesian_thresholding.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/non_bayesian_thresholding_100reps.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/non_bayesian_xgboost_keep10_vary_delete_threshold.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/results.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_config.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_config_only_random.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_config_only_similar.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_config_only_uncertainty.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_config_similar_thresholding.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_lr_merged.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_lr_merged_fixed.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_t2.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_t25.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_t5.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/voice_t50.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/xgboost_ads_single.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/xgboost_heart_24reps_single_element_keep15_delete30.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/xgboost_single_grid.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/xgboost_tuning_test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/jsons/xgboost_tuning_test2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_config_only_random.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_config_only_similar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_config_only_uncertainty.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_config_similar_thresholding.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_lr_merged.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_lr_merged_fixed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_t2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_t25.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_t5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/accuracy_plotted_voice_t50.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_config_only_random.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_config_only_similar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_config_only_uncertainty.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_config_similar_thresholding.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_lr_merged.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_lr_merged_fixed.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_t2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_t25.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_t5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/plots/consistencies_plotted_voice_t50.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/voice_config.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/voice_config_similar_thresholding.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/voice_t2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/voice_t25.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/voice_t5.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/voice_t50.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/xgboost_voice_general.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/xgboost_voice_t2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/xgboost_voice_t25.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/xgboost_voice_t5.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/xgboost_voice_t50.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voice_config_only_random.txt" afterPath="$PROJECT_DIR$/voice_config_only_random.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voice_config_only_similar.txt" afterPath="$PROJECT_DIR$/voice_config_only_similar.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/voice_config_only_uncertainty.txt" afterPath="$PROJECT_DIR$/voice_config_only_uncertainty.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,11 +96,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.48180678">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="alsRepeater.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="alsRepeater.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/alsRepeater.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1080">
-                  <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+                <state relative-caret-position="297">
+                  <caret line="66" column="34" lean-forward="false" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="34" />
                   <folding />
                 </state>
               </provider>
@@ -83,21 +152,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="alsDataManager.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="alsDataManager.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/alsDataManager.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-93">
-                  <caret line="114" column="35" lean-forward="true" selection-start-line="114" selection-start-column="35" selection-end-line="114" selection-end-column="35" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="voice_config.txt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/voice_config.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state relative-caret-position="903">
+                  <caret line="114" column="35" lean-forward="false" selection-start-line="114" selection-start-column="35" selection-end-line="114" selection-end-column="35" />
                   <folding />
                 </state>
               </provider>
@@ -107,7 +166,7 @@
             <entry file="file://$PROJECT_DIR$/als.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="135">
-                  <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+                  <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
                   <folding>
                     <element signature="e#55#96#0" expanded="true" />
                   </folding>
@@ -133,7 +192,7 @@
             <entry file="file://$PROJECT_DIR$/alsModelManager.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="415">
-                  <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+                  <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                   </folding>
@@ -145,7 +204,7 @@
             <entry file="file://$PROJECT_DIR$/input/voice/voice_import.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="345">
-                  <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+                  <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
                   <folding>
                     <element signature="e#50#69#0" expanded="true" />
                   </folding>
@@ -165,14 +224,24 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="alsLearningManager.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="alsLearningManager.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="165">
-                  <caret line="192" column="54" lean-forward="true" selection-start-line="192" selection-start-column="54" selection-end-line="192" selection-end-column="54" />
+                  <caret line="192" column="54" lean-forward="false" selection-start-line="192" selection-start-column="54" selection-end-line="192" selection-end-column="54" />
                   <folding>
                     <element signature="e#0#22#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="voice_config_only_thresholding.txt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/voice_config_only_thresholding.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="15">
+                  <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -553,7 +622,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bayesian_single_kdpair_reps.py" />
     <entry file="file://$PROJECT_DIR$/als_repeater.py" />
     <entry file="file://$PROJECT_DIR$/run_keep_delete_variations.py" />
     <entry file="file://$PROJECT_DIR$/bayesianLogisticRegression.py" />
@@ -663,14 +731,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alsRepeater.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/alsRepeaterLauncher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -728,25 +788,17 @@
     <entry file="file://$PROJECT_DIR$/input/voice/voice_import.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
             <element signature="e#50#69#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alsDataManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-93">
-          <caret line="114" column="35" lean-forward="true" selection-start-line="114" selection-start-column="35" selection-end-line="114" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/alsModelManager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="415">
-          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
@@ -756,10 +808,34 @@
     <entry file="file://$PROJECT_DIR$/alsLearningManager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="192" column="54" lean-forward="true" selection-start-line="192" selection-start-column="54" selection-end-line="192" selection-end-column="54" />
+          <caret line="192" column="54" lean-forward="false" selection-start-line="192" selection-start-column="54" selection-end-line="192" selection-end-column="54" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/voice_config_only_thresholding.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsDataManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="903">
+          <caret line="114" column="35" lean-forward="false" selection-start-line="114" selection-start-column="35" selection-end-line="114" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alsRepeater.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="66" column="34" lean-forward="false" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
