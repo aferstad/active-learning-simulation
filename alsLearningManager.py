@@ -3,6 +3,7 @@ import alsDataManager
 
 import numpy as np
 import pandas as pd
+from scipy.stats import entropy
 
 
 class AlsLearningManager:
@@ -187,7 +188,7 @@ class AlsLearningManager:
         self.als.similar_learning_method_initiated = True
         self.als.similar_learning_method_closest_unlabeled_rows = closest_rows
 
-    def get_most_uncertain_rows(self, rows):
+    def get_most_uncertain_rows(self, rows, entropy_based = True):
         """
         :param rows: get most uncertain rows from rows
         :return: the n_points_to_add_at_a_time number of most uncertain rows
@@ -200,8 +201,14 @@ class AlsLearningManager:
 
         probas = self.als.model_current.predict_proba(X)
 
-        class_certainty = probas.max(1)  # max(1) gives max of each row
-        min_class_certainty_index = class_certainty.argmin()  # gives index of min element
+        if entropy_based:
+            # the point with the maximum entropy is the least certain
+            entropy_of_each_point = entropy(probas, axis = 1)
+            min_class_certainty_index = entropy_of_each_point.argmax()
+        else:
+            class_certainty = probas.max(1)  # max(1) gives max of each row
+            min_class_certainty_index = class_certainty.argmin()  # gives index of min element
+
         most_uncertain_row = rows.iloc[min_class_certainty_index,:]
         """
                 if probas.shape[1] == 2:
