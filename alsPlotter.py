@@ -13,8 +13,8 @@ if len(input_arguments) > 1:
 d = alsDataManager.open_dict_from_json(json_path)
 d = d['results']  # NOTE: remove this line if json is in old format
 
-for key in d:
-    del d[key]['certainty_ratio_threshold_100']
+#for key in d:
+#    del d[key]['certainty_ratio_threshold_100']
 
 """
 @param d : dictionary of experiment result data
@@ -38,7 +38,7 @@ rolling_window_size = 1
 
 metrics = ['accuracy', 'consistencies']
 y_range_dict = {
-    'accuracy' : [0.6, 0.9],
+    'accuracy' : [0.4, 0.8],
     'consistencies' : [0.65, 0.85]
 }
 
@@ -51,7 +51,7 @@ for metric in metrics:
     save_path_name = 'output/plots/' + metric + '_plotted_' + input_arguments[1].split('.')[0] + '.png'
 
     fig, axs = plt.subplots(n_rows, n_cols)  # sharex=True, sharey=True)
-    fig.set_size_inches(20, 40)
+    fig.set_size_inches(20, 20)
 
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
     color_dict = dict(zip(methods, colors[:len(methods)]))
