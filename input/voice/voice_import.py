@@ -25,10 +25,10 @@ def get_voice_data(n_components = 300):
     X = data.iloc[:,1:]
     y = data.iloc[:,0]
 
-    X = scaler.fit(X)
+    scaler.fit(X)
     X = scaler.transform(X)
 
-    X = pca.fit(X)
+    pca.fit(X)
     X = pca.transform(X)
 
     pct_variance_kept = sum(pca.explained_variance_ratio_[:n_components])
