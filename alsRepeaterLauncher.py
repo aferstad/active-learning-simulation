@@ -52,10 +52,13 @@ class AlsRepeaterLauncher:
 
             if data_str == 'heart':
                 self.record['input_dict']['unsplit_data'] = get_heart_data()
+                self.record['input_dict']['n_classes'] = 2  # n classes used to calculate entropy correctly
             elif data_str == 'ads':
                 self.record['input_dict']['unsplit_data'] = get_ads_data(n_components=1000)
+                self.record['input_dict']['n_classes'] = 2
             elif data_str == 'voice':
                 self.record['input_dict']['unsplit_data'] = get_voice_data()
+                self.record['input_dict']['n_classes'] = 26
             else:
                 print('ERROR data_str NOT VALID')
         else:

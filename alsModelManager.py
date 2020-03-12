@@ -76,28 +76,11 @@ class AlsModelManager:
     def get_point_certainty(self, rows, entropy_based = True):
         """
         :param rows: current_model predicts P(Y=1) for each row in rows
-        :return: certainty per row
+        :return: certainty for row
         """
-        X, y = alsDataManager.get_X_y(rows)
-        probas = self.als.model_current.predict_proba(X)
 
-        if entropy_based:
-            entropy_of_each_point = entropy(probas, axis = 1, base=2)
-            return -1 * entropy_of_each_point[0]  # multiply by -1 because higher entropy means less certainty
-        else:
-            class_certainty = probas.max(1)  # max(1) gives max of each row
-            return class_certainty[0]  # assume only one input row, make list to allow for json saving later
-
-
-        # if probas.shape[1] == 2:
-        #    proba_class_1 = probas[:, 1]
-        # elif probas.shape[1] > 2:
-        #    max_probas = probas.max(1)  # max(1) gives max of each row
-        #
-        #    min_max_proba_index = max_probas.argmin()  # gives index of min element
-        #    return rows.iloc[min_max_proba_index, :]
-        # class_certainty = np.abs(proba_class_1 - 0.5)[0] / 0.5  # NOTE: assumes only one element in rows
-        # return class_certainty[0]  # assume only one input row, make list to allow for json saving later
+        uncertainty = self.als.learningManager.get_most_uncertain_rows(rows=rows, entropy_based = entropy_based, return_uncertainty = True)
+        return 1-uncertainty
 
     def get_certainties(self):
         """
