@@ -39,7 +39,7 @@ rolling_window_size = 1
 metrics = ['accuracy', 'consistencies']
 y_range_dict = {
     'accuracy' : [0.4, 0.8],
-    'consistencies' : [0.65, 0.85]
+    'consistencies' : [0.4, 0.7]
 }
 
 for metric in metrics:
