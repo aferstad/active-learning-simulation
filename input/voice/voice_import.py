@@ -23,7 +23,7 @@ def get_voice_data(n_components = 300):
     pca = PCA(n_components=n_components)
 
     X = data.iloc[:,1:]
-    y = data.iloc[:,0]
+    y = data.iloc[:,0] - 1  # minus one to make labels go from 0 to 25
 
     scaler.fit(X)
     X = scaler.transform(X)

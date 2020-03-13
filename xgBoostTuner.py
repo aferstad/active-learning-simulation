@@ -8,7 +8,7 @@ if __name__ == '__main__':
 
     def cv_grid(param_space, model, X, y, cv_folds = 5):
         try:
-            grid_search = GridSearchCV(estimator=model, param_grid=param_space, scoring='accuracy', n_jobs=4, cv=cv_folds,
+            grid_search = GridSearchCV(estimator=model, param_grid=param_space, scoring='f1_macro', n_jobs=4, cv=cv_folds,
                                        refit=True)
             grid_search.fit(X, y)
         except ValueError:
@@ -25,14 +25,12 @@ if __name__ == '__main__':
 
     data = get_voice_data(n_components=300)
 
-    train = data.sample(n=200, random_state=1)
+    train = data.sample(n=400, random_state=0)
     X = train.iloc[:,1:]
     y = train.iloc[:,0]
 
-    n_initial_estimators = 100
-
     model = XGBClassifier(learning_rate=0.1,
-                n_estimators=n_initial_estimators,
+                n_estimators=5000,
                 max_depth=5,
                 min_child_weight=1,
                 gamma=0,
@@ -43,62 +41,41 @@ if __name__ == '__main__':
                 scale_pos_weight=1,
                 seed=0)
 
-    # max_depth and min_child_weight tuning
-    param_space = {
-        'max_depth': list(range(1, 20, 3)),
-        'min_child_weight': list(range(1, 20, 3))
-    }
-    model = cv_grid(param_space, model, X,y)
+    param_spaces = [
+        {
+            'n_estimators': list(range(500, 3000, 500)),
+        },
+        {
+            'max_depth': list(range(1, 5, 1)),
+            'min_child_weight': list(range(0, 5, 1))
+        },
+        {
+            'gamma': np.linspace(0, 0.5, 5)
+        },
+        {
+            'n_estimators': list(range(500, 3000, 500)),
+        },
+        {
+            'subsample': np.linspace(0, 1, 5),
+            'colsample_bytree': np.linspace(0, 1, 5)
+        },
+        {
+            'reg_alpha': [0, 1e-10, 1e-5, 1e-2]
+        },
+        {
+            'learning_rate': [0.01] # set learning rate low
+        },
+        {
+            'n_estimators': list(range(100, 5000, 500))
+        }
+    ]
 
-    tuned_params_dict = model.get_xgb_params()
-    alsDataManager.save_dict_as_json(output_dict=tuned_params_dict, output_path='xgboost_tuned_params.txt')
+    for i, param_space in enumerate(param_spaces):
+        print('pct spaces tuned: ' + str(1.*i/len(param_space)))
+        model = cv_grid(param_space, model, X, y)
 
-    # gamma tuning
-    param_space = {
-        'gamma': np.linspace(0, 1, 5)
-    }
-    model = cv_grid(param_space, model, X,y)
-
-    tuned_params_dict = model.get_xgb_params()
-    alsDataManager.save_dict_as_json(output_dict=tuned_params_dict, output_path='xgboost_tuned_params.txt')
-
-    # subsample and colsample_bytree tuning
-    param_space = {
-        'subsample': np.linspace(0, 1, 5),
-        'colsample_bytree': np.linspace(0, 1, 5)
-    }
-    model = cv_grid(param_space, model, X, y)
-
-    tuned_params_dict = model.get_xgb_params()
-    alsDataManager.save_dict_as_json(output_dict=tuned_params_dict, output_path='xgboost_tuned_params.txt')
-
-    # reg_alpha tuning
-    param_space = {
-        'reg_alpha': [1e-10, 1e-5, 1e-2, 1, 100]
-    }
-    model = cv_grid(param_space, model, X, y)
-
-    tuned_params_dict = model.get_xgb_params()
-    alsDataManager.save_dict_as_json(output_dict=tuned_params_dict, output_path='xgboost_tuned_params.txt')
-
-    # set learning rate low and re-tune n_estimators
-    model.set_params(learning_rate=0.01)
-
-    param_space = {
-        'n_estimators': list(range(100, 5000, 500)),
-    }
-    model = cv_grid(param_space, model, X,y)
-
-    tuned_params_dict = model.get_xgb_params()
-    alsDataManager.save_dict_as_json(output_dict=tuned_params_dict, output_path='xgboost_tuned_params.txt')
-
-
-
-
-
-
-
-
+        tuned_params_dict = model.get_xgb_params()
+        alsDataManager.save_dict_as_json(output_dict=tuned_params_dict, output_path='xgboost_tuned_params.txt')
 
 
 
