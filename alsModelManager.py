@@ -33,7 +33,7 @@ class AlsModelManager:
 
         if self.als.model_type == 'xgboost':
             model = XGBoostModel(n_classes=self.als.n_classes)
-            model.fit(X, y, with_tuning=with_tuning)
+            model.fit(X, y)
 
         elif self.als.learning_method == 'bayesian_random':
             model = BayesianLogisticRegression()

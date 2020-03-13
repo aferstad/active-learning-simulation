@@ -112,29 +112,43 @@ def fit_and_tune_xgboost(model, X, y):
 class XGBoostModel:
 
     def __init__(self, n_classes=2):
+        # TODO: decide what nthread should be?
         if n_classes > 2:
-            objective = 'multi:softmax'
-        else:
-            objective = 'binary:logistic'
+            self.model = XGBClassifier(learning_rate=0.1,
+                                  n_estimators=650,
+                                  max_depth=5,
+                                  min_child_weight=1,
+                                  gamma=0,
+                                  subsample=0.8,
+                                  colsample_bytree=0.8,
+                                  objective='multi:softmax',
+                                  nthread=8,
+                                  scale_pos_weight=1,
+                                  seed=0)
 
-        self.model = XGBClassifier(
-            learning_rate=0.1,
-            n_estimators=1000,
-            max_depth=5,
-            min_child_weight=1,
-            gamma=0,
-            subsample=0.8,
-            colsample_bytree=0.8,
-            objective=objective,
-            nthread=8,
-            scale_pos_weight=1,
-            seed=0)
+            # parameters found by tuning on voice data with 400 points:
+            self.model.set_params(**{"base_score": 0.5, "booster": "gbtree", "colsample_bylevel": 1, "colsample_bynode": 1,
+                                "colsample_bytree": 0.25, "gamma": 0.0, "learning_rate": 0.01, "max_delta_step": 0,
+                                "max_depth": 2, "min_child_weight": 1, "n_estimators": 3600, "nthread": 4,
+                                "objective": "multi:softprob", "reg_alpha": 1e-05, "reg_lambda": 1,
+                                "scale_pos_weight": 1, "seed": 0, "subsample": 0.75, "verbosity": 1})
+        else:
+            # TODO: tune model on heart and ads data too
+            self.model = XGBClassifier(
+                learning_rate=0.1,
+                n_estimators=1000,
+                max_depth=5,
+                min_child_weight=1,
+                gamma=0,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                objective='binary:logistic',
+                nthread=8,
+                scale_pos_weight=1,
+                seed=0)
 
     def fit(self, x, y, with_tuning=False):
-        if not with_tuning:
-            self.model.fit(x,y)
-        else:
-            self.model = fit_and_tune_xgboost(self.model, x, y)
+        self.model.fit(x,y)
 
     def predict(self, x):
         return self.model.predict(x)
