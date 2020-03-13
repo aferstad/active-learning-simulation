@@ -111,7 +111,12 @@ def fit_and_tune_xgboost(model, X, y):
 
 class XGBoostModel:
 
-    def __init__(self):
+    def __init__(self, n_classes=2):
+        if n_classes > 2:
+            objective = 'multi:softmax'
+        else:
+            objective = 'binary:logistic'
+
         self.model = XGBClassifier(
             learning_rate=0.1,
             n_estimators=1000,
@@ -120,7 +125,7 @@ class XGBoostModel:
             gamma=0,
             subsample=0.8,
             colsample_bytree=0.8,
-            objective='binary:logistic',
+            objective=objective,
             nthread=8,
             scale_pos_weight=1,
             seed=0)

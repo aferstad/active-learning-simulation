@@ -32,7 +32,7 @@ class AlsModelManager:
         X, y = alsDataManager.get_X_y(labeled)
 
         if self.als.model_type == 'xgboost':
-            model = XGBoostModel()
+            model = XGBoostModel(n_classes=self.als.n_classes)
             model.fit(X, y, with_tuning=with_tuning)
 
         elif self.als.learning_method == 'bayesian_random':
