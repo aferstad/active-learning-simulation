@@ -14,6 +14,7 @@ class ALS:
 
     def __init__(self,
                  unsplit_data,
+                 data_str = None,
                  n_classes = 2,
                  learning_method = 'random',
                  model_type='lr',
@@ -32,6 +33,7 @@ class ALS:
         """
         # Data Parameters Init
         self.unsplit_data = unsplit_data
+        self.data_str = data_str
         self.n_classes = n_classes
         self.data = {}
         self.seed = seed

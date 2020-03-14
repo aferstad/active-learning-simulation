@@ -75,14 +75,14 @@ def fit_and_tune_xgboost(model, X, y):
 
     # max_depth and min_child_weight tuning
     param_space = {
-        'max_depth': list(range(1, 10, 1)),
-        'min_child_weight': np.linspace(0, 10, 30)  # list(range(0,10,1))
+        'max_depth': list(range(1, 3, 1)),
+        'min_child_weight': np.linspace(0, 1, 10)  # list(range(0,10,1))
     }
     model = cv_grid(param_space, model, X,y)
 
     # gamma tuning
     param_space = {
-        'gamma': np.linspace(0, 0.5, 10)
+        'gamma': np.linspace(0, 0.2, 10)
     }
     model = cv_grid(param_space, model, X,y)
 
@@ -92,13 +92,13 @@ def fit_and_tune_xgboost(model, X, y):
     # subsample and colsample_bytree tuning
     param_space = {
         'subsample': np.linspace(0.5, 1, 10),
-        'colsample_bytree': np.linspace(0, 1, 30)
+        'colsample_bytree': np.linspace(0, 0.5, 10)
     }
     model = cv_grid(param_space, model, X, y)
 
     # reg_alpha tuning
     param_space = {
-        'reg_alpha': [1e-13, 1e-10, 1e-8, 1e-5, 1e-2, 0.1, 1, 100]
+        'reg_alpha': [0, 1e-13, 1e-8, 1e-5, 1e-2]
     }
     model = cv_grid(param_space, model, X, y)
 
@@ -106,14 +106,15 @@ def fit_and_tune_xgboost(model, X, y):
     model.set_params(learning_rate=0.01, n_estimators=5000)
     model = cv_n_estimators(model, X, y)
 
+    print('fit complete')
     return model
 
 
 class XGBoostModel:
 
-    def __init__(self, n_classes=2):
+    def __init__(self, n_classes=2, data_str=None):
         # TODO: decide what nthread should be?
-        if n_classes > 2:
+        if n_classes > 2 and data_str == 'voice':
             self.model = XGBClassifier(learning_rate=0.1,
                                   n_estimators=650,
                                   max_depth=5,
@@ -132,7 +133,22 @@ class XGBoostModel:
                                 "max_depth": 2, "min_child_weight": 1, "n_estimators": 3600, "nthread": 4,
                                 "objective": "multi:softprob", "reg_alpha": 1e-05, "reg_lambda": 1,
                                 "scale_pos_weight": 1, "seed": 0, "subsample": 0.75, "verbosity": 1})
-        else:
+        elif data_str == 'heart':
+            self.model = XGBClassifier(learning_rate=0.1,
+                          n_estimators=20,
+                          max_depth=2,
+                          min_child_weight=0.3,
+                          gamma=0,
+                          subsample=0.65,
+                          colsample_bytree=0.15,
+                          reg_alpha=0,
+                          objective='binary:logistic',
+                          nthread=8,
+                          scale_pos_weight=1,
+                          seed=0)
+        elif data_str == 'ads':
+            print('TODO: tune xgboost on ads! not done yet?')
+
             # TODO: tune model on heart and ads data too
             self.model = XGBClassifier(
                 learning_rate=0.1,
@@ -146,6 +162,8 @@ class XGBoostModel:
                 nthread=8,
                 scale_pos_weight=1,
                 seed=0)
+        else:
+            print('ERROR in xgBoostModel, only data_str in (voice, heart, ads) supported. Please add tuning parameters to file')
 
     def fit(self, x, y, with_tuning=False):
         self.model.fit(x,y)

@@ -32,14 +32,14 @@ n_cols = len(keys3)
 print(n_rows)
 print(n_cols)
 methods = keys1
-max_x = 300
+max_x = 70
 N_DELETED = 75  # TODO: don't hard code this
 rolling_window_size = 1
 
 metrics = ['accuracy', 'consistencies']
 y_range_dict = {
-    'accuracy' : [0.75, 0.95],
-    'consistencies' : [0.7, 0.95]
+    'accuracy' : [0.6, 0.85],
+    'consistencies' : [0.5, 0.9]
 }
 
 for metric in metrics:
@@ -119,7 +119,7 @@ for metric in metrics:
             # ax.grid()
         # ax.label_outer()  # hides x labels and tick labels for top plots and y ticks for right plots.
         handles, labels = axs[0, 0].get_legend_handles_labels()
-    if n_cols > 1 or n_rows > 1:
+    elif n_cols > 1 or n_rows > 1:
         # iterates over all subplots:
         for ax in axs.flat:
             ax.set(xlabel='n points added', ylabel=metric)

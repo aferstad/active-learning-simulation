@@ -49,6 +49,7 @@ class AlsRepeaterLauncher:
         if validate_record(record):
             self.record = record
             data_str = self.record['data_str']
+            self.record['input_dict']['data_str'] = data_str
 
             if data_str == 'heart':
                 self.record['input_dict']['unsplit_data'] = get_heart_data()
