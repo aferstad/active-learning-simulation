@@ -49,7 +49,7 @@ def get_heart_data(path='input/heart/processed.cleveland.data'):
         'disease_present']
 
      # move label column to first position:
-    disease_presence = df.disease_present
+    disease_present = df.disease_present
     df = df.drop(columns=['disease_present'])
     df.insert(0, 'disease_present', disease_present)
     df.loc[df.disease_present > 0, 'disease_present'] = 1  # convert presence to 0 or 1
