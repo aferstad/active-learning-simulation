@@ -32,14 +32,14 @@ n_cols = len(keys3)
 print(n_rows)
 print(n_cols)
 methods = keys1
-max_x = 70
-N_DELETED = 75  # TODO: don't hard code this
-rolling_window_size = 10
+max_x = 400
+N_DELETED = 300  # TODO: don't hard code this
+rolling_window_size = 5
 
 metrics = ['accuracy', 'consistencies']
 y_range_dict = {
-    'accuracy' : [0.6, 0.85],
-    'consistencies' : [0.5, 0.9]
+    'accuracy' : [0.7, 0.9],
+    'consistencies' : [0.75, 0.85]
 }
 
 for metric in metrics:
@@ -47,7 +47,7 @@ for metric in metrics:
     min_y = y_range_dict[metric][0]
     max_y = y_range_dict[metric][1]
 
-    TITLE_STR = 'Voice data, n_keep: 100, reps: 5 or 10, pct_unlabeled_labeled: 0.1, ' + metric
+    TITLE_STR = 'Data: Voice, model: xgboost, n_keep: 400, reps: 10, ' + metric
     save_path_name = 'output/plots/' + metric + '_plotted_' + input_arguments[1].split('.')[0] + '.png'
 
     fig, axs = plt.subplots(n_rows, n_cols)  # sharex=True, sharey=True)
@@ -96,7 +96,7 @@ for metric in metrics:
                     grid_element_initialized = True
 
                 s = pd.Series(d[method][keys2[i]][keys3[j]][metric])
-                s = s.rolling(rolling_window_size).mean()
+                s = s.rolling(rolling_window_size, center = True).mean()  # center = true makes result be mean of center instead of at right side
 
                 current_ax.plot(d[method][keys2[i]][keys3[j]][metric],
                                 label='_'.join(method.split('_')[2:]),
