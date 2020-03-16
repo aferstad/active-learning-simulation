@@ -30,8 +30,10 @@
 """
 
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 
-def get_heart_data(path='input/heart/processed.cleveland.data'):
+def get_heart_data(path='input/heart/processed.cleveland.data', do_scaling_and_pca = False):
     df = pd.read_csv(path, header = None)
     df.columns = ['age',
         'sex',
@@ -59,5 +61,28 @@ def get_heart_data(path='input/heart/processed.cleveland.data'):
 
     df_with_dummies = pd.get_dummies(df, columns=['cp','restecg','slope', 'ca', 'thal'], drop_first=True)
 
+    data = df_with_dummies
+
+    if do_scaling_and_pca:
+
+        scaler = StandardScaler()
+        pca = PCA(n_components=10)
+
+        X = data.iloc[:,1:]
+        y = data.iloc[:,0]
+
+        scaler.fit(X)
+        X = scaler.transform(X)
+
+        pca.fit(X)
+        X = pca.transform(X)
+
+        pct_variance_kept = sum(pca.explained_variance_ratio_)
+
+        print('variance kept due to PCA: ' + str(round(pct_variance_kept, 2)))
+
+        data_pca = pd.DataFrame(X)
+        data_pca.insert(0, 'label', y)
+
     print('heart data import succesful')
-    return df_with_dummies
+    return data

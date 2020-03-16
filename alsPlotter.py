@@ -34,7 +34,7 @@ print(n_cols)
 methods = keys1
 max_x = 70
 N_DELETED = 75  # TODO: don't hard code this
-rolling_window_size = 1
+rolling_window_size = 10
 
 metrics = ['accuracy', 'consistencies']
 y_range_dict = {

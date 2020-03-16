@@ -123,7 +123,7 @@ class XGBoostModel:
                                   subsample=0.8,
                                   colsample_bytree=0.8,
                                   objective='multi:softmax',
-                                  nthread=8,
+                                  nthread=4,
                                   scale_pos_weight=1,
                                   seed=0)
 
@@ -143,9 +143,8 @@ class XGBoostModel:
                           colsample_bytree=0.15,
                           reg_alpha=0,
                           objective='binary:logistic',
-                          nthread=8,
-                          scale_pos_weight=1,
-                          seed=0)
+                          nthread=4,
+                          scale_pos_weight=1)
         elif data_str == 'ads':
             print('TODO: tune xgboost on ads! not done yet?')
 
@@ -159,7 +158,7 @@ class XGBoostModel:
                 subsample=0.8,
                 colsample_bytree=0.8,
                 objective='binary:logistic',
-                nthread=8,
+                nthread=4,
                 scale_pos_weight=1,
                 seed=0)
         else:

@@ -110,7 +110,12 @@ class AlsRepeater:
         for metric_str in dict_of_result_matrices:
             matrix = alsDataManager.create_matrix(columns_of_unequal_length=dict_of_result_matrices[metric_str])
 
-            mean_of_columns = np.nanmean(matrix, axis = 0) # axis = 0 gives row means
+            #if self.input_dict['data_str'] == 'heart' and self.input_dict['model_type'] == 'xgboost':
+            #    # TODO: test if median gives less noisy data
+            #    mean_of_columns = np.nanmedian(matrix, axis = 0) # axis = 0 gives row medians
+            #else:
+
+            mean_of_columns = np.nanmean(matrix, axis=0)  # axis = 0 gives row means
 
             mean_results[metric_str] = list(mean_of_columns)  # make list again to be able to save as json
 
