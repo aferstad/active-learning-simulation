@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import cm
 import matplotlib.pyplot as plt
 import pandas as pd
-
+from alsDataManager import save_dict_as_json, open_dict_from_json
 
 def __define_color_dict(exclusion_thresholds, methods_ts, upper_color=1):
     # create color_dict
@@ -58,7 +58,6 @@ def __define_color_dict(exclusion_thresholds, methods_ts, upper_color=1):
     return color_dict, label_dict
 
 
-# xg voice
 def __plot_ac(save_path,
               n_deleted,
               rolling_window_size,
@@ -68,7 +67,8 @@ def __plot_ac(save_path,
               exclusion_thresholds,
               y_pos_change,
               df,
-              methods_ts):
+              methods_ts,
+              plot_legend = True):
     methods_no_ts = ['learning_method_similar', 'learning_method_uncertainty', 'learning_method_random']
     min_x = 0
     lw = 3
@@ -87,9 +87,9 @@ def __plot_ac(save_path,
 
         # Remove the plot frame lines
         ax = plt.subplot(111)
-        ax.spines["top"].set_visible(False)
+        #ax.spines["top"].set_visible(False)
         # ax.spines["bottom"].set_visible(False)
-        ax.spines["right"].set_visible(False)
+        #ax.spines["right"].set_visible(False)
         # ax.spines["left"].set_visible(False)
 
         label = 'points deleted'  # TODO: maybe add this label to the chart?
@@ -108,9 +108,9 @@ def __plot_ac(save_path,
                         alpha=1,
                         lw = 1.5,
                         label=label,
-                        linestyle='dotted')
-
-            plt.text(max_x, initial_y - 0.0005, label, color='gray', fontsize=14, fontstyle='italic')
+                        linestyle='dashdot')
+            if not plot_legend:
+                plt.text(max_x, initial_y - 0.0005, label, color='gray', fontsize=14, fontstyle='italic')
 
         for i, method in enumerate(df[metric]):
             label = '_'.join(method.split('_')[2:])
@@ -140,10 +140,11 @@ def __plot_ac(save_path,
             change = y_pos_change[metric].get(label, 0)
             y_pos += change
 
-            if metric == 'accuracy':
-                plt.text(max_x+3, y_pos, label_dict[label], color=color_dict[method], fontsize=14, weight='bold')
-            else:
-                plt.text(max_x+3, y_pos, label_dict[label], color=color_dict[method], fontsize=14, weight='bold')
+            if not plot_legend:
+                if metric == 'accuracy':
+                    plt.text(max_x+3, y_pos, label_dict[label], color=color_dict[method], fontsize=14, weight='bold')
+                else:
+                    plt.text(max_x+3, y_pos, label_dict[label], color=color_dict[method], fontsize=14, weight='bold')
 
         plt.xlabel('Points Labeled After Data Deletion', fontsize=14, weight='bold')
 
@@ -183,7 +184,23 @@ def __plot_ac(save_path,
             ax.xaxis.set_ticks(np.arange(start, end + 100, 100))
 
         plt.xticks(fontsize=14)
-        # plt.legend()
+
+        # plot legend and remove duplicates
+        handles, labels = plt.gca().get_legend_handles_labels()
+        by_label = dict(zip(labels, handles))
+
+        #print(by_label)
+        labels = []
+        for label in by_label.keys():
+            try:
+                labels.append(label_dict[label])
+            except Exception:
+                labels.append(label)
+
+
+
+        plt.legend(by_label.values(), labels)
+
         if metric == 'consistencies':
             plt.savefig(save_path + '_c', dpi=200)
         else:
@@ -228,6 +245,8 @@ def create_plot(save_path,
                 y_pos_change):
     df, methods_ts = __merge_ts_no_ts(ts=ts, no_ts=no_ts)
 
+    __save_summary(df=df, exclusion_thresholds=exclusion_thresholds, n_deleted=n_deleted, save_path=save_path)
+
     __plot_ac(save_path = save_path,
               n_deleted = n_deleted,
               rolling_window_size = rolling_window_size,
@@ -240,5 +259,37 @@ def create_plot(save_path,
               methods_ts = methods_ts)
 
 
+def __save_summary(df, exclusion_thresholds, n_deleted, save_path):
+    summary_dict = open_dict_from_json('summary_dict.txt')
+    ks = []
+    for i, method in enumerate(df['accuracy']):
+        label = '_'.join(method.split('_')[2:])
+        if label in exclusion_thresholds or label.split('_')[0] != 'threshold':
+            continue
+        ks.append(int(label.split('_')[-1]))
 
+    summary_dict[save_path] = {}
+    for metric in df:
+        summary_dict[save_path][metric] = {}
+        for i, method in enumerate(df[metric]):
+            label = '_'.join(method.split('_')[2:])
+            if label in exclusion_thresholds or label == 'random':
+                continue
+
+            method_metric = df[metric][method][n_deleted]
+            random_metric = df[metric]['learning_method_random'][n_deleted]
+
+            pct_difference = (method_metric - random_metric) / random_metric
+
+            if label.split('_')[0] == 'threshold':
+                if int(label.split('_')[1]) == max(ks):
+                    key = 'k_high'
+                else:
+                    key = 'k_low'
+            else:
+                key = label
+
+            summary_dict[save_path][metric][key] = pct_difference
+
+    save_dict_as_json(output_dict=summary_dict, output_path='summary_dict.txt')
 
