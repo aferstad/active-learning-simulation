@@ -1,2 +1,7 @@
-# privacy_active_learning
-Modelling how data constraints from new privacy regulations affect active learning techniques
+# Active Learning Simulation
+This repository simulates active learning on real world datasets. Various parameters are adjustable in the simulation itself.
+
+This repo has been used to simulate experiments and test algorithms in the paper [Pool-Based Active Learning with Data Deletion](https://www.overleaf.com/read/phcgtjsrmqgb).
+
+## Abstract
+> Recently introduced data regulations, like the European Union?s General Data Protection Regulation(GDPR), mandate data owners to delete data whenever it violates any restrictions, typically consentwithdrawal from data subjects.  Often this data was used for some value creation, such as identifyingheart disease, voice recognition or removing inappropriate ads. When data is deleted the performanceof the methods using the data decreases. The motivation is then to research new techniques that meetrigorous data ethics standards while also maintaining a stable performance.  This thesis proposes anovel technique for using active learning in data deletion scenarios.  The algorithm is called Similar-Uncertainty Thresholding (SIUNTH), and it reduces the negative effects of data deletion by activelyselecting new data that is informative and also similar to the data that was deleted.  Experiments aresimulated on real world case studies.  The results indicate that in these scenarios SIUNTH performsbetter than Uncertainty Sampling, which is one of the most popular and successful methods to usein traditional active learning scenarios.
