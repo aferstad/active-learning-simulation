@@ -1,1 +1,0 @@
-{"learning_method_bayesian_random": {"n_points_labeled_keep_20": {"n_points_labeled_delete_20": {"accuracy": [0.7733333333333333, 0.7733333333333333, 0.8133333333333334], "consistencies": [0.9066666666666666], "similar_uncertainties": [], "max_uncertainties": []}}}}
